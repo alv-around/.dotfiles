@@ -6,6 +6,6 @@
 ## TODOs
 - [x] zsh
 - [x] fzf
-- [ ] tmux
+- [x] tmux
 - [ ] keyboard conf
 - [ ] add installation script for everything
