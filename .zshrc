@@ -87,6 +87,10 @@ alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
 
+# Change: swith ad-hoc key layouts
+xmodmap ~/.config/keyboard/.Xmodmap
+
+
 # Shell integrations
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
