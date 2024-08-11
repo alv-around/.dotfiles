@@ -91,5 +91,7 @@ alias c='clear'
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # zoxide
+path+=('/home/alv/.local/bin')
+export PATH
 eval "$(zoxide init --cmd cd zsh)"
 
