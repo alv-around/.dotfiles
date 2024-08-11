@@ -19,7 +19,7 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
 fi
 
 # Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.config/zsh}/zinit/zinit.git"
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.config/zsh}/zinit"
 
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -84,7 +84,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias ls='ls --color'
-#alias vim='nvim'
+alias vim='nvim'
 alias c='clear'
 
 # Shell integrations
