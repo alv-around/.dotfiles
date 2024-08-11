@@ -7,5 +7,5 @@
 - [x] zsh
 - [x] fzf
 - [x] tmux
-- [ ] keyboard conf
-- [ ] add installation script for everything
+- [x] keyboard conf (more or less)
+- [x] add installation script for everything
