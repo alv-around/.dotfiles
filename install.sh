@@ -2,7 +2,8 @@
 
 # set -x
 
-apt install stow zsh neovim fzf zoxide tmux
+apt install stow zsh neovim fzf zoxide tmux ripgrep fd-find
+
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 rm ~/.zcompdump*; compinit
 
