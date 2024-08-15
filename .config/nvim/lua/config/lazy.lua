@@ -21,7 +21,9 @@ require("lazy").setup({
     -- import/override with your plugins
     { import = "plugins" },
     -- import treesitter
-    {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"}
+    {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    -- enable rust extension
+    { import = "lazyvim.plugins.extras.lang.rust" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
