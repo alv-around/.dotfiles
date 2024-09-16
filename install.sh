@@ -1,14 +1,11 @@
-!#/bin/bash
+#!/bin/bash
 
-# set -x
+set -x
 
-apt install stow zsh neovim fzf zoxide tmux ripgrep fd-find
-
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-rm ~/.zcompdump*; compinit
+sudo pacman -S stow zsh neovim fzf zoxide tmux ripgrep fd zoxide ttf-victor-mono-nerd
 
 stow .
 
-sudo usermod -s /usr/bin/zsh $(whoami)
+usermod -s /usr/bin/zsh $(whoami)
 
 echo 'ZSH shell was setup as default, restart your terminal and run: $ echo $SHELL'
