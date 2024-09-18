@@ -1,0 +1,10 @@
+partial alphanumeric_keys modifier_keys
+xkb_symbols "banana" {
+    name[Group1]= "Banana (us)";
+
+    include "us(intl)"
+
+    key <AC11> { [ apostrophe, quotedbl, dead_acute, dead_diaeresis ] };
+    key <LSGT> { [ dead_grave, dead_tilde, grave, asciitilde ] };
+
+};
