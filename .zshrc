@@ -87,10 +87,6 @@ alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
 
-# Change: swith ad-hoc key layouts
-xmodmap ~/.config/keyboard/.Xmodmap
-
-
 # Shell integrations
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -103,3 +99,5 @@ eval "$(zoxide init --cmd cd zsh)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+. "$HOME/.cargo/env"
