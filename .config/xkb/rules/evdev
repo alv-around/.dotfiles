@@ -1,4 +1,0 @@
-! option = symbols
-  custom:swap_special_chars = +custom(swap_special_chars)
-
-! include %S/evdev

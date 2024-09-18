@@ -17,18 +17,4 @@
       </variantList>
     </layout>
   </layoutList>
-  <optionList>
-    <group allowMultipleSelection="true">
-      <configItem>
-        <name>custom</name>
-        <description>custom options</description>
-      </configItem>
-      <option>
-        <configItem>
-          <name>custom:swap_special_chars</name>
-          <description>This option does something great</description>
-        </configItem>
-      </option>
-    </group>
-  </optionList>
 </xkbConfigRegistry>

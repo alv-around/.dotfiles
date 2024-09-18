@@ -1,8 +1,0 @@
-partial alphanumeric_keys modifier_keys
-xkb_symbols "swap_special_chars" {
-    key <AC11> { [ apostrophe, quotedbl, dead_acute, dead_diaeresis ] };
-    key <LSGT> { [ dead_grave, dead_tilde, grave, asciitilde ] };
-
-    // TODO: find a use for TLDE 
-    // key <TLDE> { [ backslash, bar, backslash, bar ] };
-  }
