@@ -33,7 +33,6 @@ zinit light Aloxaf/fzf-tab
 
 # Add in snippets
 zinit snippet OMZP::git
-zinit snippet OMZP::rust
 #zinit snippet OMZP::sudo
 #zinit snippet OMZP::archlinux
 #zinit snippet OMZP::aws
