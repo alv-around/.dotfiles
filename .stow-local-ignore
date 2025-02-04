@@ -26,3 +26,6 @@ _darcs
 
 # own configuration
 install.sh
+
+# macbookpro 13 graphic card driver
+etc/default.conf
