@@ -53,7 +53,7 @@ return {
 	},
 	{
 		mods = "LEADER",
-		key = "-",
+		key = "/",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
