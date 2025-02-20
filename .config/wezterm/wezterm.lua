@@ -1,8 +1,10 @@
--- Pull in the wezterm API
+-- setup
 local wezterm = require("wezterm")
-local config = wezterm.config_builder()
 local utf8 = require("utf8")
 
+local config = wezterm.config_builder()
+
+-- INFO: this has to be called before any other backdrop method
 require("backdrops"):set_images():random()
 
 -- tmux status
@@ -28,10 +30,6 @@ wezterm.on("update-right-status", function(window, _)
 	}))
 end)
 
--- keys
-config.leader = { key = "Space", mods = "CTRL", timeout_millisections = 2000 }
-config.keys = require("keys")
-
 -- mouse
 config.mouse_bindings = {
 	-- Ctrl-click will open the link under the mouse cursor
@@ -42,7 +40,11 @@ config.mouse_bindings = {
 	},
 }
 
+-- TODO: refactor code in append method
 for k, v in pairs(require("appearance")) do
+	config[k] = v
+end
+for k, v in pairs(require("keys")) do
 	config[k] = v
 end
 

@@ -1,5 +1,10 @@
 local wezterm = require("wezterm")
 
+local key_config = {}
+
+-- leaderkey setup
+key_config.leader = { key = "Space", mods = "CTRL", timeout_millisections = 2000 }
+
 -- smart splits config
 -- if you are *NOT* lazy-loading smart-splits.nvim (recommended)
 local function is_vim(pane)
@@ -35,7 +40,8 @@ local function split_nav(resize_or_move, key)
 	}
 end
 
-return {
+-- keymaps
+key_config.keys = {
 	{
 		mods = "LEADER",
 		key = "t",
@@ -107,3 +113,5 @@ return {
 		action = wezterm.action.ActivateTabRelative(1),
 	},
 }
+
+return key_config
