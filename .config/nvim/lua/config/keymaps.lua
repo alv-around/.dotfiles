@@ -8,6 +8,25 @@ vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
+-- Move to window using the <ctrl> hjkl keys
+local function map(mode, lhs, rhs, opts)
+	opts = opts or {}
+	vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", {}, opts))
+end
+
+map("n", "<C-h>", function()
+	require("smart-splits").move_cursor_left()
+end, { desc = "Go to left window", remap = true })
+map("n", "<C-j>", function()
+	require("smart-splits").move_cursor_down()
+end, { desc = "Go to lower window", remap = true })
+map("n", "<C-k>", function()
+	require("smart-splits").move_cursor_up()
+end, { desc = "Go to upper window", remap = true })
+map("n", "<C-l>", function()
+	require("smart-splits").move_cursor_right()
+end, { desc = "Go to right window", remap = true })
+
 -- clear terminal window with Cntrl-l
 vim.keymap.set("t", "<C-l><C-l>", [[<C-\><C-N>:lua ClearTerm(0)<CR>]], {})
 vim.keymap.set("t", "<C-l><C-l><C-l>", [[<C-\><C-N>:lua ClearTerm(1)<CR>]], {})
