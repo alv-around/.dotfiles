@@ -112,6 +112,12 @@ key_config.keys = {
 		key = "n",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
+
+	-- move between split panes
+	split_nav("move", "h"),
+	split_nav("move", "j"),
+	split_nav("move", "k"),
+	split_nav("move", "l"),
 }
 
 return key_config
