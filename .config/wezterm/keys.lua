@@ -64,26 +64,6 @@ key_config.keys = {
 	},
 	{
 		mods = "ALT",
-		key = "h",
-		action = wezterm.action.ActivatePaneDirection("Left"),
-	},
-	{
-		mods = "ALT",
-		key = "j",
-		action = wezterm.action.ActivatePaneDirection("Down"),
-	},
-	{
-		mods = "ALT",
-		key = "k",
-		action = wezterm.action.ActivatePaneDirection("Up"),
-	},
-	{
-		mods = "ALT",
-		key = "l",
-		action = wezterm.action.ActivatePaneDirection("Right"),
-	},
-	{
-		mods = "ALT",
 		key = "LeftArrow",
 		action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
 	},
@@ -112,6 +92,12 @@ key_config.keys = {
 		key = "n",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
+
+	-- move between split panes
+	split_nav("move", "h"),
+	split_nav("move", "j"),
+	split_nav("move", "k"),
+	split_nav("move", "l"),
 }
 
 for i = 1, 9 do
