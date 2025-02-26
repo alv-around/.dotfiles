@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local backdrops = require("backdrops")
 
 local key_config = {}
 
@@ -91,6 +92,20 @@ key_config.keys = {
 		mods = "ALT",
 		key = "n",
 		action = wezterm.action.ActivateTabRelative(1),
+	},
+	{
+		key = ",",
+		mods = "ALT",
+		action = wezterm.action_callback(function(window, _pane)
+			backdrops:cycle_back(window)
+		end),
+	},
+	{
+		key = ".",
+		mods = "ALT",
+		action = wezterm.action_callback(function(window, _pane)
+			backdrops:cycle_forward(window)
+		end),
 	},
 
 	-- move between split panes
