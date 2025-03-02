@@ -15,7 +15,7 @@ sudo stow -t /etc etc
 sudo systemctl enable --now udevmon.service
 
 # console configuration
-sudo pacman -S stow zsh neovim fzf zoxide tmux ripgrep fd zoxide ttf-jetbrains-mono-nerd starship wezterm
+sudo pacman -S stow zsh neovim fzf zoxide tmux ripgrep fd zoxide ttf-jetbrains-mono-nerd ttf-dejavu-nerd starship wezterm
 
 stow --ignore etc .
 

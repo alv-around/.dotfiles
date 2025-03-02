@@ -85,12 +85,12 @@ key_config.keys = {
 	},
 	{
 		mods = "ALT",
-		key = "p",
+		key = "n",
 		action = wezterm.action.ActivateTabRelative(-1),
 	},
 	{
 		mods = "ALT",
-		key = "n",
+		key = "p",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
 	{
