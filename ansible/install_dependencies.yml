@@ -1,0 +1,12 @@
+---
+- name: Install dev environment
+  hosts: all
+  become: true
+  vars_files:
+    - packages.yml
+  tasks:
+    - name: Install development tools
+      kewlfft.aur.aur:
+        name: "{{ dev_packages }}"
+        use: yay
+        state: present

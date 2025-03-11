@@ -1,0 +1,26 @@
+---
+dev_packages:
+  - fd
+  - fzf
+  - git
+  - jq
+  - make
+  - cmake
+  - jupyter-notebook
+  - libc++
+  - libconfig
+  - localsearch
+  - neovim
+  - obsidian
+  - python-pip
+  - python-pipenv
+  - ripgrep
+  - sagemath
+  - stow
+  - tmux
+  - wezterm
+  - wget
+  - zoxide
+  - zsh
+  - gcc
+  - go
