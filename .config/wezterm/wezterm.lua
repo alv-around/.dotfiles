@@ -4,8 +4,8 @@ local utf8 = require("utf8")
 
 local config = wezterm.config_builder()
 
--- enable wayland
-config.enable_wayland = true
+-- enable wayland to avoid problems with wayland fractional scaling
+config.enable_wayland = false
 
 -- INFO: this has to be called before any other backdrop method
 require("backdrops"):set_images():random()
