@@ -1,7 +1,6 @@
 ---
 - name: Install dev environment
-  hosts: all
-  become: true
+  hosts: localhost
   vars_files:
     - packages.yml
   tasks:
@@ -12,6 +11,7 @@
       changed_when: false
 
     - name: Install development tools
+      become: true
       kewlfft.aur.aur:
         name: "{{ dev_packages }}"
         use: yay
@@ -19,7 +19,7 @@
 
     - name: Install tool configs
       ansible.builtin.command:
-        # chdir:
+        chdir: ~/.dotfiles
         cmd: ./install.sh
 
     - name: Update all packages
