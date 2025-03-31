@@ -45,7 +45,7 @@ end
 key_config.keys = {
 	{
 		key = "n",
-		mods = "CTRL",
+		mods = "LEADER",
 		action = wezterm.action.SpawnCommandInNewWindow({}),
 	},
 	{
