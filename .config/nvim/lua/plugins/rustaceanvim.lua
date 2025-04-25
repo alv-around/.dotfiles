@@ -5,9 +5,9 @@ return {
 	opts = {
 		default_settings = {
 			["rust-analyzer"] = {
-				diagnostics = {
-					-- INFO: this line disable an anoying rust-analyzer error when using ark_ff
-					disable = "proc-macro-panicked",
+				-- INFO: this line disable an anoying rust-analyzer error when using ark_ff
+				procMacro = {
+					enable = false, -- Disable proc-macro support
 				},
 			},
 		},
