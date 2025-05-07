@@ -10,6 +10,11 @@
         update_cache: true
       changed_when: false
 
+    - name: Install rust
+      ansible.builtin.command:
+        chdir: ~/.dotfiles
+        cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | RUSTUP_INIT_NON_INTERACTIVE=true RUSTUP_DEFAULT_TOOLCHAIN="nightly" sh
+
     - name: Install development tools
       become: true
       kewlfft.aur.aur:
