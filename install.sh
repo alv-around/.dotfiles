@@ -8,7 +8,7 @@ rustup component add rust-analyzer
 
 # latop configuration
 sudo stow -t /etc etc
-sudo systemctl enable --now udevmon.service
+sudo systemctl enable --now keyd.service
 
 # console configuration
 stow --ignore etc .
