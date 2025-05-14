@@ -19,7 +19,7 @@
 
     - name: Install tool configs
       ansible.builtin.command:
-        chdir: ~/.dotfiles
+        chdir: ~/Code/.dotfiles
         cmd: ./install.sh
 
     - name: Update all packages

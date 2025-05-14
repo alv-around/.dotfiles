@@ -27,3 +27,6 @@ _darcs
 # own configuration
 install.sh
 
+# device config
+\etc
+
