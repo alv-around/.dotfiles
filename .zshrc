@@ -50,6 +50,8 @@ zinit cdreplay -q
 bindkey -e
 bindkey '^[k' history-search-backward
 bindkey '^[j' history-search-forward
+bindkey '^I'   complete-word       # tab          | complete
+bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 #bindkey '^[w' kill-region
 
 # History
