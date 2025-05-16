@@ -1,0 +1,19 @@
+{
+    "sidebar": {
+        "pages": {
+            "apis": {
+                "defaultPage": "gemini"
+            },
+            "defaultPage": "apis"
+        }
+    },
+    "ai": {
+        "useHistory": true
+    },
+    "cheatsheet": {
+        "keybinds": {
+            // Path to hyprland keybind config file. Leave empty for default (~/.config/hypr/hyprland/keybinds.conf)
+            "configPath": "/home/alv/.config/hypr/keybinds.conf"
+        }
+    }
+}
