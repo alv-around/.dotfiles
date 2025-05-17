@@ -10,13 +10,11 @@
     "ai": {
         "useHistory": true
     },
-    // only load the custom bindings to the cheetsheet
     "cheatsheet": {
         "keybinds": {
             "configPath": "/home/alv/.config/hypr/custom/keybinds.conf"
         }
     },
-    // remove round edges
     "appearance": {
         "barRoundCorners": 0,
         "fakeScreenRounding": 0
