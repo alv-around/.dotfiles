@@ -13,7 +13,7 @@ selected_window=$(
     jq "$windowsInfo" -r |
     fuzzel \
       --dmenu \
-      --prompt='🪟 ❯ Opened Windows' \
+      --prompt='🪟 ❯ ' \
       --width=50 \
       --lines=5 \
       --line-height=30 \
