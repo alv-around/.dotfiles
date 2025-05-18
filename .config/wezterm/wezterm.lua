@@ -5,7 +5,7 @@ local utf8 = require("utf8")
 local config = wezterm.config_builder()
 
 -- enable wayland to avoid problems with wayland fractional scaling
-config.enable_wayland = false
+-- config.enable_wayland = false
 
 --- INFO: Uncomment to activate random backgrounds.
 --- this has to be called before any other backdrop method
