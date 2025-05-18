@@ -1,5 +1,10 @@
 #! /usr/bin/sh
 
+# TODO: import get_color
+# source "$HOME/.config/hypr/custom/scripts/get_colors.sh"
+# # Get colors for fuzzel
+# background=$(get_scss_color "background")
+
 # Set default colors if extraction fails
 windowsInfo='sort_by(.workspace.id) | .[] | (.workspace.id|tostring) + " | " + .initialClass + " - " +.title + "\t" + .address'
 
@@ -16,9 +21,7 @@ selected_window=$(
       --accept-nth=2
 
   # TODO: find away to align fuzzel colors with wallpaper
-  # --background-color=$(hyprctl getoption misc:background_color)
-  # --text-color "$SECONDARY_COLOR" \
-  # --selection-color "$TERTIARY_COLOR"
+  # --background-color=$backgound
 )
 
 if [ -n "$selected_window" ]; then
