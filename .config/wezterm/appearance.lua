@@ -10,7 +10,8 @@ return {
 	color_scheme = "Tokyo Night",
 
 	-- background
-	background = backdrops:initial_options(false), -- set to true if you want wezterm to start on focus mode
+	--- INFO: Uncomment for loading random images
+	-- background = backdrops:initial_options(false), -- set to true if you want wezterm to start on focus mode
 
 	-- scrollbar
 	enable_scroll_bar = true,
@@ -36,6 +37,7 @@ return {
 		saturation = 1,
 		brightness = 1,
 	},
+	window_background_opacity = 0.9,
 
 	visual_bell = {
 		fade_in_function = "EaseIn",

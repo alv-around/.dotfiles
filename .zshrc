@@ -1,3 +1,9 @@
+export XDG_BIN_HOME="$HOME/.local/bin"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
 # starship terminal theme
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
@@ -44,6 +50,8 @@ zinit cdreplay -q
 bindkey -e
 bindkey '^[k' history-search-backward
 bindkey '^[j' history-search-forward
+bindkey '^I'   complete-word       # tab          | complete
+bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 #bindkey '^[w' kill-region
 
 # History
@@ -90,3 +98,5 @@ export NVM_DIR="$HOME/.nvm"
 if [[ -f ~/.zshrc.local ]]; then
   source ~/.zshrc.local
 fi
+
+source ~/.config/zshrc.d/dots-hyprland.zsh

@@ -3,6 +3,9 @@
 # interrupt if error
 set -x
 
+# copy background pictures to pictures directory
+cp .config/wezterm/backdrops/* ~/Pictures
+
 # latop configuration
 sudo stow -t /etc etc
 sudo systemctl enable --now keyd.service

@@ -7,8 +7,9 @@ local config = wezterm.config_builder()
 -- enable wayland to avoid problems with wayland fractional scaling
 config.enable_wayland = false
 
--- INFO: this has to be called before any other backdrop method
-require("backdrops"):set_images():random()
+--- INFO: Uncomment to activate random backgrounds.
+--- this has to be called before any other backdrop method
+-- require("backdrops"):set_images():random()
 
 -- tmux status
 wezterm.on("update-right-status", function(window, _)
@@ -44,10 +45,10 @@ config.mouse_bindings = {
 }
 
 -- TODO: refactor code in append method
-for k, v in pairs(require("appearance")) do
+for k, v in pairs(require("keys")) do
 	config[k] = v
 end
-for k, v in pairs(require("keys")) do
+for k, v in pairs(require("appearance")) do
 	config[k] = v
 end
 
