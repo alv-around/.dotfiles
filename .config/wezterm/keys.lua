@@ -4,7 +4,7 @@ local backdrops = require("backdrops")
 local key_config = {}
 
 -- leaderkey setup
-key_config.leader = { key = "Space", mods = "SHIFT", timeout_millisections = 2000 }
+key_config.leader = { key = "Space", mods = "CTRL", timeout_millisections = 2000 }
 
 -- smart splits config
 -- if you are *NOT* lazy-loading smart-splits.nvim (recommended)
@@ -43,6 +43,8 @@ end
 
 -- keymaps
 key_config.keys = {
+	{ key = "c", mods = "CTRL", action = wezterm.action({ CopyTo = "Clipboard" }) },
+	{ key = "v", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) },
 	{
 		key = "n",
 		mods = "LEADER",

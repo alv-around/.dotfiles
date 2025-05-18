@@ -25,6 +25,10 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
+# support hyprland colorscheme
+# BUG: adding this line brakes the client tile in hyprland
+# source ~/.config/zshrc.d/dots-hyprland.zsh
+
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
@@ -98,5 +102,3 @@ export NVM_DIR="$HOME/.nvm"
 if [[ -f ~/.zshrc.local ]]; then
   source ~/.zshrc.local
 fi
-
-source ~/.config/zshrc.d/dots-hyprland.zsh

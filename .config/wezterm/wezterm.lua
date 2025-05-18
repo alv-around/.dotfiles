@@ -4,8 +4,18 @@ local utf8 = require("utf8")
 
 local config = wezterm.config_builder()
 
+-- GPU setup
+-- enable WebGpu if there is an integrated GPU available with Vulkan drivers
+for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
+	if gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
+		config.webgpu_preferred_adapter = gpu
+		config.front_end = "WebGpu"
+		break
+	end
+end
+
 -- enable wayland to avoid problems with wayland fractional scaling
-config.enable_wayland = false
+-- config.enable_wayland = false
 
 --- INFO: Uncomment to activate random backgrounds.
 --- this has to be called before any other backdrop method
