@@ -43,7 +43,7 @@ end
 
 -- keymaps
 key_config.keys = {
-	{ key = "c", mods = "CTRL", action = wezterm.action({ CopyTo = "Clipboard" }) },
+	{ key = "c", mods = "CTRL|ALT", action = wezterm.action({ CopyTo = "Clipboard" }) },
 	{ key = "v", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) },
 	{
 		key = "n",
