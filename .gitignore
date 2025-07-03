@@ -1,5 +1,5 @@
-.config/zsh/zinit
-.config/tmux/plugins
+home/.config/zsh/zinit
+home/.config/tmux/plugins
 
-.zshrc.local
+home/.zshrc.local
 
