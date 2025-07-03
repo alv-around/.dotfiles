@@ -1,13 +1,7 @@
 ## Requirements
 
 - git
-- ansible
-- rust:
-
-  ```
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-  ```
-
+- [nix](https://nix.dev/install-nix#install-nix) & [nix's home manager](https://nix-community.github.io/home-manager/#sec-install-standalone)
 - rust-analyzer:
 
   ```
@@ -19,12 +13,5 @@
 Run:
 
 ```
-ansible-playbook -i ansible/inventory.ini ansible/install_dependencies.yml -K
-sudo pacman -Syu
-```
-
-if ansible dependencies are not installed, run:
-
-```
-ansible-galaxy install -r requirements.yml
+./install.sh
 ```
