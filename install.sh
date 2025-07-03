@@ -4,14 +4,14 @@
 set -x
 
 # copy background pictures to pictures directory
-cp .config/wezterm/backdrops/* ~/Pictures
+cp -r wallpapers ~/Pictures
+
+# console configuration
+stow -t ~ home
 
 # latop configuration
 sudo stow -t /etc etc
 sudo systemctl enable --now keyd.service
-
-# console configuration
-stow -t /home/alv --ignore etc .
 
 usermod -s /usr/bin/zsh $(whoami)
 

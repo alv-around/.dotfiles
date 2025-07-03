@@ -24,9 +24,9 @@ _darcs
 ^/LICENSE.*
 ^/COPYING
 
-# own configuration
-install.sh
-
-# device config
+# repo files
+\install.sh
 \etc
+\ansible
+\README.md
 
