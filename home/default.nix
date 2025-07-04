@@ -13,7 +13,7 @@
     starship
     stow       # Ensure stow is available for your workflow.
     tmux
-    wezterm
+    # wezterm
     zoxide
     zsh
     gcc        # GNU Compiler Collection

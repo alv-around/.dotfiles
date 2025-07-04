@@ -1,6 +1,7 @@
 ## Requirements
 
 - git
+- [wezterm](https://wezterm.org/install/linux.html#cachix)
 - [nix](https://nix.dev/install-nix#install-nix) & [nix's home manager](https://nix-community.github.io/home-manager/#sec-install-standalone)
 
 ## Installation
@@ -22,6 +23,7 @@ finally Run:
 ### Updating Packages
 
 ```
+rm flake.lock
 nix flake update
 home-manager switch --flake .
 ```
