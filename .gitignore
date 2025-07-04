@@ -3,3 +3,6 @@ home/.config/tmux/plugins
 
 home/.zshrc.local
 
+# Nix's artifact
+result
+

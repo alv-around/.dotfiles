@@ -3,6 +3,9 @@
 {
   # Define the packages you want available in your user environment.
   # These are the same packages you listed previously.
+  home.username = "alv";
+  home.homeDirectory = "/home/alv";
+  home.stateVersion = "25.05";
   home.packages = with pkgs; [
     fd
     fzf
