@@ -12,14 +12,15 @@
     fzf
     neovim
     starship
-    stow      
+    stow
     tmux
     # FIX: wezterm 
     zoxide
     zsh
-    gcc        # GNU Compiler Collection
-    go         # Go programming language
-    rustup     # Rust toolchain installer
+    nixfmt
+    gcc # GNU Compiler Collection
+    go # Go programming language
+    rustup # Rust toolchain installer
     typescript
   ];
 
