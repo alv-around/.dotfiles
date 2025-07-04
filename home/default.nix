@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixgl, ... }:
 
 {
   # Define the packages you want available in your user environment.
@@ -6,6 +6,7 @@
   home.username = "alv";
   home.homeDirectory = "/home/alv";
   home.stateVersion = "25.05";
+
   home.packages = with pkgs; [
     fd
     fzf
@@ -13,28 +14,30 @@
     starship
     stow       # Ensure stow is available for your workflow.
     tmux
-    # wezterm
+    wezterm
     zoxide
     zsh
     gcc        # GNU Compiler Collection
     go         # Go programming language
     rustup     # Rust toolchain installer
     typescript
+    ## Wezterm wrapped with nixgl for graphics compatibility.
+    # (nixgl.wrapApplication wezterm)
   ];
 
   # You can optionally add other basic Home Manager settings here,
   # but per your request, we'll keep it minimal.
   # For example, to enable home-manager to manage itself:
-  programs.home-manager.enable = true;
+  # programs.home-manager.enable = true;
+  nixGL.packages = import <nixgl> { inherit pkgs; };
+  nixGL.defaultWrapper = "mesa";
+
+  programs = {
+      home-manager.enable = true;
+      wezterm.package = config.lib.nixGL.wrap pkgs.wezterm;
+  };
 
   # Avoid displaying news on activation
   news.display = "silent";
-
-  # Ensure that your shell picks up changes by sourcing a specific file
-  # This is often needed for Zsh, Fish, etc. For Bash, it's usually handled automatically.
-  # If you use Zsh and source your .zshrc in your global Zsh config,
-  # the PATH changes from home-manager will usually be picked up.
-  # If you still have issues with programs not being in PATH, you might need to add:
-  # home.sessionPath = [ "$HOME/.nix-profile/bin" ];
-  # But this is usually handled by home-manager or the Nix install script.
+  
 }
