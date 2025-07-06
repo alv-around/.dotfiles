@@ -31,9 +31,7 @@
   ];
 
   # You can optionally add other basic Home Manager settings here,
-  # but per your request, we'll keep it minimal.
-  # For example, to enable home-manager to manage itself:
-  # programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 
   # Avoid displaying news on activation
   news.display = "silent";
