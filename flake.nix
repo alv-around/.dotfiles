@@ -7,15 +7,18 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Add nixGL as an input
+    nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { nixpkgs, home-manager, ... }: {
+  outputs = { nixpkgs, home-manager, nixgl, ... }: {
     homeConfigurations = {
       "alv" = home-manager.lib.homeManagerConfiguration {
         # System is very important!
         pkgs = import nixpkgs { system = "x86_64-linux"; };
-
-        modules = [ ./home/default.nix ]; # Defined later
+        extraSpecialArgs = { nixgl = nixgl; };
+        modules = [ ./home/default.nix ];
       };
     };
   };

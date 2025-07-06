@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixgl, ... }:
 
 {
   # Define the packages you want available in your user environment.
@@ -7,6 +7,10 @@
   home.homeDirectory = "/home/alv";
   home.stateVersion = "25.05";
 
+  nixGL.packages = import nixgl { inherit pkgs; };
+  nixGL.defaultWrapper = "mesa";
+  nixGL.installScripts = [ "mesa" ];
+
   home.packages = with pkgs; [
     fd
     fzf
@@ -14,7 +18,6 @@
     starship
     stow
     tmux
-    # FIX: wezterm 
     zoxide
     zsh
     nixfmt
@@ -22,6 +25,9 @@
     go # Go programming language
     rustup # Rust toolchain installer
     typescript
+
+    ## Wezterm wrapped with nixgl for graphics compatibility.
+    (config.lib.nixGL.wrap wezterm)
   ];
 
   # You can optionally add other basic Home Manager settings here,
