@@ -20,7 +20,7 @@
     tmux
     zoxide
     zsh
-    nixfmt
+    nixfmt-rfc-style
     gcc # GNU Compiler Collection
     go # Go programming language
     rustup # Rust toolchain installer
