@@ -1,4 +1,9 @@
-{ config, pkgs, nixgl, ... }:
+{
+  config,
+  pkgs,
+  nixgl,
+  ...
+}:
 
 {
   # Define the packages you want available in your user environment.

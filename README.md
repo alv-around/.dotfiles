@@ -35,3 +35,12 @@ home-manager switch --flake .
   ```
   rustup component add rust-analyzer
   ```
+
+## Development
+
+To test your changes:
+
+```
+nix development
+home-manager switch --flake .
+```
