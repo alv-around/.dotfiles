@@ -22,17 +22,21 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { system = "x86_64-linux"; };
+      home_config = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        # System is very important!
+        extraSpecialArgs = {
+          nixgl = nixgl;
+        };
+        modules = [ ./home/default.nix ];
+      };
     in
     {
       homeConfigurations = {
-        "alv" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          # System is very important!
-          extraSpecialArgs = {
-            nixgl = nixgl;
-          };
-          modules = [ ./home/default.nix ];
-        };
+        "alv" = home_config;
+
+        ## user of gh action
+        "runner" = home_config;
       };
 
       devShells.${system}.default = pkgs.mkShell {
