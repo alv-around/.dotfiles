@@ -36,7 +36,9 @@
         "alv" = home_config;
 
         ## user of gh action
-        "runner" = home_config;
+        "runner" = home_config // {
+          modules = [ ./tests/test_profile.nix ];
+        };
       };
 
       devShells.${system}.default = pkgs.mkShell {
