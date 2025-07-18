@@ -20,6 +20,7 @@
       ...
     }:
     let
+      currentUser = builtins.getEnv "USER";
       system = "x86_64-linux";
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       homeConfigurations = {
@@ -32,7 +33,8 @@
     in
     {
       homeConfigurations = {
-        "alv" = home-manager.lib.homeManagerConfiguration (
+        # change key value to your username
+        "your-username" = home-manager.lib.homeManagerConfiguration (
           homeConfigurations
           // {
             modules = [ ./home/default.nix ];

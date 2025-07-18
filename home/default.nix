@@ -6,15 +6,15 @@
 }:
 
 {
-  # Define the packages you want available in your user environment.
-  # These are the same packages you listed previously.
-  home.username = "alv";
-  home.homeDirectory = "/home/alv";
+  # Adjust username and homeDirectory path to your local machine
+  home.username = "your-username";
+  home.homeDirectory = "path/to/home/dir";
   home.stateVersion = "25.05";
 
   nixGL.packages = import nixgl { inherit pkgs; };
   nixGL.defaultWrapper = "mesa";
 
+  # Define the packages you want available in your user environment.
   home.packages = with pkgs; [
     fd
     fzf

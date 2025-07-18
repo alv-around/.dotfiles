@@ -1,10 +1,12 @@
 ## Requirements
 
 - git
-- [wezterm](https://wezterm.org/install/linux.html#cachix)
 - [nix](https://nix.dev/install-nix#install-nix) & [nix's home manager](https://nix-community.github.io/home-manager/#sec-install-standalone)
 
 ## Installation
+
+1. Adjust `username` and `homeDirectory` to your settings
+in [`flake.nix`](./flake.nix#L37) and [`./home/default.nix`](./home/default.nix#L10-L11)
 
 1. Run:
 
@@ -12,7 +14,8 @@
   home-manager switch --flake .
 ```
 
-After home-manager switch completes, it usually prompts you to restart your shell for changes to take full effect. And do this (e.g., `exec zsh` or `exec bash`).
+  After home-manager switch completes, it usually prompts you to restart your shell for
+  changes to take full effect. And do this (e.g., `exec zsh` or `exec bash`).
 
 finally Run:
 
