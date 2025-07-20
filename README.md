@@ -1,30 +1,49 @@
 ## Requirements
 
 - git
-- ansible
-- rust:
+- [nix](https://nix.dev/install-nix#install-nix) & [nix's home manager](https://nix-community.github.io/home-manager/#sec-install-standalone)
 
-  ```
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-  ```
+## Installation
 
-- rust-analyzer:
+1. Adjust `username` and `homeDirectory` to your settings
+in [`flake.nix`](./flake.nix#L37) and [`./home/default.nix`](./home/default.nix#L10-L11)
+
+1. Run:
+
+```
+  home-manager switch --flake .
+```
+
+  After home-manager switch completes, it usually prompts you to restart your shell for
+  changes to take full effect. And do this (e.g., `exec zsh` or `exec bash`).
+
+finally Run:
+
+```
+  ./install.sh
+```
+
+### Updating Packages
+
+```
+rm flake.lock
+nix flake update
+home-manager switch --flake .
+```
+
+## Postinstallation
+
+1. install rust-analyzer:
 
   ```
   rustup component add rust-analyzer
   ```
 
-## Install
+## Development
 
-Run:
-
-```
-ansible-playbook -i ansible/inventory.ini ansible/install_dependencies.yml -K
-sudo pacman -Syu
-```
-
-if ansible dependencies are not installed, run:
+To test your changes:
 
 ```
-ansible-galaxy install -r requirements.yml
+nix development
+home-manager switch --flake .
 ```
