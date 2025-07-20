@@ -4,11 +4,13 @@
   nixgl,
   ...
 }:
-
+let
+  localConfig = import ./local.nix;
+in
 {
   # Adjust username and homeDirectory path to your local machine
-  home.username = "your-username";
-  home.homeDirectory = "path/to/home/dir";
+  home.username = localConfig.username;
+  home.homeDirectory = localConfig.homeDirectory;
   home.stateVersion = "25.05";
 
   nixGL.packages = import nixgl { inherit pkgs; };
