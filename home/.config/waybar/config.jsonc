@@ -1,0 +1,34 @@
+{
+  "layer": "top",
+  "modules-left": [
+    "appmenu",
+  ],
+  "modules-center": [
+    "hyprland/workspaces",
+    "clock"
+  ],
+  "modules-right": [
+    "cpu",
+    "network",
+    "battery"
+  ],
+  "appmenu": {
+    "format": "Menu {icon}",
+    "format-icon": "󰻀",
+    "rotate": 0,
+    "on-click": "~/.config/waybar/runwofi.sh"
+  },
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "clock": {
+    "format-alt": "{:%a, %d. %b  %H:%M}"
+  }
+}
