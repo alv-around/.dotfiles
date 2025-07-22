@@ -1,4 +1,4 @@
-// config taken from https://itsfoss.com/configure-waybar/
+// config taken from https://github.com/SwayKh/dotfiles/tree/main/waybar
 {
   // formatting
   "layer": "top",
@@ -12,16 +12,17 @@
   // choose arrangement of modules
   "modules-left": [
     "appmenu",
+    "hyprland/workspaces",
     "wlr/taskbar"
   ],
   "modules-center": [
-    "hyprland/workspaces"
-  ],
-  "modules-right": [
-    "clock",
     "cpu",
     "memory",
     "disk",
+    "temperature"
+  ],
+  "modules-right": [
+    "clock",
     "bluetooth",
     "network",
     "battery"
@@ -40,6 +41,21 @@
     "on-click": "activate",
     "on-click-middle": "close",
     "active-first": true
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "disable-scroll": true,
+    "all-outputs": true,
+    "show-special": true,
+    "persistent-workspaces": {
+      "*": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
   },
   "clock": {
     "format": "{:%I:%M %p}",
@@ -65,7 +81,15 @@
   },
   "disk": {
     "interval": 15,
-    "format": "󰋊 {percentage_used:>2}%",
+    "format": "󰋊 {percentage_used:>2}%"
+  },
+  "temperature": {
+    "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+    "input-filename": "temp2_input",
+    "critical-threshold": 75,
+    "tooltip": false,
+    "format-critical": "({temperatureC}°C)",
+    "format": " {temperatureC}°C"
   },
   "bluetooth": {
     "format": " {status}",
@@ -74,7 +98,7 @@
     "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
   },
   "network": {
     "tooltip": true,
