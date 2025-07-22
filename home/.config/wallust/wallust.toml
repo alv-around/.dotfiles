@@ -1,13 +1,12 @@
+# configuration taken from https://github.com/helixoid/hyprland-wallust/tree/main
 backend = "fastresize"
 color_space = "lch"
 palette = "dark"
 
 [templates]
-# rofi.template = 'colors-rofi.rasi'
-# rofi.target = '~/.config/rofi/shared/colors.rasi'
+rofi.template = 'colors-rofi.rasi'
+rofi.target = '~/.config/rofi/shared/colors.rasi'
 waybar.template = 'colors-waybar.css'
 waybar.target = '~/.cache/wallust/colors-waybar.css'
 hypr.template = 'colors-hypr.conf'
 hypr.target = '~/.cache/wallust/colors-hypr.conf'
-# ghostty.template = 'colors-ghostty.conf'
-# ghostty.target = '~/.config/ghostty/themes/wallust.conf'

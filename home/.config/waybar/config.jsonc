@@ -11,7 +11,7 @@
   "reload_style_on_change": true,
   // choose arrangement of modules
   "modules-left": [
-    "appmenu",
+    "custom/appmenu",
     "hyprland/workspaces",
     "wlr/taskbar"
   ],
@@ -28,11 +28,10 @@
     "battery"
   ],
   // modules configuration 
-  "appmenu": {
+  "custom/appmenu": {
     "format": "Menu {icon}",
     "format-icon": "󰻀",
-    "rotate": 0,
-    "on-click": "wofi --show drun"
+    "on-click": "wofi --show drun --prompt 'Open Application'"
   },
   "wlr/taskbar": {
     "format": "{icon}",

@@ -1,0 +1,5 @@
+# Enables or disables images in the entries.
+allow_images=true
+
+# Sets the font for the entries.
+font=JetBrains Mono Nerd Font 10
