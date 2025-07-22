@@ -52,50 +52,19 @@ window#waybar {
    I'll provide examples using direct `@colorX)`
 */
 
-#hyprland-workspaces,
-#hyprland-workspaces button {
-  color: @fg;
-  background-color: @color4; /* Example: using Wallust's color4 for workspaces */
-}
 
-#bluetooth {
-  color: @fg;
+#clock,
+#bluetooth,
+#network,
+#battery {
   background-color: @color1; /* Example: using Wallust's color1 for bluetooth */
 }
 
-#battery {
-  color: @fg;
-  background-color: @color2; /* Example: using Wallust's color2 for battery */
-}
-
-#network {
-  color: @fg;
-  background-color: @color5; /* Example: using Wallust's color5 for network */
-}
-
-#cpu {
-  color: @fg;
-  background-color: @color3; /* Example: using Wallust's color3 for CPU */
-}
-
-#memory {
-  color: @fg;
-  background-color: @color4; /* Example: using Wallust's color4 for memory */
-}
-
-#disk {
-  color: @fg;
-  background-color: @color6; /* Example: using Wallust's color6 for disk */
-}
-
+#cpu,
+#memory,
+#disk,
 #temperature {
-  color: @fg;
-  background-color: @color7; /* Example: using Wallust's color7 for temperature */
-}
-
-#clock {
-  color: @fg;
-  background-color: @color9; /* Example: using Wallust's color9 for clock */
+  background-color: @color3; /* Example: using Wallust's color3 for CPU */
 }
 
 /* Status-based styling */
