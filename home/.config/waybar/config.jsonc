@@ -3,8 +3,8 @@
   // formatting
   "layer": "top",
   "position": "top",
-  "margin-left": 4,
-  "margin-right": 4,
+  "margin-left": 5,
+  "margin-right": 5,
   "margin-top": 4,
   "margin-bottom": 0,
   "spacing": 1,
