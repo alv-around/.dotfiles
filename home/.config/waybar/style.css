@@ -27,7 +27,8 @@ window#waybar {
 /* Base styling for all modules */
 #appmenu,
 #wlr-taskbar,
-#hyprland-workspaces,
+#workspaces,
+#workspaces button,
 #clock,
 #cpu,
 #memory,
@@ -43,15 +44,6 @@ window#waybar {
   padding: 0.1rem 0.5rem;
   margin: 0.1rem;
 }
-
-/* Specific module styling (using Wallust's generated colors or custom defs) */
-/*
-   Wallust typically generates `--color0` to `--color15` (16 colors).
-   You can map these to the `@define-color colorX` from your original config,
-   or directly use the `@colorX)` in the module definitions.
-   I'll provide examples using direct `@colorX)`
-*/
-
 
 #clock,
 #bluetooth,
@@ -79,4 +71,11 @@ window#waybar {
 
 label:focus {
   background-color: @bg;
+}
+
+/* Style for the focused workspace button on its respective monitor */
+#workspaces button.active {
+  background-color: @color4; /* Use your defined highlight color */
+  color: @fg; /* Change text color for contrast if desired */
+  border-color: @fg; /* Make the border match the highlight */
 }
