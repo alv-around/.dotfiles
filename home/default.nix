@@ -32,6 +32,8 @@ in
     rustup # Rust toolchain installer
     typescript
 
+    ## TODO: install waybar & wallust
+
     ## Wezterm wrapped with nixgl for graphics compatibility.
     (config.lib.nixGL.wrap wezterm)
   ];
