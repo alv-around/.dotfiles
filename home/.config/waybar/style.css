@@ -1,0 +1,113 @@
+/* Import Wallust generated colors */
+@import url('../../.cache/wallust/colors-waybar.css'); /* This path is common, but verify your Wallust config */
+
+/* Define abstract color names based on Wallust's output */
+/* These map more descriptive names to the Wallust generic color variables */
+@define-color fg @color7; /* Typically foreground */
+@define-color bg @color0; /* Typically background */
+@define-color bordercolor @color8; /* A lighter background or accent */
+@define-color alert @color1; /* Red for alerts */
+@define-color disabled @color8; /* Grayish color */
+@define-color highlight @color3; /* Yellow/Orange for highlights */
+@define-color activegreen @color2; /* Green for active states */
+
+/* General Waybar styling */
+* {
+  min-height: 0;
+  font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1rem; /* Adjust font using gtk-font size, like nwg-look or lxappearance */
+}
+
+window#waybar {
+  color: @fg;
+  background-color: @bg;
+  background: none;
+}
+
+/* Base styling for all modules */
+#appmenu,
+#wlr-taskbar,
+#hyprland-workspaces,
+#clock,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#bluetooth,
+#network,
+#battery {
+  color: @fg; /* Use foreground color for text */
+  background-color: @bg; /* Use background color for module background */
+  border: 0.1rem solid @bordercolor; /* Use a distinct border color */
+  border-radius: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  margin: 0.1rem;
+}
+
+/* Specific module styling (using Wallust's generated colors or custom defs) */
+/*
+   Wallust typically generates `--color0` to `--color15` (16 colors).
+   You can map these to the `@define-color colorX` from your original config,
+   or directly use the `@colorX)` in the module definitions.
+   I'll provide examples using direct `@colorX)`
+*/
+
+#hyprland-workspaces,
+#hyprland-workspaces button {
+  color: @fg;
+  background-color: @color4; /* Example: using Wallust's color4 for workspaces */
+}
+
+#bluetooth {
+  color: @fg;
+  background-color: @color1; /* Example: using Wallust's color1 for bluetooth */
+}
+
+#battery {
+  color: @fg;
+  background-color: @color2; /* Example: using Wallust's color2 for battery */
+}
+
+#network {
+  color: @fg;
+  background-color: @color5; /* Example: using Wallust's color5 for network */
+}
+
+#cpu {
+  color: @fg;
+  background-color: @color3; /* Example: using Wallust's color3 for CPU */
+}
+
+#memory {
+  color: @fg;
+  background-color: @color4; /* Example: using Wallust's color4 for memory */
+}
+
+#disk {
+  color: @fg;
+  background-color: @color6; /* Example: using Wallust's color6 for disk */
+}
+
+#temperature {
+  color: @fg;
+  background-color: @color7; /* Example: using Wallust's color7 for temperature */
+}
+
+#clock {
+  color: @fg;
+  background-color: @color9; /* Example: using Wallust's color9 for clock */
+}
+
+/* Status-based styling */
+#network.disconnected {
+  background-color: @alert;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: @activegreen;
+}
+
+label:focus {
+  background-color: @bg;
+}
