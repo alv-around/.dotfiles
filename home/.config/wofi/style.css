@@ -1,5 +1,6 @@
 /* Import Wallust generated colors */
-@import url('../../.cache/wallust/colors-waybar.css'); /* This path is common, but verify your Wallust config */
+/* FIXME: setup colors import to not be path specific */
+@import "/home/alv/.cache/wallust/colors-waybar.css"; /* This path is common, but verify your Wallust config */
 
 /* Define abstract color names based on Wallust's output */
 /* These map more descriptive names to the Wallust generic color variables */
@@ -11,7 +12,11 @@
 @define-color highlight @color3; /* Yellow/Orange for highlights */
 @define-color activegreen @color2; /* Green for active states */
 
-window,
+window {
+  font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  background-color: @bg;
+}
+
 #input,
 #inner-box, 
 #outer-box,
@@ -20,8 +25,9 @@ window,
 }
 
 #input,
-#inner-box {
+#outer-box {
   border: 2px solid @fg;
+  color: @fg
 }
 
 #text {
