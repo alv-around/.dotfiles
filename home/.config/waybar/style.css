@@ -3,14 +3,15 @@
 
 /* Define abstract color names based on Wallust's output */
 /* These map more descriptive names to the Wallust generic color variables */
-@define-color fg @color7; /* Typically foreground */
 @define-color bg @color0; /* Typically background */
+@define-color bg2 @color1; 
+@define-color highlight @color3; 
+@define-color active @color4;
+@define-color error @color5;
+@define-color success @color6; 
+@define-color fg @color15; /* Typically foreground */
 @define-color bordercolor @color8; /* A lighter background or accent */
-@define-color alert @color1; /* Red for alerts */
-@define-color disabled @color8; /* Grayish color */
-@define-color highlight @color3; /* Yellow/Orange for highlights */
-@define-color activegreen @color2; /* Green for active states */
-
+ 
 /* General Waybar styling */
 * {
   min-height: 0;
@@ -49,14 +50,14 @@ window#waybar {
 #bluetooth,
 #network,
 #battery {
-  background-color: @color1; /* Example: using Wallust's color1 for bluetooth */
+  background-color: @bg; /* Example: using Wallust's color1 for bluetooth */
 }
 
 #cpu,
 #memory,
 #disk,
 #temperature {
-  background-color: @color3; /* Example: using Wallust's color3 for CPU */
+  background-color: @highlight; /* Example: using Wallust's color3 for CPU */
 }
 
 /* Status-based styling */
@@ -66,7 +67,7 @@ window#waybar {
 
 #battery.charging,
 #battery.plugged {
-  background-color: @activegreen;
+  background-color: @active;
 }
 
 label:focus {
@@ -75,7 +76,7 @@ label:focus {
 
 /* Style for the focused workspace button on its respective monitor */
 #workspaces button.active {
-  background-color: @color4; /* Use your defined highlight color */
+  background-color: @active; /* Use your defined highlight color */
   color: @fg; /* Change text color for contrast if desired */
   border-color: @fg; /* Make the border match the highlight */
 }

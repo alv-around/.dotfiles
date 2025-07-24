@@ -4,13 +4,14 @@
 
 /* Define abstract color names based on Wallust's output */
 /* These map more descriptive names to the Wallust generic color variables */
-@define-color fg @color7; /* Typically foreground */
 @define-color bg @color0; /* Typically background */
+@define-color bg2 @color1; 
+@define-color highlight @color3; 
+@define-color active @color4;
+@define-color error @color5;
+@define-color success @color6; 
+@define-color fg @color7; /* Typically foreground */
 @define-color bordercolor @color8; /* A lighter background or accent */
-@define-color alert @color1; /* Red for alerts */
-@define-color disabled @color8; /* Grayish color */
-@define-color highlight @color3; /* Yellow/Orange for highlights */
-@define-color activegreen @color2; /* Green for active states */
 
 window {
   font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
@@ -21,12 +22,12 @@ window {
 #inner-box, 
 #outer-box,
 #scroll {
-  background-color: @bg;
+  background-color: @bg2;
 }
 
 #input,
 #outer-box {
-  border: 2px solid @fg;
+  border: 2px solid @highlight;
   color: @fg
 }
 

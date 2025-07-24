@@ -3,6 +3,14 @@ backend = "fastresize"
 color_space = "lch"
 palette = "dark"
 
+# for vibrant and modern look
+saturate = 1.2
+vibrancy = 1.1
+
+# for a softer visual experience
+# contrast = 0.8
+# vibrancy = 1.0
+
 [templates]
 rofi.template = 'colors-rofi.rasi'
 rofi.target = '~/.config/rofi/shared/colors.rasi'
