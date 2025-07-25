@@ -1,0 +1,3 @@
+# Enables or disables images in the entries.
+allow_images=true
+
