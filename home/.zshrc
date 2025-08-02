@@ -64,10 +64,10 @@ setopt hist_find_no_dups
 
 # Keybindings
 # [CTR + r] - search history
-# [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT.
+# [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT with preview for files and dirs
 # [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}'"
+export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'"
 source <(fzf --zsh) # allow for fzf history widget
 
 # Completion styling
@@ -78,7 +78,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -a --color $realpath'
 
 # Aliases
 alias ls='ls -a --color'
-alias vim='nvim'
+alias vim='nvim $(fzf ${FZF_CTRL_T_OPTS})'
 
 # Shell integrations
 # zoxide
