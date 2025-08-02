@@ -25,7 +25,6 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
@@ -37,10 +36,6 @@ zinit snippet OMZP::git
 zinit snippet OMZP::command-not-found
 
 zinit cdreplay -q
-
-# Keybindings
-bindkey -e
-bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 
 ### History ###
 HISTSIZE=5000
@@ -57,12 +52,12 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 ### fzf ###
-# Usage
+## Usage
 # $ vim ../**<TAB> - Files under parent directory
 # $ cd **<TAB> - Directories under current directory (single-selection)
 # $ kill -9 **<TAB> - Fuzzy completion for PIDs is provided for kill command.
 
-# Keybindings
+## Keybindings
 # [CTR + r] - search history
 # [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT with preview for files and dirs
 # [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
@@ -76,16 +71,13 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -a --color $realpath'
 
-# Aliases
+### Aliases ###
 alias ls='ls -a --color'
 alias vim='nvim $(fzf ${FZF_CTRL_T_OPTS})'
 
 # Shell integrations
 # zoxide
-path+=('/home/alv/.local/bin')
-export PATH
 eval "$(zoxide init --cmd cd zsh)"
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
