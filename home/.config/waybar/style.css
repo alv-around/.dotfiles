@@ -1,0 +1,82 @@
+/* Import Wallust generated colors */
+@import url('../../.cache/wallust/colors-waybar.css'); /* This path is common, but verify your Wallust config */
+
+/* Define abstract color names based on Wallust's output */
+/* These map more descriptive names to the Wallust generic color variables */
+@define-color bg @color0; /* Typically background */
+@define-color bg2 @color1; 
+@define-color highlight @color3; 
+@define-color active @color4;
+@define-color error @color5;
+@define-color success @color6; 
+@define-color fg @color15; /* Typically foreground */
+@define-color bordercolor @color8; /* A lighter background or accent */
+ 
+/* General Waybar styling */
+* {
+  min-height: 0;
+  font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1rem; /* Adjust font using gtk-font size, like nwg-look or lxappearance */
+}
+
+window#waybar {
+  color: @fg;
+  background-color: @bg;
+  background: none;
+}
+
+/* Base styling for all modules */
+#appmenu,
+#wlr-taskbar,
+#workspaces,
+#workspaces button,
+#clock,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#bluetooth,
+#network,
+#battery {
+  color: @fg; /* Use foreground color for text */
+  background-color: @bg; /* Use background color for module background */
+  border: 0.1rem solid @bordercolor; /* Use a distinct border color */
+  border-radius: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  margin: 0.1rem;
+}
+
+#clock,
+#bluetooth,
+#network,
+#battery {
+  background-color: @bg; /* Example: using Wallust's color1 for bluetooth */
+}
+
+#cpu,
+#memory,
+#disk,
+#temperature {
+  background-color: @highlight; /* Example: using Wallust's color3 for CPU */
+}
+
+/* Status-based styling */
+#network.disconnected {
+  background-color: @alert;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: @active;
+}
+
+label:focus {
+  background-color: @bg;
+}
+
+/* Style for the focused workspace button on its respective monitor */
+#workspaces button.active {
+  background-color: @active; /* Use your defined highlight color */
+  color: @fg; /* Change text color for contrast if desired */
+  border-color: @fg; /* Make the border match the highlight */
+}

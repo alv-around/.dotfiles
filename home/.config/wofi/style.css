@@ -1,0 +1,37 @@
+/* Import Wallust generated colors */
+/* FIXME: setup colors import to not be path specific */
+@import "/home/alv/.cache/wallust/colors-waybar.css"; /* This path is common, but verify your Wallust config */
+
+/* Define abstract color names based on Wallust's output */
+/* These map more descriptive names to the Wallust generic color variables */
+@define-color bg @color0; /* Typically background */
+@define-color bg2 @color1; 
+@define-color highlight @color3; 
+@define-color active @color4;
+@define-color error @color5;
+@define-color success @color6; 
+@define-color fg @color7; /* Typically foreground */
+@define-color bordercolor @color8; /* A lighter background or accent */
+
+window {
+  font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+  background-color: @bg;
+}
+
+#input,
+#inner-box, 
+#outer-box,
+#scroll {
+  background-color: @bg2;
+}
+
+#input,
+#outer-box {
+  border: 2px solid @highlight;
+  color: @fg
+}
+
+#text {
+  margin: 5px;
+  color: @fg;
+} 

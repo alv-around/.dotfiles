@@ -1,0 +1,22 @@
+# configuration taken from https://github.com/helixoid/hyprland-wallust/tree/main
+backend = "fastresize"
+color_space = "lch"
+palette = "dark"
+
+# for vibrant and modern look
+saturate = 1.2
+vibrancy = 1.1
+
+# for a softer visual experience
+# contrast = 0.8
+# vibrancy = 1.0
+
+[templates]
+rofi.template = 'colors-rofi.rasi'
+rofi.target = '~/.config/rofi/shared/colors.rasi'
+waybar.template = 'colors-waybar.css'
+waybar.target = '~/.cache/wallust/colors-waybar.css'
+hypr.template = 'colors-hypr.conf'
+hypr.target = '~/.cache/wallust/colors-hypr.conf'
+wofi.template = 'colors-wofi.css'
+wofi.target = '~/.cache/wallust/colors-wofi.css'

@@ -1,0 +1,123 @@
+// config taken from https://github.com/SwayKh/dotfiles/tree/main/waybar
+{
+  // formatting
+  "layer": "top",
+  "position": "top",
+  "margin-left": 5,
+  "margin-right": 5,
+  "margin-top": 4,
+  "margin-bottom": 0,
+  "spacing": 1,
+  "reload_style_on_change": true,
+  // choose arrangement of modules
+  "modules-left": [
+    "custom/appmenu",
+    "hyprland/workspaces",
+    "wlr/taskbar"
+  ],
+  "modules-center": [
+    "cpu",
+    "memory",
+    "disk",
+    "temperature"
+  ],
+  "modules-right": [
+    "clock",
+    "bluetooth",
+    "network",
+    "battery"
+  ],
+  // modules configuration 
+  "custom/appmenu": {
+    "format": "Menu {icon}",
+    "format-icon": "󰻀",
+    "on-click": "wofi --show drun --prompt 'Open Application'"
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "tooltip": true,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "active-first": true
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "disable-scroll": true,
+    "all-outputs": false,
+    "show-special": true,
+    "persistent-workspaces": {
+      "*": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  },
+  "clock": {
+    "format": "{:%I:%M %p}",
+    "format-alt": "{  %d·%m·%y}",
+    "tooltip-format": "<span>{calendar}</span>",
+    "calendar": {
+      "mode": "month",
+      "format": {
+        "months": "<span color='#ff6699'><b>{}</b></span>",
+        "days": "<span color='#cdd6f4'><b>{}</b></span>",
+        "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
+        "today": "<span color='#ffcc66'><b>{}</b></span>"
+      }
+    }
+  },
+  "cpu": {
+    "format": "󰍛  {usage}%",
+    "tooltip": true
+  },
+  "memory": {
+    "interval": 2,
+    "format": "  {used:0.1f}Gb" // /{total:0.1f}G",
+  },
+  "disk": {
+    "interval": 15,
+    "format": "󰋊 {percentage_used:>2}%"
+  },
+  "temperature": {
+    "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+    "input-filename": "temp2_input",
+    "critical-threshold": 75,
+    "tooltip": false,
+    "format-critical": "({temperatureC}°C)",
+    "format": " {temperatureC}°C"
+  },
+  "bluetooth": {
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+  },
+  "network": {
+    "tooltip": true,
+    "format-wifi": "  {essid}",
+    "format-ethernet": "",
+    "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nBandwith: <b>{bandwidthTotalBytes:>2}</b>",
+    "format-linked": " {ifname} (No IP)",
+    "format-disconnected": "󰖪 ",
+    "tooltip-format-disconnected": "Disconnected",
+    "format-alt": "<span foreground='#99ffdd'> {bandwidthDownBytes}</span> <span foreground='#ffcc66'> {bandwidthUpBytes}</span>",
+    "interval": 2
+  },
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  }
+}

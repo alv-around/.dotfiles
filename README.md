@@ -23,6 +23,8 @@ finally Run:
   ./install.sh
 ```
 
+**For hyprland:** adjust `home/.config/wofi/style.css` to your user.
+
 ### Updating Packages
 
 ```
