@@ -25,9 +25,6 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# support hyprland colorscheme
-# BUG: adding this line brakes the client tile in hyprland
-# source ~/.config/zshrc.d/dots-hyprland.zsh
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -52,17 +49,15 @@ zinit cdreplay -q
 
 # Keybindings
 bindkey -e
-bindkey '^[k' history-search-backward
-bindkey '^[j' history-search-forward
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
-#bindkey '^[w' kill-region
 
-# History
+### History ###
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
+
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
@@ -71,21 +66,27 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+### fzf ###
+# [CTR + r] - search history
+# [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT.
+# [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
+
+# $ vim ../**<TAB> - Files under parent directory
+# $ cd **<TAB> - Directories under current directory (single-selection)
+# $ kill -9 **<TAB> - Fuzzy completion for PIDs is provided for kill command.
+source <(fzf --zsh) # allow for fzf history widget
+
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
+zstyle ':completion:*' menu select
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias ls='ls -a --color'
 alias vim='nvim'
-alias c='clear'
 
 # Shell integrations
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # zoxide
 path+=('/home/alv/.local/bin')
 export PATH
