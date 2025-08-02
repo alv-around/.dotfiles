@@ -46,10 +46,8 @@ autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
-
 # Keybindings
 bindkey -e
-bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 
 ### History ###
@@ -67,20 +65,24 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 ### fzf ###
-# [CTR + r] - search history
-# [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT.
-# [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
-
+# Usage
 # $ vim ../**<TAB> - Files under parent directory
 # $ cd **<TAB> - Directories under current directory (single-selection)
 # $ kill -9 **<TAB> - Fuzzy completion for PIDs is provided for kill command.
+
+# Keybindings
+# [CTR + r] - search history
+# [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT.
+# [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}'"
 source <(fzf --zsh) # allow for fzf history widget
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu select
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -a --color $realpath'
 
 # Aliases
 alias ls='ls -a --color'

@@ -5,10 +5,18 @@
 
 ## Installation
 
-1. Adjust `username` and `homeDirectory` to your settings
-in [`flake.nix`](./flake.nix#L37) and [`./home/default.nix`](./home/default.nix#L10-L11)
+1. Adjust `username` to your settings in [`flake.nix`](./flake.nix#L37)
 
-1. Run:
+1. Add a new file called `home/local.nix` with the following content:
+
+  ```nix
+{
+  username = "your-username";
+  homeDirectory = "/path/to/home/dir";
+}
+  ```
+
+3. Run:
 
 ```
   home-manager switch --flake .

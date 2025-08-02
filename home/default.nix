@@ -24,6 +24,8 @@ in
     starship
     stow
     tmux
+    tree
+    bat
     zoxide
     zsh
     nixfmt-rfc-style

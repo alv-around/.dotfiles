@@ -2,6 +2,7 @@ home/.config/zsh/zinit
 home/.config/tmux/plugins
 
 home/.zshrc.local
+home/local.nix
 
 # Nix's artifact
 result
