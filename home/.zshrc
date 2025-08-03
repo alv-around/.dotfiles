@@ -110,6 +110,8 @@ alias vim='$EDITOR'
 # [ ESC ] -> enter vicmd mode
 # [ `a`/`i` ] in vicmd -> return to emacs mode
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
+bindkey -M vicmd -r j # remove downhistory binding in vim mode
+bindkey -M vicmd -r k # remove uphistory binding in vim mode
 
 ### zoxide ###
 eval "$(zoxide init --cmd cd zsh)"
