@@ -15,16 +15,16 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create local.nix file
-        run: |
-          cat <<EOF > home/local.nix
-          {
-            username = "runner";
-            homeDirectory = "/home/runner";
-          }
-          EOF
       - run: nix flake check
       - run: nix flake update
       - run: nix develop
-      - run: |
-          nix develop --command bash -c "home-manager switch --flake . && sh ./tests/test-dependency.sh zsh stow nvim rustup"
+      - name: Run home-manager and tests
+        # This step now creates the file and then runs home-manager, all within the same shell environment.
+        run: |
+          nix develop --command bash -c "mkdir -p home && cat <<EOF > home/local.nix
+          {
+            username = \"runner\";
+            homeDirectory = \"/home/runner\";
+          }
+          EOF"
+          | home-manager switch --flake . && sh ./tests/test-dependency.sh zsh stow nvim rustup"
