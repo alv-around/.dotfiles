@@ -106,10 +106,15 @@ search() (
 alias ls='ls -a --color'
 alias vim='$EDITOR'
 
-# Shell integrations
-# zoxide
+### keybindings ###
+# [ ESC ] -> enter vicmd mode
+# [ `a`/`i` ] in vicmd -> return to emacs mode
+bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
+
+### zoxide ###
 eval "$(zoxide init --cmd cd zsh)"
 
+### Programming config ###
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
