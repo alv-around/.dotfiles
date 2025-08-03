@@ -66,14 +66,21 @@ setopt hist_find_no_dups
 # [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT with preview for files and dirs
 # [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'"
+export FZF_CTRL_T_OPTS="--preview='bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'"
 source <(fzf --zsh) # allow for fzf history widget
+
+## fzf-tab
+# show hidden files
+setopt GLOB_DOTS
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -a --color $realpath'
+zstyle ':fzf-tab:*' fzf-flags --bind=tab:accept
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'tree -C $realpath'
+zstyle ':fzf-tab:complete:nvim:*' fzf-preview 'bat --style=numbers --color=always --line-range :500 $realpath 2>/dev/null || tree -C $realpath'
+zstyle ':fzf-tab:complete:ls:*' fzf-preview 'bat --style=numbers --color=always --line-range :500 $realpath 2>/dev/null || tree -C $realpath'
 
 ### fzf + ripgrep ###
 # ripgrep->fzf->vim [QUERY]
@@ -97,7 +104,7 @@ search() (
 
 ### Aliases ###
 alias ls='ls -a --color'
-alias vim='nvim $(fzf ${FZF_CTRL_T_OPTS})'
+alias vim='$EDITOR'
 
 # Shell integrations
 # zoxide
