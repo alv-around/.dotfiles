@@ -37,6 +37,8 @@ zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::git
 zinit snippet OMZP::command-not-found
 
+# Load completions
+autoload -Uz compinit && compinit
 zinit cdreplay -q
 
 ### History ###
