@@ -15,6 +15,14 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create local.nix file
+        run: |
+          cat <<EOF > home/local.nix
+          {
+            username = "runner";
+            homeDirectory = "/home/runner";
+          }
+          EOF
       - run: nix flake check
       - run: nix flake update
       - run: nix develop
