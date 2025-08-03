@@ -15,8 +15,19 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: 1arp/create-a-file-action@0.4.5
+        with:
+          path: "/home/runner/home"
+          isAbsolutePath: true
+          file: "local.nix"
+          content: |
+            {
+              username = "runner";
+              homeDirectory = "/home/runner";
+            }
       - run: nix flake check
       - run: nix flake update
       - run: nix develop
-      - run: |
-          nix develop --command bash -c "home-manager switch --flake . && sh ./tests/test-dependency.sh zsh stow nvim rustup"
+      - name: Run home-manager and tests
+        # This step now creates the file and then runs home-manager, all within the same shell environment.
+        run: nix develop --command bash -c "home-manager switch --flake . && sh ./tests/test-dependency.sh zsh stow nvim rustup"

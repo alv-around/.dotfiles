@@ -33,8 +33,8 @@
     in
     {
       homeConfigurations = {
-        # change key value to your username
-        "your-username" = home-manager.lib.homeManagerConfiguration (
+        # INFO: change key value to your username
+        "alv" = home-manager.lib.homeManagerConfiguration (
           homeConfigurations
           // {
             modules = [ ./home/default.nix ];

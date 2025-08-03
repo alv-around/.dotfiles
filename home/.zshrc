@@ -4,6 +4,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+export EDITOR="nvim"
+
 # starship terminal theme
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
@@ -25,10 +27,6 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# support hyprland colorscheme
-# BUG: adding this line brakes the client tile in hyprland
-# source ~/.config/zshrc.d/dots-hyprland.zsh
-
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
@@ -37,32 +35,18 @@ zinit light Aloxaf/fzf-tab
 
 # Add in snippets
 zinit snippet OMZP::git
-#zinit snippet OMZP::sudo
-#zinit snippet OMZP::archlinux
-#zinit snippet OMZP::aws
-#zinit snippet OMZP::kubectl
-#zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 
 # Load completions
 autoload -Uz compinit && compinit
-
 zinit cdreplay -q
 
-
-# Keybindings
-bindkey -e
-bindkey '^[k' history-search-backward
-bindkey '^[j' history-search-forward
-bindkey '^I'   complete-word       # tab          | complete
-bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
-#bindkey '^[w' kill-region
-
-# History
+### History ###
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
+
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
@@ -71,34 +55,71 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+### fzf ###
+## Usage
+# $ vim ../**<TAB> - Files under parent directory
+# $ cd **<TAB> - Directories under current directory (single-selection)
+# $ kill -9 **<TAB> - Fuzzy completion for PIDs is provided for kill command.
+
+## Keybindings
+# [CTR + r] - search history
+# [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT with preview for files and dirs
+# [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+export FZF_CTRL_T_OPTS="--preview='bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'"
+source <(fzf --zsh) # allow for fzf history widget
+
+## fzf-tab
+# show hidden files
+setopt GLOB_DOTS
+
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:*' fzf-flags --bind=tab:accept
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'tree -C $realpath'
+zstyle ':fzf-tab:complete:nvim:*' fzf-preview 'bat --style=numbers --color=always --line-range :500 $realpath 2>/dev/null || tree -C $realpath'
+zstyle ':fzf-tab:complete:ls:*' fzf-preview 'bat --style=numbers --color=always --line-range :500 $realpath 2>/dev/null || tree -C $realpath'
 
-# Aliases
+### fzf + ripgrep ###
+# ripgrep->fzf->vim [QUERY]
+search() (
+  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            $EDITOR {1} +{2}     # No selection. Open the current line in Vim.
+          else
+            $EDITOR +cw -q {+f}  # Build quickfix list for the selected items.
+          fi'
+  fzf --disabled --ansi --multi \
+      --bind "start:$RELOAD" --bind "change:$RELOAD" \
+      --bind "enter:become:$OPENER" \
+      --bind "ctrl-o:execute:$OPENER" \
+      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+      --delimiter : \
+      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+      --preview-window '~4,+{2}+4/3,<80(up)' \
+      --query "$*"
+)
+
+### Aliases ###
 alias ls='ls -a --color'
-alias vim='nvim'
-alias c='clear'
+alias vim='$EDITOR'
 
-# Shell integrations
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# zoxide
-path+=('/home/alv/.local/bin')
-export PATH
+### keybindings ###
+# [ ESC ] -> enter vicmd mode
+# [ `a`/`i` ] in vicmd -> return to emacs mode
+bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
+bindkey -M vicmd -r j # remove downhistory binding in vim mode
+bindkey -M vicmd -r k # remove uphistory binding in vim mode
+
+### zoxide ###
 eval "$(zoxide init --cmd cd zsh)"
 
-
+### Programming config ###
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 . "$HOME/.cargo/env"
 
-# configuration to have only locally
-if [[ -f ~/.zshrc.local ]]; then
-  source ~/.zshrc.local
-fi
