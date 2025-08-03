@@ -27,4 +27,4 @@ jobs:
             homeDirectory = \"/home/runner\";
           }
           EOF"
-          home-manager switch --flake . && sh ./tests/test-dependency.sh zsh stow nvim rustup"
+          home-manager switch --flake . && sh ./tests/test-dependency.sh zsh stow nvim rustup
