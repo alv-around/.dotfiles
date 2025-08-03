@@ -21,10 +21,13 @@ jobs:
       - name: Run home-manager and tests
         # This step now creates the file and then runs home-manager, all within the same shell environment.
         run: |
-          nix develop --command bash -c "mkdir -p home && cat <<EOF > home/local.nix
+          nix develop --command bash -c '
+          mkdir -p home
+          cat <<EOF > home/local.nix
           {
-            username = \"runner\";
-            homeDirectory = \"/home/runner\";
+            username = "runner";
+            homeDirectory = "/home/runner";
           }
-          EOF"
+          EOF
           home-manager switch --flake . && sh ./tests/test-dependency.sh zsh stow nvim rustup
+          '
