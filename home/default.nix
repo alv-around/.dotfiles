@@ -4,13 +4,10 @@
   nixgl,
   ...
 }:
-let
-  localConfig = import ./local.nix;
-in
 {
   # Adjust username and homeDirectory path to your local machine
-  home.username = localConfig.username;
-  home.homeDirectory = localConfig.homeDirectory;
+  home.username = "alv";
+  home.homeDirectory = /home/alv;
   home.stateVersion = "25.05";
 
   nixGL.packages = import nixgl { inherit pkgs; };
@@ -18,17 +15,23 @@ in
 
   # Define the packages you want available in your user environment.
   home.packages = with pkgs; [
+    # general
+    bat
     fd
     fzf
-    neovim
     starship
     stow
     tmux
     tree
-    bat
+    wget
     zoxide
     zsh
+    # nvim
+    neovim
+    luarocks
+    lazygit
     nixfmt-rfc-style
+    # programming
     gcc # GNU Compiler Collection
     go # Go programming language
     rustup # Rust toolchain installer
