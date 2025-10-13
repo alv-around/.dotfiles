@@ -26,8 +26,7 @@ window#waybar {
 }
 
 /* Base styling for all modules */
-#appmenu,
-#wlr-taskbar,
+#taskbar,
 #workspaces,
 #workspaces button,
 #clock,
@@ -37,7 +36,9 @@ window#waybar {
 #temperature,
 #bluetooth,
 #network,
-#battery {
+#battery,
+#custom-appmenu,
+#custom-power {
   color: @fg; /* Use foreground color for text */
   background-color: @bg; /* Use background color for module background */
   border: 0.1rem solid @bordercolor; /* Use a distinct border color */
@@ -49,7 +50,8 @@ window#waybar {
 #clock,
 #bluetooth,
 #network,
-#battery {
+#battery,
+#custom-power {
   background-color: @bg; /* Example: using Wallust's color1 for bluetooth */
 }
 
