@@ -47,12 +47,12 @@ in
     xclip
     # programming
     gcc # GNU Compiler Collection
-    go # Go programming language
     rustup # Rust toolchain installer
-    # rust-analyzer
-    typescript
     lua
-
+    go # Go programming language
+    # rust-analyzer
+    nodejs_22
+    yarn-berry_4
     ## TODO: install waybar & wallust
 
     ## Wezterm wrapped with nixgl for graphics compatibility.
