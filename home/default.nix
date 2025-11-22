@@ -6,7 +6,7 @@
 }:
 
 let
-  # Pin LazyVim's Version
+  # Pin LazyVim v15.13.0
   lazyvim-pinned = pkgs.vimUtils.buildVimPlugin {
     pname = "LazyVim-2025-03-01";
     version = "2025-03-01";
@@ -14,7 +14,7 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "LazyVim";
       repo = "LazyVim";
-      rev = "25abbf546d564dc484cf903804661ba12de45507";
+      rev = "28db03f958d58dfff3c647ce28fdc1cb88ac158d";
       hash = "sha256-kgTdhFfqOK6HZrHF/LYge8cm20wuud7xlxBAUm0OL+M=";
     };
   };
@@ -66,6 +66,8 @@ in
   programs.neovim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
+      nvim-lspconfig
+      nvim-treesitter.withAllGrammars
       lazyvim-pinned
       # rustaceanvim
       # mason-lspconfig-nvim
@@ -73,7 +75,6 @@ in
     extraPackages = with pkgs; [
       luarocks
       lazygit
-      nixfmt-rfc-style
       ripgrep
     ];
   };
