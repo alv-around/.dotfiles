@@ -4,3 +4,5 @@
 
 -- use native picker
 vim.g.lazyvim_picker = "snacks"
+
+vim.g.clipboard = "xclip"

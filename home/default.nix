@@ -44,6 +44,7 @@ in
     zoxide
     zsh
     wl-clipboard
+    xclip
     # programming
     gcc # GNU Compiler Collection
     go # Go programming language
