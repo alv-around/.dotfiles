@@ -4,21 +4,6 @@
   nixgl,
   ...
 }:
-
-let
-  # Pin LazyVim v15.13.0
-  lazyvim-pinned = pkgs.vimUtils.buildVimPlugin {
-    pname = "LazyVim-2025-03-01";
-    version = "2025-03-01";
-    doCheck = false;
-    src = pkgs.fetchFromGitHub {
-      owner = "LazyVim";
-      repo = "LazyVim";
-      rev = "28db03f958d58dfff3c647ce28fdc1cb88ac158d";
-      hash = "sha256-kgTdhFfqOK6HZrHF/LYge8cm20wuud7xlxBAUm0OL+M=";
-    };
-  };
-in
 {
   # Adjust username and homeDirectory path to your local machine
   home.username = "alv";
@@ -50,10 +35,8 @@ in
     rustup # Rust toolchain installer
     lua
     go # Go programming language
-    # rust-analyzer
     nodejs_22
     yarn-berry_4
-    ## TODO: install waybar & wallust
 
     ## Wezterm wrapped with nixgl for graphics compatibility.
     (config.lib.nixGL.wrap wezterm)
@@ -69,8 +52,6 @@ in
     plugins = with pkgs.vimPlugins; [
       nvim-lspconfig
       nvim-treesitter
-      # rustaceanvim
-      # mason-lspconfig-nvim
     ];
     extraPackages = with pkgs; [
       luarocks
