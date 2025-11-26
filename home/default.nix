@@ -68,8 +68,7 @@ in
     enable = true;
     plugins = with pkgs.vimPlugins; [
       nvim-lspconfig
-      nvim-treesitter.withAllGrammars
-      lazyvim-pinned
+      nvim-treesitter
       # rustaceanvim
       # mason-lspconfig-nvim
     ];
