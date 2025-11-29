@@ -8,6 +8,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvf.url = "github:notashelf/nvf";
+
     # Add nixGL as an input
     nixgl.url = "github:nix-community/nixGL";
   };
@@ -16,6 +18,7 @@
     {
       nixpkgs,
       home-manager,
+      nvf,
       nixgl,
       ...
     }:
@@ -36,7 +39,10 @@
         "alv" = home-manager.lib.homeManagerConfiguration (
           homeConfigurations
           // {
-            modules = [ ./home/default.nix ];
+            modules = [ 
+              nvf.homeManagerModules.default
+              ./home/default.nix
+            ];
           }
         );
 
