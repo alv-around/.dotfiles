@@ -50,6 +50,11 @@
           style = "night";
         };
 
+        utility = {
+          sleuth.enable = true;
+          smart-splits.enable = true;
+        };
+
         binds = {
           whichKey.enable = true;
         };
@@ -80,7 +85,14 @@
           enableExtraDiagnostics = true;
 
           # languages
-          nix.enable = true;
+          nix = {
+            enable = true;
+            extraDiagnostics.enable = true;
+            format = {
+              enable = true;
+              type = "nixfmt";
+            };
+          };
           rust.enable = true;
         };
 
