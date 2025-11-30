@@ -42,6 +42,7 @@
             modules = [ 
               nvf.homeManagerModules.default
               ./home/default.nix
+              ./home/nvim.nix
             ];
           }
         );
