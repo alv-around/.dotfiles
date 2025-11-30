@@ -50,18 +50,29 @@
           style = "night";
         };
 
-        extraPlugins = with pkgs.vimPlugins; {
-          neotree = {
-            package = "neo-tree-nvim";
+        binds = {
+          whichKey.enable = true;
+        };
+
+        # use mini.statusline which is compatible with tokyonight theme
+        mini.statusline.enable = true;
+
+        # neo-tree
+        filetree = {
+          neo-tree = {
+            enable = true;
+            setupOpts.filesystem = {
+              filtered_items = {
+                visible = true;
+              };
+            };
           };
         };
 
-        filetree.neo-tree.enable = true;
-        statusline.lualine.enable = true;
-
-        # extraPlugins = {
-        #   lualine-nvim = {};
-        # };
+        maps.normal = 
+          {
+            "<leader>e".action = "<cmd>Neotree toggle<CR>";
+          };
 
         languages = {
           enableFormat = true;
@@ -74,7 +85,8 @@
         };
 
         lsp = {
-          enable = true;
+          # Warning: uncommenting next line create error msg
+          # enable = true;
           inlayHints.enable = true;
         };
       };
