@@ -16,6 +16,11 @@
           style = "night";
         };
 
+        git = {
+          enable = true;
+          gitsigns.enable = true;
+        };
+
         utility = {
           sleuth.enable = true;
           smart-splits.enable = true;
