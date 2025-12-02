@@ -25,6 +25,11 @@
     wget
     zoxide
     zsh
+
+    # clipboards
+    wl-clipboard
+    xclip
+
     # programming
     gcc # GNU Compiler Collection
     go # Go programming language
