@@ -34,7 +34,7 @@
     # programming
     gcc # GNU Compiler Collection
     go # Go programming language
-    rustup # Rust toolchain installer
+    # rustup # Rust toolchain installer
     typescript
 
     ## TODO: install waybar & wallust
@@ -45,6 +45,9 @@
 
   # You can optionally add other basic Home Manager settings here,
   programs.home-manager.enable = true;
+  
+  # direnv.enableZshIntegration is set to true as default
+  programs.direnv.enable = true;
 
   # Avoid displaying news on activation
   news.display = "silent";

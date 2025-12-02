@@ -113,9 +113,6 @@ bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 bindkey -M vicmd -r j # remove downhistory binding in vim mode
 bindkey -M vicmd -r k # remove uphistory binding in vim mode
 
-### zoxide ###
-eval "$(zoxide init --cmd cd zsh)"
-
 ### Programming config ###
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -129,3 +126,8 @@ fi
 if [[ -f "${HOME}/.zshrc.local" ]] then
     source "${HOME}/.zshrc.local"
 fi
+
+### evals hooks
+eval "$(zoxide init --cmd cd zsh)"
+eval "$(direnv hook zsh)"
+
