@@ -32,6 +32,8 @@
 
         tabline.nvimBufferline = {
           enable = true;
+          # number options: “none”, “ordinal”, “buffer_id”, “both” or (luaInline)
+          setupOpts.options.numbers = "none";
           mappings.closeCurrent = "<leader>bd";
         };
 
@@ -94,6 +96,10 @@
             # crates.enable = true;
           };
         };
+
+        # TODO: wip create trouble
+        # diagnostics.enable = true;
+        # lsp.trouble.enable = true;
 
         lsp = {
           # Warning: uncommenting next line create error msg
