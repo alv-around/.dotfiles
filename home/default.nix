@@ -12,6 +12,8 @@
   nixGL.packages = import nixgl {inherit pkgs;};
   nixGL.defaultWrapper = "mesa";
 
+  fonts.fontconfig.enable = true;
+
   # Define the packages you want available in your user environment.
   home.packages = with pkgs; [
     # general
@@ -33,8 +35,10 @@
     # programming
     gcc # GNU Compiler Collection
     go # Go programming language
-    # rustup # Rust toolchain installer
+    rustup # Rust toolchain installer
+    # rust-analyzer
     typescript
+    lua
 
     ## Wezterm wrapped with nixgl for graphics compatibility.
     (config.lib.nixGL.wrap wezterm)
@@ -42,10 +46,11 @@
 
   # You can optionally add other basic Home Manager settings here,
   programs.home-manager.enable = true;
-  
+
   # direnv.enableZshIntegration is set to true as default
   programs.direnv.enable = true;
 
+  programs.lazygit.enable = true;
   # Avoid displaying news on activation
   news.display = "silent";
 }
