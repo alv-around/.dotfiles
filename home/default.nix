@@ -3,9 +3,7 @@
   pkgs,
   nixgl,
   ...
-}:
-
-let
+}: let
   # Pin LazyVim v15.13.0
   lazyvim-pinned = pkgs.vimUtils.buildVimPlugin {
     pname = "LazyVim-2025-03-01";
@@ -18,14 +16,13 @@ let
       hash = "sha256-kgTdhFfqOK6HZrHF/LYge8cm20wuud7xlxBAUm0OL+M=";
     };
   };
-in
-{
+in {
   # Adjust username and homeDirectory path to your local machine
   home.username = "alv";
   home.homeDirectory = /home/alv;
   home.stateVersion = "25.05";
 
-  nixGL.packages = import nixgl { inherit pkgs; };
+  nixGL.packages = import nixgl {inherit pkgs;};
   nixGL.defaultWrapper = "mesa";
 
   fonts.fontconfig.enable = true;
@@ -61,6 +58,9 @@ in
 
   # You can optionally add other basic Home Manager settings here,
   programs.home-manager.enable = true;
+
+  # direnv.enableZshIntegration is set to true as default
+  programs.direnv.enable = true;
 
   programs.lazygit.enable = true;
 

@@ -25,7 +25,8 @@
     "clock",
     "bluetooth",
     "network",
-    "battery"
+    "battery",
+    "custom/power"
   ],
   // modules configuration 
   "custom/appmenu": {
@@ -119,5 +120,10 @@
       "",
       ""
     ]
+  },
+  "custom/power": {
+    "format": " ⏻ ",
+    "tooltip": false,
+    "on-click": "wlogout --protocol layer-shell"
   }
 }
