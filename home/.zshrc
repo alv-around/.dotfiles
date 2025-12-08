@@ -4,6 +4,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+export PATH="$HOME/.nix-profile/bin:$PATH"
 export EDITOR="nvim"
 
 # starship terminal theme
@@ -117,7 +118,6 @@ bindkey -M vicmd -r k # remove uphistory binding in vim mode
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 
 if [[ -f "${HOME}/.cargo/env" ]] then
     . "${HOME}/.cargo/env"
