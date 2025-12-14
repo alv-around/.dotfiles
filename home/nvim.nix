@@ -21,6 +21,30 @@
           gitsigns.enable = true;
         };
 
+        diagnostics = {
+          enable = true;
+          config = {
+            virtual_lines = false; # shows an extra line with the message
+            virtual_text = true; # shows inline message
+          };
+        };
+
+        lsp = {
+          enable = true;
+          # DISABLE LSP FORMATTING
+          # We want Conform to handle the save, not the native LSP client.
+          formatOnSave = false;
+          inlayHints.enable = true;
+
+          trouble = {
+            enable = true;
+            mappings = {
+              workspaceDiagnostics = "<leader>xx";
+              documentDiagnostics = "<leader>xd";
+            };
+          };
+        };
+
         utility = {
           sleuth.enable = true;
           smart-splits.enable = true;
@@ -65,11 +89,6 @@
               timeout_ms = 500;
               lsp_fallback = true; # If no formatter is found, try LSP
             };
-            # Explicitly map filetypes to formatters
-            formatters_by_ft = {
-              nix = ["alejandra"];
-              rust = ["rustfmt"];
-            };
           };
         };
 
@@ -85,6 +104,7 @@
               enable = true;
               type = "alejandra";
             };
+            # extraDiagnostics.enable = true;
           };
 
           rust = {
@@ -95,21 +115,6 @@
             # Ensure crate-based LSP is handled via rustaceanvim
             # crates.enable = true;
           };
-        };
-
-        # TODO: wip create trouble
-        # diagnostics.enable = true;
-        # lsp.trouble.enable = true;
-
-        lsp = {
-          # Warning: uncommenting next line create error msg
-          # enable = true;
-
-          # DISABLE LSP FORMATTING
-          # We want Conform to handle the save, not the native LSP client.
-          formatOnSave = false;
-
-          inlayHints.enable = true;
         };
       };
     };
