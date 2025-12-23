@@ -100,20 +100,13 @@
           # languages
           nix = {
             enable = true;
-            format = {
-              enable = true;
-              type = "alejandra";
-            };
-            # extraDiagnostics.enable = true;
+            format.type = ["alejandra"];
           };
 
           rust = {
             # handles the LSP setup internally.
             enable = true;
-
-            # TODO: we want this but we don't want the lsp-error
-            # Ensure crate-based LSP is handled via rustaceanvim
-            # crates.enable = true;
+            extensions.crates-nvim.enable = true;
           };
         };
       };
