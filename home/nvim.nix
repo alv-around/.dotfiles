@@ -33,7 +33,7 @@
           enable = true;
           # DISABLE LSP FORMATTING
           # We want Conform to handle the save, not the native LSP client.
-          formatOnSave = false;
+          formatOnSave = true;
           inlayHints.enable = true;
 
           trouble = {
@@ -68,9 +68,12 @@
         filetree = {
           neo-tree = {
             enable = true;
-            setupOpts.filesystem = {
-              filtered_items = {
-                visible = true;
+            setupOpts = {
+              git_status_async = true;
+              filesystem = {
+                filtered_items = {
+                  visible = true;
+                };
               };
             };
           };
@@ -78,18 +81,6 @@
 
         maps.normal = {
           "<leader>e".action = "<cmd>Neotree toggle<CR>";
-          "<leader>f".action = ":lua require('conform').format()<CR>";
-        };
-
-        formatter.conform-nvim = {
-          enable = true;
-          setupOpts = {
-            # This is the standard Conform setup to ensure it runs on save
-            format_on_save = {
-              timeout_ms = 500;
-              lsp_fallback = true; # If no formatter is found, try LSP
-            };
-          };
         };
 
         languages = {
