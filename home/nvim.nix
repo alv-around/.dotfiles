@@ -45,9 +45,16 @@
           };
         };
 
+        notes.todo-comments.enable = true;
         utility = {
           sleuth.enable = true;
           smart-splits.enable = true;
+          snacks-nvim = {
+            enable = true;
+            setupOpts = {
+              picker.enable = true;
+            };
+          };
         };
 
         binds = {
@@ -81,6 +88,8 @@
 
         maps.normal = {
           "<leader>e".action = "<cmd>Neotree toggle<CR>";
+          # TODO: figure out how to call snacks picker
+          "<leader><space>".action = "<cmd>Snacks.picker.smart()<CR>";
         };
 
         languages = {
