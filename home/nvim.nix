@@ -88,9 +88,90 @@
 
         maps.normal = {
           "<leader>e".action = "<cmd>Neotree toggle<CR>";
-          # TODO: figure out how to call snacks picker
-          "<leader><space>".action = "<cmd>Snacks.picker.smart()<CR>";
         };
+
+        # Snacks picker keymaps. For more functionalities check:
+        keymaps = [
+          {
+            key = "<leader><space>";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.smart() end";
+            desc = "Find Files (Root Dir)";
+          }
+          {
+            key = "<leader>/";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.grep() end";
+            desc = "Grep (Root Dir)";
+          }
+          {
+            key = "<leader>,";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.buffers() end";
+            desc = "Buffers";
+          }
+          {
+            key = "<leader>;";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.command_history() end";
+            desc = "Command History";
+          }
+          # TODO: currently this is not returning any result
+          {
+            key = "<leader>n";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.notifications() end";
+            desc = "Notification History";
+          }
+          # LSP
+          {
+            key = "<space>gd";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.lsp_definitions() end";
+            desc = "Goto Definition";
+          }
+          {
+            key = "<space>gD";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.lsp_declarations() end";
+            desc = "Goto Declarations";
+          }
+          {
+            key = "<space>gr";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.lsp_references() end";
+            desc = "References";
+          }
+          {
+            key = "<space>gI";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.lsp_implementations() end";
+            desc = "Goto Implementations";
+          }
+          {
+            key = "<space>gy";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.lsp_type_definitions() end";
+            desc = "Goto T[y]pe Definition";
+          }
+          {
+            key = "<space>ss";
+            mode = "n";
+            lua = true;
+            action = "function() Snacks.picker.lsp_symbols() end";
+            desc = "LSP Symbols";
+          }
+        ];
 
         languages = {
           enableFormat = true;
