@@ -52,7 +52,20 @@
           snacks-nvim = {
             enable = true;
             setupOpts = {
-              picker.enable = true;
+              picker = {
+                enable = true;
+                sources = {
+                  files = {
+                    hidden = true; # Include .dotfiles
+                    ignored = true; # Include files in .gitignore (crucial for some configs)
+                    follow = true; # Follow symlinks
+                  };
+                  grep = {
+                    hidden = true; # Include .dotfiles
+                    follow = true; # Follow symlinks
+                  };
+                };
+              };
             };
           };
         };
@@ -80,6 +93,10 @@
               filesystem = {
                 filtered_items = {
                   visible = true;
+                  hide_dotfiles = false; # Don't treat dotfiles as hidden
+                  hide_by_name = [
+                    ".git" # You might still want to hide the .git folder itself
+                  ];
                 };
               };
             };
