@@ -3,12 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   # Import the default home configuration
   imports = [
     ../home/default.nix
+    ../home/nvim.nix
   ];
 
   # Override specific fields for the 'runner' user
