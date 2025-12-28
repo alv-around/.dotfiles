@@ -74,7 +74,7 @@
       syntaxHighlighting.enable = true;
 
       # This is how you point to your existing .zshrc logic
-      initExtra = ''
+      initContent = ''
         source ${./zshrc}
       '';
     };
