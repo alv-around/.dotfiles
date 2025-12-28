@@ -9,8 +9,6 @@
     };
 
     nvf.url = "github:notashelf/nvf";
-
-    # Add nixGL as an input
     nixgl.url = "github:nix-community/nixGL";
   };
 
@@ -22,12 +20,12 @@
     ...
   }: let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {system = "x86_64-linux";};
+    pkgs = import nixpkgs {inherit system;};
     homeConfigurations = {
       inherit pkgs;
       # System is very important!
       extraSpecialArgs = {
-        nixgl = nixgl;
+        inherit nixgl;
       };
     };
   in {

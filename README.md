@@ -21,17 +21,8 @@
 ```
   home-manager switch --flake .
 ```
+  > /!\ if you just freshly install nix and home-manager add the following flags: `--extra-experimental-features nix-command --extra-experimental-features flakes` 
 
-  After home-manager switch completes, it usually prompts you to restart your shell for
-  changes to take full effect. And do this (e.g., `exec zsh` or `exec bash`).
-
-finally Run:
-
-```
-  ./install.sh
-```
-
-**For hyprland:** adjust `home/.config/wofi/style.css` to your user.
 
 ### Updating Packages
 
