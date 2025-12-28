@@ -20,9 +20,9 @@
   home.packages = with pkgs; [
     # general
     fd
-    fzf
-    tmux
+    ripgrep
     tree
+    tmux
     wget
     # clipboards
     wl-clipboard
