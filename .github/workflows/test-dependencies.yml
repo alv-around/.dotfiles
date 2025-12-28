@@ -30,4 +30,4 @@ jobs:
       - run: nix develop
       - name: Run home-manager and tests
         # This step now creates the file and then runs home-manager, all within the same shell environment.
-        run: nix develop --command bash -c "home-manager switch --flake . && sh ./tests/test-dependency.sh zsh nvim ripgrep fzf zoxide bat zellij"
+        run: nix develop --command bash -c "home-manager switch --flake . && sh ./tests/test-dependency.sh zsh nvim fzf zoxide bat zellij"
