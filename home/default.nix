@@ -22,7 +22,6 @@
     fd
     ripgrep
     tree
-    tmux
     wget
     # clipboards
     wl-clipboard
@@ -34,7 +33,6 @@
 
   xdg.configFile = {
     "nix/nix.conf".source = ./config/nix/nix.conf;
-    "tmux/tmux.conf".source = ./config/tmux/tmux.conf;
     "wezterm".source = ./config/wezterm;
   };
 
