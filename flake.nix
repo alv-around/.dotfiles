@@ -38,6 +38,7 @@
             nvf.homeManagerModules.default
             ./home/default.nix
             ./home/nvim.nix
+            ./home/zellij.nix
           ];
         }
       );
