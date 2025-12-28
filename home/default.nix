@@ -19,46 +19,65 @@
   # Define the packages you want available in your user environment.
   home.packages = with pkgs; [
     # general
-    bat
     fd
-    fzf
-    starship
-    stow
-    tmux
+    ripgrep
     tree
+    tmux
     wget
-    zoxide
-    zsh
-
     # clipboards
     wl-clipboard
     xclip
-
-    # programming
-    gcc # GNU Compiler Collection
-    go # Go programming language
-    rustup # Rust toolchain installer
-    # rust-analyzer
-    typescript
-    lua
 
     ## Wezterm wrapped with nixgl for graphics compatibility.
     (config.lib.nixGL.wrap wezterm)
   ];
 
   xdg.configFile = {
-    "nix/nix.conf".source = ./.config/nix/nix.conf;
-    "starship/starship.toml".source = ./.config/starship/starship.toml;
-    "tmux/tmux.conf".source = ./.config/tmux/tmux.conf;
-    "wezterm".source = ./.config/wezterm;
+    "nix/nix.conf".source = ./config/nix/nix.conf;
+    "tmux/tmux.conf".source = ./config/tmux/tmux.conf;
+    "wezterm".source = ./config/wezterm;
   };
 
   # You can optionally add other basic Home Manager settings here,
   programs = {
     home-manager.enable = true;
-    # direnv.enableZshIntegration is set to true as default
+
+    # 1. Improved Tool Integrations
     direnv.enable = true;
+    direnv.nix-direnv.enable = true;
+
     lazygit.enable = true;
+
+    # Replaces pkgs.bat; adds syntax highlighting and aliases
+    bat.enable = true;
+
+    # Replaces pkgs.zoxide; auto-sources "zoxide init zsh"
+    zoxide.enable = true;
+    zoxide.enableZshIntegration = true;
+
+    # Replaces pkgs.fzf; sets up keybinds (CTRL-T, etc.)
+    fzf.enable = true;
+    fzf.enableZshIntegration = true;
+
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+      # If you want to keep your starship.toml in the same place:
+      settings = builtins.fromTOML (builtins.readFile ./config/starship/starship.toml);
+    };
+
+    # 2. Zsh Configuration
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+
+      # This is how you point to your existing .zshrc logic
+      initContent = ''
+        source ${./zshrc}
+      '';
+    };
   };
 
   # Avoid displaying news on activation

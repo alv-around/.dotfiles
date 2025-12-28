@@ -6,4 +6,4 @@ home/local.nix
 
 # Nix's artifact
 result
-
+.direnv

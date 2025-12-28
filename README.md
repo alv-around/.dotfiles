@@ -7,16 +7,7 @@
 
 1. Adjust `username` to your settings in [`flake.nix`](./flake.nix#L37)
 
-1. Add a new file called `home/local.nix` with the following content:
-
-  ```nix
-{
-  username = "your-username";
-  homeDirectory = "/path/to/home/dir";
-}
-  ```
-
-3. Run:
+2. Run:
 
 ```
   home-manager switch --flake .
@@ -47,4 +38,5 @@ To test your changes:
 ```
 nix development
 home-manager switch --flake .
+exec zsh
 ```
