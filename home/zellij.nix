@@ -24,6 +24,8 @@
           # Tab management
           "bind \"Alt t\"" = {NewTab = [];}; # New Tab
           "bind \"Alt w\"" = {CloseTab = [];}; # Close Tab (same as Alt+x usually)
+          "bind \"Alt n\"" = {GoToNextTab = [];};
+          "bind \"Alt p\"" = {GoToPreviousTab = [];};
 
           # Resizing
           "bind \"Alt ]\"" = {Resize = "Increase";};
