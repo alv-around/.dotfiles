@@ -12,8 +12,15 @@
     settings = {
       theme = "tokyo-night";
 
+      copy_command = "xclip -selection clipboard";
+
       # Keybindings for horizontal/vertical splits, resizing, and tabs
       keybinds = {
+        # Unbind the default 'Move' mode trigger
+        move = {
+          "unbind \"Ctrl h\"" = {};
+        };
+
         # These bindings work in "Normal" mode (no need to press Ctrl+g first)
         normal = {
           # Pane management
