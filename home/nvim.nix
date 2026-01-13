@@ -206,6 +206,22 @@
             enable = true;
             extensions.crates-nvim.enable = true;
           };
+
+          ts.enable = true;
+          svelte.enable = true;
+          python.enable = true;
+
+          # additional
+          bash.enable = true;
+          css.enable = true;
+          helm.enable = true;
+          html.enable = true;
+          json.enable = true;
+          lua.enable = true;
+          markdown.enable = true;
+          sql.enable = true;
+          tailwind.enable = true;
+          yaml.enable = true;
         };
 
         # noice
