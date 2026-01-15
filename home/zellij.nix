@@ -16,13 +16,11 @@
 
       # Keybindings for horizontal/vertical splits, resizing, and tabs
       keybinds = {
-        # Unbind the default 'Move' mode trigger
-        move = {
-          "unbind \"Ctrl h\"" = {};
-        };
-
         # These bindings work in "Normal" mode (no need to press Ctrl+g first)
         normal = {
+          # Unbind the default 'Move' mode trigger
+          "unbind \"Ctrl h\"" = {};
+
           # Pane management
           "bind \"Alt '\"" = {NewPane = "Right";}; # Vertical Split
           "bind \"Alt ;\"" = {NewPane = "Down";}; # Horizontal Split
@@ -31,8 +29,8 @@
           # Tab management
           "bind \"Alt t\"" = {NewTab = [];}; # New Tab
           "bind \"Alt w\"" = {CloseTab = [];}; # Close Tab (same as Alt+x usually)
-          "bind \"Alt n\"" = {GoToNextTab = [];};
-          "bind \"Alt p\"" = {GoToPreviousTab = [];};
+          "bind \"Alt p\"" = {GoToNextTab = [];};
+          "bind \"Alt n\"" = {GoToPreviousTab = [];};
 
           # Resizing
           "bind \"Alt ]\"" = {Resize = "Increase";};
