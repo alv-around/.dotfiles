@@ -78,7 +78,11 @@
           enable = true;
           # number options: “none”, “ordinal”, “buffer_id”, “both” or (luaInline)
           setupOpts.options.numbers = "none";
-          mappings.closeCurrent = "<leader>bd";
+          mappings = {
+            closeCurrent = "<leader>bd";
+            cyclePrevious = "[b";
+            cycleNext = "]b";
+          };
         };
 
         # use mini.statusline which is compatible with tokyonight theme
