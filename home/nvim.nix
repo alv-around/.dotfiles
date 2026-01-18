@@ -206,6 +206,13 @@
             enable = true;
             extensions.crates-nvim.enable = true;
           };
+
+          # additional
+          bash.enable = true;
+          helm.enable = true;
+          json.enable = true;
+          markdown.enable = true;
+          yaml.enable = true;
         };
 
         # noice

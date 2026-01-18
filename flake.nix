@@ -12,6 +12,11 @@
     nixgl.url = "github:nix-community/nixGL";
   };
 
+  # use nix-command and flakes experimental features
+  nixConfig = {
+    extra-experimental-features = ["nix-command" "flakes"];
+  };
+
   outputs = {
     nixpkgs,
     home-manager,

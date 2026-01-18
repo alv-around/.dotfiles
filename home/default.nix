@@ -4,6 +4,14 @@
   nixgl,
   ...
 }: {
+  # add nix-command and flakes experimental features
+  nix = {
+    package = pkgs.nix; # Ensure you're using a compatible nix version
+    settings = {
+      experimental-features = ["nix-command" "flakes"];
+    };
+  };
+
   # Adjust username and homeDirectory path to your local machine
   home = {
     username = "alv";
@@ -32,7 +40,6 @@
   ];
 
   xdg.configFile = {
-    "nix/nix.conf".source = ./config/nix/nix.conf;
     "wezterm".source = ./config/wezterm;
   };
 
