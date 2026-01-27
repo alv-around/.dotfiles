@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  nixgl,
-  ...
-}: {
+_inputs: {
   programs.nvf = {
     enable = true;
     settings = {

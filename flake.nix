@@ -42,8 +42,6 @@
           modules = [
             nvf.homeManagerModules.default
             ./home/default.nix
-            ./home/nvim.nix
-            ./home/zellij.nix
           ];
         }
       );
@@ -64,7 +62,6 @@
       name = "home-manager-dev";
       packages = with pkgs; [
         home-manager.packages.${system}.default # Provides the 'home-manager' CLI tool from this flake
-        git # Useful if your flake is in a git repo
       ];
       shellHook = ''
         echo "Welcome to the home-manager development shell!"
