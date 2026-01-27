@@ -110,8 +110,15 @@ _inputs: {
             key = "<leader><space>";
             mode = "n";
             lua = true;
-            action = "function() Snacks.picker.smart() end";
+            action = ''function() Snacks.picker.smart({ignored = false}) end'';
             desc = "Find Files (Root Dir)";
+          }
+          {
+            key = "<leader>ff";
+            mode = "n";
+            lua = true;
+            action = ''function() Snacks.picker.smart() end'';
+            desc = "Find Files (Root Dir) [ALL]";
           }
           {
             key = "<leader>/";

@@ -1,5 +1,6 @@
 _inputs: {
   programs.nvf.settings.vim = {
+    # TODO: research more whats possible with gitsigns
     git = {
       gitsigns.enable = true;
 
@@ -15,11 +16,11 @@ _inputs: {
       };
     };
 
+    # TODO: research more what possible with diffview
     utility.diffview-nvim = {
       enable = true;
     };
 
-    # TODO: set keymaps for gitsigns & diffview-nvim
     keymaps = [
       # neogit keymaps
       # TODO: learn more of neogit
@@ -52,6 +53,28 @@ _inputs: {
         mode = "n";
         action = "<cmd>Neogit commit<cr>";
         desc = "Commit [Neogit]";
+      }
+      # search commands
+      {
+        key = "<leader>fgc";
+        mode = "n";
+        lua = true;
+        action = "function() Snacks.picker.git_log() end";
+        desc = "Search repo's commit history";
+      }
+      {
+        key = "<leader>fgf";
+        mode = "n";
+        lua = true;
+        action = "function() Snacks.picker.git_log_file() end";
+        desc = "Search file's commit history";
+      }
+      {
+        key = "<leader>fgb";
+        mode = "n";
+        lua = true;
+        action = "function() Snacks.picker.git_branches() end";
+        desc = "Search branches";
       }
     ];
 
