@@ -22,6 +22,8 @@
     ./zellij.nix
   ];
 
+  features.zellij.enable = false;
+
   # Define the packages you want available in your user environment.
   home.packages = with pkgs; [
     # general
