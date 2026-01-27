@@ -18,7 +18,7 @@
 
   # different modules with their flags
   imports = [
-    ./programs/nvim.nix
+    ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
 
