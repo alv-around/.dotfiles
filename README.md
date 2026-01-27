@@ -1,3 +1,5 @@
+# "Dotfiles"
+
 ## Requirements
 
 - git
@@ -6,20 +8,21 @@
 
 ## Installation
 
+> /!\ if nix and home-manager are freshly installed either: add
+> `experimental-features = nix-command flakes` to `~/.config/nix`, or flag to
+> each nix command `--extra-experimental-features "nix-command flakes"`
+
 1. Adjust `username` to your settings in [`flake.nix`](./flake.nix#L37)
 
 2. Run:
 
-```
+```console
 home-manager switch --flake .
 ```
 
-> /!\ if you just freshly install nix and home-manager add the following flags:
-> `--extra-experimental-features nix-command --extra-experimental-features flakes`
-
 ### Updating Packages
 
-```
+```console
 rm flake.lock
 nix flake update
 home-manager switch --flake .
@@ -29,7 +32,7 @@ home-manager switch --flake .
 
 To test your changes:
 
-```
+```console
 nix development
 home-manager switch --flake .
 exec zsh
