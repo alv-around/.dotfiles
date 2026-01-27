@@ -64,9 +64,8 @@ _inputs: {
           };
         };
 
-        binds = {
-          whichKey.enable = true;
-        };
+        mini.icons.enable = true;
+        binds.whichKey.enable = true;
 
         tabline.nvimBufferline = {
           enable = true;

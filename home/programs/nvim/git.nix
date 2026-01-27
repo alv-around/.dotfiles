@@ -54,5 +54,29 @@ _inputs: {
         desc = "Commit [Neogit]";
       }
     ];
+
+    # Make the distinction clearer with which-key
+    binds.whichKey = {
+      register = {
+        "<leader>gg" = "Neogit";
+        "<leader>g" = "Goto";
+      };
+      setupOpts = {
+        icons = {
+          rules = [
+            {
+              pattern = "neogit";
+              icon = "󰊢 ";
+              color = "orange";
+            }
+            {
+              pattern = "goto";
+              icon = " ";
+              color = "green";
+            }
+          ];
+        };
+      };
+    };
   };
 }
