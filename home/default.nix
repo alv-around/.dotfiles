@@ -18,8 +18,8 @@
 
   # different modules with their flags
   imports = [
-    ./nvim.nix
-    ./zellij.nix
+    ./programs/nvim.nix
+    ./programs/zellij.nix
   ];
 
   features.zellij.enable = false;
