@@ -12,8 +12,16 @@ _inputs: {
         };
 
         git = {
-          enable = true;
           gitsigns.enable = true;
+          neogit = {
+            enable = true;
+            mappings = {
+              open = "ggs";
+              commit = "ggc";
+              pull = "ggp";
+              push = "ggP";
+            };
+          };
         };
 
         diagnostics = {
@@ -42,6 +50,7 @@ _inputs: {
 
         notes.todo-comments.enable = true;
         utility = {
+          diffview-nvim.enable = true;
           sleuth.enable = true;
           smart-splits.enable = true;
           snacks-nvim = {
