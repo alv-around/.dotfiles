@@ -4,14 +4,6 @@
   nixgl,
   ...
 }: {
-  # add nix-command and flakes experimental features
-  nix = {
-    package = pkgs.nix; # Ensure you're using a compatible nix version
-    settings = {
-      experimental-features = ["nix-command" "flakes"];
-    };
-  };
-
   # Adjust username and homeDirectory path to your local machine
   home = {
     username = "alv";
@@ -23,6 +15,12 @@
   nixGL.defaultWrapper = "mesa";
 
   fonts.fontconfig.enable = true;
+
+  # different modules with their flags
+  imports = [
+    ./nvim.nix
+    ./zellij.nix
+  ];
 
   # Define the packages you want available in your user environment.
   home.packages = with pkgs; [

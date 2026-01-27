@@ -1,14 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   # Import the default home configuration
   imports = [
     ../home/default.nix
-    ../home/nvim.nix
-    ../home/zellij.nix
   ];
 
   # Override specific fields for the 'runner' user
