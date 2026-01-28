@@ -1,4 +1,8 @@
 _inputs: {
+  imports = [
+    ./git.nix
+  ];
+
   programs.nvf = {
     enable = true;
     settings = {
@@ -9,11 +13,6 @@ _inputs: {
           enable = true;
           name = "tokyonight";
           style = "night";
-        };
-
-        git = {
-          enable = true;
-          gitsigns.enable = true;
         };
 
         diagnostics = {
@@ -65,9 +64,8 @@ _inputs: {
           };
         };
 
-        binds = {
-          whichKey.enable = true;
-        };
+        mini.icons.enable = true;
+        binds.whichKey.enable = true;
 
         tabline.nvimBufferline = {
           enable = true;
@@ -112,8 +110,15 @@ _inputs: {
             key = "<leader><space>";
             mode = "n";
             lua = true;
-            action = "function() Snacks.picker.smart() end";
+            action = ''function() Snacks.picker.smart({ignored = false}) end'';
             desc = "Find Files (Root Dir)";
+          }
+          {
+            key = "<leader>ff";
+            mode = "n";
+            lua = true;
+            action = ''function() Snacks.picker.smart() end'';
+            desc = "Find Files (Root Dir) [ALL]";
           }
           {
             key = "<leader>/";
