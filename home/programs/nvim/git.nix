@@ -25,31 +25,25 @@ _inputs: {
       # neogit keymaps
       # TODO: learn more of neogit
       {
-        key = "<leader>gg";
-        mode = "n";
-        action = "";
-        desc = "Neogit";
-      }
-      {
-        key = "<leader>ggs";
+        key = "<leader>gs";
         mode = "n";
         action = "<cmd>Neogit<cr>";
         desc = "Status [Neogit]";
       }
       {
-        key = "<leader>ggb";
+        key = "<leader>gb";
         mode = "n";
         action = "<cmd>Neogit branch<cr>";
         desc = "Branch [Neogit]";
       }
       {
-        key = "<leader>ggl";
+        key = "<leader>gl";
         mode = "n";
         action = "<cmd>Neogit log<cr>";
         desc = "Log [Neogit]";
       }
       {
-        key = "<leader>ggc";
+        key = "<leader>gc";
         mode = "n";
         action = "<cmd>Neogit commit<cr>";
         desc = "Commit [Neogit]";
@@ -81,21 +75,20 @@ _inputs: {
     # Make the distinction clearer with which-key
     binds.whichKey = {
       register = {
-        "<leader>gg" = "Neogit";
-        "<leader>g" = "Goto";
+        "<leader>g" = "Goto/Neogit";
       };
       setupOpts = {
         icons = {
           rules = [
             {
-              pattern = "neogit";
-              icon = "󰊢 ";
-              color = "orange";
-            }
-            {
               pattern = "goto";
               icon = " ";
               color = "green";
+            }
+            {
+              pattern = "neogit";
+              icon = "󰊢 ";
+              color = "orange";
             }
           ];
         };

@@ -9,8 +9,8 @@
 ## Installation
 
 > /!\ if nix and home-manager are freshly installed either: add
-> `experimental-features = nix-command flakes` to `~/.config/nix`, or flag to
-> each nix command `--extra-experimental-features "nix-command flakes"`
+> `experimental-features = nix-command flakes` to `~/.config/nix/nix.conf`, or
+> flag to each nix command `--extra-experimental-features "nix-command flakes"`
 
 1. Adjust `username` to your settings in [`flake.nix`](./flake.nix#L37)
 
