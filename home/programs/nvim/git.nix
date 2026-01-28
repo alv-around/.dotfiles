@@ -1,6 +1,5 @@
 _inputs: {
   programs.nvf.settings.vim = {
-    # TODO: research more whats possible with gitsigns
     git = {
       gitsigns.enable = true;
 
@@ -16,7 +15,7 @@ _inputs: {
       };
     };
 
-    # TODO: research more what possible with diffview
+    # Usage: check the repo's README: https://github.com/sindrets/diffview.nvim?tab=readme-ov-file#usage
     utility.diffview-nvim = {
       enable = true;
     };
