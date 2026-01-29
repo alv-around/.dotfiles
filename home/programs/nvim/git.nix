@@ -90,6 +90,12 @@ _inputs: {
               icon = "󰊢 ";
               color = "orange";
             }
+            {
+              pattern = "obsidian";
+              icon = "󰇈";
+              # valid colors: azure, blue, cyan, green, grey, orange, purple, red, yellow
+              color = "purple";
+            }
           ];
         };
       };
