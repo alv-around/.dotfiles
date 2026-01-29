@@ -2,18 +2,17 @@ _inputs: {
   programs.nvf.settings.vim.notes = {
     todo-comments.enable = true;
 
-    neorg = {
+    obsidian = {
       enable = true;
-      treesitter.enable = true;
       setupOpts = {
-        load = {
-          "core.defaults".enable = true;
-          "core.dirman" .config = {
-            workspaces = {
-              personal = "~/Code/vault_neorg";
-            };
-            default_workspace = "personal";
-          };
+        workspaces = [
+          {
+            name = "personal";
+            path = "~/Code/research_vault";
+          }
+        ];
+        templates = {
+          folder = "1.templates";
         };
       };
     };
