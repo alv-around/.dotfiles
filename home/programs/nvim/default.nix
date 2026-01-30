@@ -1,6 +1,8 @@
 _inputs: {
   imports = [
+    ./binds.nix
     ./git.nix
+    ./notes.nix
   ];
 
   programs.nvf = {
@@ -39,7 +41,6 @@ _inputs: {
           };
         };
 
-        notes.todo-comments.enable = true;
         utility = {
           sleuth.enable = true;
           smart-splits.enable = true;

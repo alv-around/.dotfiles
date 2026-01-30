@@ -53,14 +53,14 @@ _inputs: {
         mode = "n";
         lua = true;
         action = "function() Snacks.picker.git_log() end";
-        desc = "Search repo's commit history";
+        desc = "Search commit history (repo)";
       }
       {
         key = "<leader>fgf";
         mode = "n";
         lua = true;
         action = "function() Snacks.picker.git_log_file() end";
-        desc = "Search file's commit history";
+        desc = "Search commit history (file)";
       }
       {
         key = "<leader>fgb";
@@ -70,28 +70,5 @@ _inputs: {
         desc = "Search branches";
       }
     ];
-
-    # Make the distinction clearer with which-key
-    binds.whichKey = {
-      register = {
-        "<leader>g" = "Goto/Neogit";
-      };
-      setupOpts = {
-        icons = {
-          rules = [
-            {
-              pattern = "goto";
-              icon = " ";
-              color = "green";
-            }
-            {
-              pattern = "neogit";
-              icon = "󰊢 ";
-              color = "orange";
-            }
-          ];
-        };
-      };
-    };
   };
 }
