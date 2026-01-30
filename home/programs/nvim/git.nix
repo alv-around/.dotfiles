@@ -70,35 +70,5 @@ _inputs: {
         desc = "Search branches";
       }
     ];
-
-    # Make the distinction clearer with which-key
-    binds.whichKey = {
-      register = {
-        "<leader>g" = "Goto/Neogit";
-        "<leader>fg" = "Search Neogit";
-      };
-      setupOpts = {
-        icons = {
-          rules = [
-            {
-              pattern = "goto";
-              icon = " ";
-              color = "green";
-            }
-            {
-              pattern = "neogit";
-              icon = "󰊢 ";
-              color = "orange";
-            }
-            {
-              pattern = "obsidian";
-              icon = "󰇈";
-              # valid colors: azure, blue, cyan, green, grey, orange, purple, red, yellow
-              color = "purple";
-            }
-          ];
-        };
-      };
-    };
   };
 }

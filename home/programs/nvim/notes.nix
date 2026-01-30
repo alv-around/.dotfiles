@@ -90,14 +90,5 @@ _inputs: {
       # TODO: configure missing commands: ObsisidianLink, ObsidianLinkNew
       # TODO: missing daily notes: ObsidianYesterday/Today/Tomorro ..
     ];
-
-    # TODO: move whichKey to its own file
-    binds.whichKey = {
-      register = {
-        "<leader>o" = "Obsidian";
-        "<leader>ol" = "Obsidian Links";
-        "<leader>of" = "Obsidian Pickers";
-      };
-    };
   };
 }

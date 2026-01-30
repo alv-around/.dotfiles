@@ -1,5 +1,6 @@
 _inputs: {
   imports = [
+    ./binds.nix
     ./git.nix
     ./notes.nix
   ];
