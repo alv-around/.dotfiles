@@ -25,22 +25,6 @@ _inputs: {
           };
         };
 
-        lsp = {
-          enable = true;
-          # DISABLE LSP FORMATTING
-          # We want Conform to handle the save, not the native LSP client.
-          formatOnSave = true;
-          inlayHints.enable = true;
-
-          trouble = {
-            enable = true;
-            mappings = {
-              workspaceDiagnostics = "<leader>xx";
-              documentDiagnostics = "<leader>xd";
-            };
-          };
-        };
-
         utility = {
           sleuth.enable = true;
           smart-splits.enable = true;
@@ -195,6 +179,22 @@ _inputs: {
           }
         ];
 
+        lsp = {
+          enable = true;
+          # DISABLE LSP FORMATTING
+          # We want Conform to handle the save, not the native LSP client.
+          formatOnSave = true;
+          inlayHints.enable = true;
+
+          trouble = {
+            enable = true;
+            mappings = {
+              workspaceDiagnostics = "<leader>xx";
+              documentDiagnostics = "<leader>xd";
+            };
+          };
+        };
+
         languages = {
           enableFormat = true;
           enableTreesitter = true;
@@ -213,6 +213,7 @@ _inputs: {
           };
 
           # additional
+          typst.enable = true;
           bash.enable = true;
           helm.enable = true;
           json.enable = true;
