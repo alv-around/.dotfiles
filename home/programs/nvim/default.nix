@@ -85,12 +85,8 @@ _inputs: {
           };
         };
 
-        maps.normal = {
-          "<leader>e".action = "<cmd>Neotree toggle<CR>";
-        };
-
-        # Snacks picker keymaps. For more functionalities check:
         keymaps = [
+          # Snacks picker keymaps. For more functionalities check:
           {
             key = "<leader><space>";
             mode = "n";
@@ -176,6 +172,13 @@ _inputs: {
             lua = true;
             action = "function() Snacks.picker.lsp_symbols() end";
             desc = "LSP Symbols";
+          }
+          # Neotree
+          {
+            key = "<space>e";
+            mode = "n";
+            action = "<cmd>Neotree toggle<CR>";
+            desc = "Toggle Neotree (RootDir)";
           }
         ];
 
