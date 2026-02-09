@@ -128,6 +128,31 @@ _inputs: {
         action = "<cmd>Neotree toggle<CR>";
         desc = "Toggle Neotree (RootDir)";
       }
+      # Bufferline
+      {
+        key = "<space>bl";
+        mode = "n";
+        action = "<cmd>BufferLineCloseLeft<CR>";
+        desc = "Delete all buffers to the left";
+      }
+      {
+        key = "<space>br";
+        mode = "n";
+        action = "<cmd>BufferLineCloseRight<CR>";
+        desc = "Delete all buffers to the right";
+      }
+      {
+        key = "<space>bo";
+        mode = "n";
+        action = "<cmd>BufferLineCloseOthers<CR>";
+        desc = "Delete all other buffers";
+      }
+      {
+        key = "<space>bp";
+        mode = "n";
+        action = "<cmd>BufferLineTogglePin<CR>";
+        desc = "Pin current buffer";
+      }
     ];
   };
 }
