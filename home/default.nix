@@ -23,8 +23,10 @@
       ];
   };
 
-  nixGL.packages = import nixgl {inherit pkgs;};
-  nixGL.defaultWrapper = "mesa";
+  targets.genericLinux.nixGL = {
+    packages = import nixgl {inherit pkgs;};
+    defaultWrapper = "mesa";
+  };
 
   fonts.fontconfig.enable = true;
 
