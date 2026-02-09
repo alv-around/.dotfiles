@@ -1,7 +1,8 @@
 _inputs: {
   imports = [
-    ./binds.nix
     ./git.nix
+    ./keymaps.nix
+    ./lsp.nix
     ./notes.nix
   ];
 
@@ -50,7 +51,6 @@ _inputs: {
         };
 
         mini.icons.enable = true;
-        binds.whichKey.enable = true;
 
         tabline.nvimBufferline = {
           enable = true;
@@ -83,145 +83,6 @@ _inputs: {
               };
             };
           };
-        };
-
-        keymaps = [
-          # Snacks picker keymaps. For more functionalities check:
-          {
-            key = "<leader><space>";
-            mode = "n";
-            lua = true;
-            action = ''function() Snacks.picker.smart({ignored = false}) end'';
-            desc = "Find Files (Root Dir)";
-          }
-          {
-            key = "<leader>ff";
-            mode = "n";
-            lua = true;
-            action = ''function() Snacks.picker.smart() end'';
-            desc = "Find Files (Root Dir) [ALL]";
-          }
-          {
-            key = "<leader>/";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.grep() end";
-            desc = "Grep (Root Dir)";
-          }
-          {
-            key = "<leader>,";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.buffers() end";
-            desc = "Buffers";
-          }
-          {
-            key = "<leader>;";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.command_history() end";
-            desc = "Command History";
-          }
-          # TODO: currently this is not returning any result
-          {
-            key = "<leader>n";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.notifications() end";
-            desc = "Notification History";
-          }
-          # LSP
-          {
-            key = "<space>gd";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.lsp_definitions() end";
-            desc = "Goto Definition";
-          }
-          {
-            key = "<space>gD";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.lsp_declarations() end";
-            desc = "Goto Declarations";
-          }
-          {
-            key = "<space>gr";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.lsp_references() end";
-            desc = "References";
-          }
-          {
-            key = "<space>gI";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.lsp_implementations() end";
-            desc = "Goto Implementations";
-          }
-          {
-            key = "<space>gy";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.lsp_type_definitions() end";
-            desc = "Goto T[y]pe Definition";
-          }
-          {
-            key = "<space>ss";
-            mode = "n";
-            lua = true;
-            action = "function() Snacks.picker.lsp_symbols() end";
-            desc = "LSP Symbols";
-          }
-          # Neotree
-          {
-            key = "<space>e";
-            mode = "n";
-            action = "<cmd>Neotree toggle<CR>";
-            desc = "Toggle Neotree (RootDir)";
-          }
-        ];
-
-        lsp = {
-          enable = true;
-          # DISABLE LSP FORMATTING
-          # We want Conform to handle the save, not the native LSP client.
-          formatOnSave = true;
-          inlayHints.enable = true;
-
-          trouble = {
-            enable = true;
-            mappings = {
-              workspaceDiagnostics = "<leader>xx";
-              documentDiagnostics = "<leader>xd";
-            };
-          };
-        };
-
-        languages = {
-          enableFormat = true;
-          enableTreesitter = true;
-          enableExtraDiagnostics = true;
-
-          # languages
-          nix = {
-            enable = true;
-            format.type = ["alejandra"];
-          };
-
-          rust = {
-            # handles the LSP setup internally.
-            enable = true;
-            extensions.crates-nvim.enable = true;
-          };
-
-          # additional
-          typst.enable = true;
-          bash.enable = true;
-          helm.enable = true;
-          json.enable = true;
-          markdown.enable = true;
-          yaml.enable = true;
         };
 
         # noice
