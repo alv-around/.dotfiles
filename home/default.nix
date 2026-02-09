@@ -2,6 +2,7 @@
   config,
   pkgs,
   nixgl,
+  lib,
   ...
 }: {
   # Adjust username and homeDirectory path to your local machine
@@ -9,6 +10,17 @@
     username = "alv";
     homeDirectory = /home/alv;
     stateVersion = "25.05";
+    sessionVariables = {
+      # ENV_VARS
+      NIXPKGS_ALLOW_UNFREE = 1; # Allow home-manager to use unfree apps, ex: obsidian
+    };
+  };
+
+  nixpkgs.config = {
+    allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "obsidian"
+      ];
   };
 
   nixGL.packages = import nixgl {inherit pkgs;};
@@ -31,9 +43,12 @@
     ripgrep
     tree
     wget
+
     # clipboards
     wl-clipboard
-    xclip
+
+    # apps
+    obsidian #TODO: find opensource replacement for obsidian
 
     ## Wezterm wrapped with nixgl for graphics compatibility.
     (config.lib.nixGL.wrap wezterm)
