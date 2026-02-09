@@ -1,11 +1,21 @@
 _inputs: {
   programs.nvf.settings.vim = {
+    autocmds = [
+      {
+        event = ["FileType"];
+        pattern = ["markdown"];
+        command = "setlocal conceallevel=2";
+      }
+    ];
+
     notes = {
       todo-comments.enable = true;
 
       obsidian = {
         enable = true;
         setupOpts = {
+          ui.enable = true;
+          legacy_commands = false;
           workspaces = [
             {
               name = "personal";
@@ -28,56 +38,56 @@ _inputs: {
       {
         key = "<leader>on";
         mode = "n";
-        action = "<cmd>ObsidianNew<cr>";
+        action = "<cmd>Obsidian new<cr>";
         desc = "New Note";
       }
       {
         key = "<leader>oe";
         mode = "n";
-        action = "<cmd>ObsidianExtractNote<cr>";
+        action = "<cmd>Obsidian extract_note<cr>";
         desc = "Create Note from selection";
       }
       {
         key = "<leader>ow";
         mode = "n";
-        action = "<cmd>ObsidianWorkspace<cr>";
+        action = "<cmd>Obsidian workspace<cr>";
         desc = "Switch to another workspace";
       }
       {
         key = "<leader>ot";
         mode = "n";
-        action = "<cmd>ObsidianNewFromTemplate<cr>";
+        action = "<cmd>Obsidian new_from_template<cr>";
         desc = "New Note from template";
       }
       # pickers
       {
         key = "<leader>o<space>";
         mode = "n";
-        action = "<cmd>ObsidianQuickSwitch<cr>";
+        action = "<cmd>Obsidian quick_switch<cr>";
         desc = "Notes Picker";
       }
       {
         key = "<leader>o/";
         mode = "n";
-        action = "<cmd>ObsidianSearch<cr>";
+        action = "<cmd>Obsidian search<cr>";
         desc = "Grep Notes";
       }
       {
         key = "<leader>oft";
         mode = "n";
-        action = "<cmd>ObsidianTags<cr>";
+        action = "<cmd>Obsidian tags<cr>";
         desc = "Picker Notes by tag";
       }
       {
         key = "<leader>ofl";
         mode = "n";
-        action = "<cmd>ObsidianLinks<cr>";
+        action = "<cmd>Obsidian links<cr>";
         desc = "Picker for links in current buffer";
       }
       {
         key = "<leader>ofb";
         mode = "n";
-        action = "<cmd>ObsidianBacklinks<cr>";
+        action = "<cmd>Obsidian backlinks<cr>";
         desc = "Picker for Backlinks to current buffer";
       }
       # obsidian links
