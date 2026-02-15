@@ -3,8 +3,10 @@ _inputs: {
     binds.whichKey = {
       enable = true;
       register = {
+        "<leader>d" = "Debug";
         "<leader>fg" = "Search Neogit";
         "<leader>g" = "Goto/Neogit";
+        "<leader>l" = "LSP";
         "<leader>o" = "Obsidian";
         "<leader>ol" = "Obsidian Links";
         "<leader>of" = "Obsidian Pickers";
@@ -13,6 +15,11 @@ _inputs: {
         icons = {
           # valid colors: azure, blue, cyan, green, grey, orange, purple, red, yellow
           rules = [
+            {
+              pattern = "debug";
+              icon = "";
+              color = "red";
+            }
             {
               pattern = "goto";
               icon = " ";

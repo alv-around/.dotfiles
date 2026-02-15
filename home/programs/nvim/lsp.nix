@@ -16,6 +16,11 @@ _input: {
       };
     };
 
+    debugger.nvim-dap = {
+      enable = true;
+      ui.enable = true;
+    };
+
     languages = {
       enableFormat = true;
       enableTreesitter = true;
@@ -31,6 +36,12 @@ _input: {
         # handles the LSP setup internally.
         enable = true;
         extensions.crates-nvim.enable = true;
+      };
+
+      python = {
+        enable = true;
+        format.type = ["ruff"];
+        dap.enable = true;
       };
 
       # additional
