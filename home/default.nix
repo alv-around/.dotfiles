@@ -49,6 +49,9 @@
     # clipboards
     wl-clipboard
 
+    # dev
+    nix-init
+
     # apps
     obsidian #TODO: find opensource replacement for obsidian
 
