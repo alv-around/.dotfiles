@@ -64,6 +64,7 @@
         home-manager.packages.${system}.default # Provides the 'home-manager' CLI tool from this flake
       ];
       shellHook = ''
+        exec zsh
         echo "Welcome to the home-manager development shell!"
         echo "To apply your configuration, run: home-manager switch --flake ."
       '';
