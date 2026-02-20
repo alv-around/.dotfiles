@@ -4,7 +4,10 @@
   nixgl,
   lib,
   ...
-}: {
+}: let
+  ollamaHost = "127.0.01:11434";
+  ollamaModel = "qwen2.5-coder:7b";
+in {
   # Adjust username and homeDirectory path to your local machine
   home = {
     username = "alv";
@@ -26,10 +29,25 @@
 
     # Optional: Configure environment variables for the service.
     environmentVariables = {
-      OLLAMA_HOST = "127.0.0.1:11434"; # The default listening port
+      OLLAMA_HOST = ollamaHost; # The default listening port
       # OLLAMA_ORIGINS = "http://localhost:8080"; # Uncomment if you plan to use a local WebUI
       # TODO: put this config under a device flag
       HSA_OVERRIDE_GFX_VERSION = "11.0.0";
+    };
+  };
+
+  systemd.user.services.ollama-model-loader = {
+    Unit = {
+      Description = "Pull Ollama Models Declaratively";
+      After = ["ollama.service"];
+      Wants = ["ollama.service"];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.ollama}/bin/ollama pull ${ollamaModel}";
+    };
+    Install = {
+      WantedBy = ["default.target"];
     };
   };
 
