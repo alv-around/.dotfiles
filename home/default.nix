@@ -12,6 +12,27 @@
     stateVersion = "25.05";
   };
 
+  # TODO: put this under 'ai' feature flag
+  services.ollama = {
+    enable = true;
+
+    # Optional: Enable hardware acceleration.
+    # Accepted values: "cuda" (Nvidia), "rocm" (AMD), or false (CPU only).
+    # Note: If you are on an Apple Silicon Mac, you can leave this commented out;
+    # Metal acceleration is built into the default macOS package.
+    # INFO: amd setup: https://wiki.nixos.org/wiki/Ollama
+    # TODO: put this config under a device flag
+    acceleration = "rocm";
+
+    # Optional: Configure environment variables for the service.
+    environmentVariables = {
+      OLLAMA_HOST = "127.0.0.1:11434"; # The default listening port
+      # OLLAMA_ORIGINS = "http://localhost:8080"; # Uncomment if you plan to use a local WebUI
+      # TODO: put this config under a device flag
+      HSA_OVERRIDE_GFX_VERSION = "11.0.0";
+    };
+  };
+
   nixpkgs.config = {
     allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
