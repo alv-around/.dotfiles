@@ -10,10 +10,6 @@
     username = "alv";
     homeDirectory = /home/alv;
     stateVersion = "25.05";
-    sessionVariables = {
-      # ENV_VARS
-      NIXPKGS_ALLOW_UNFREE = 1; # Allow home-manager to use unfree apps, ex: obsidian
-    };
   };
 
   nixpkgs.config = {
