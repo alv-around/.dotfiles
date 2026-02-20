@@ -9,7 +9,7 @@
   home = {
     username = "alv";
     homeDirectory = /home/alv;
-    stateVersion = "25.05";
+    stateVersion = "25.11";
   };
 
   # TODO: put this under 'ai' feature flag
