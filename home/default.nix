@@ -4,51 +4,12 @@
   nixgl,
   lib,
   ...
-}: let
-  ollamaHost = "127.0.01:11434";
-  ollamaModel = "qwen2.5-coder:7b";
-in {
+}: {
   # Adjust username and homeDirectory path to your local machine
   home = {
     username = "alv";
     homeDirectory = /home/alv;
     stateVersion = "25.11";
-  };
-
-  # TODO: put this under 'ai' feature flag
-  services.ollama = {
-    enable = true;
-
-    # Optional: Enable hardware acceleration.
-    # Accepted values: "cuda" (Nvidia), "rocm" (AMD), or false (CPU only).
-    # Note: If you are on an Apple Silicon Mac, you can leave this commented out;
-    # Metal acceleration is built into the default macOS package.
-    # INFO: amd setup: https://wiki.nixos.org/wiki/Ollama
-    # TODO: put this config under a device flag
-    acceleration = "rocm";
-
-    # Optional: Configure environment variables for the service.
-    environmentVariables = {
-      OLLAMA_HOST = ollamaHost; # The default listening port
-      # OLLAMA_ORIGINS = "http://localhost:8080"; # Uncomment if you plan to use a local WebUI
-      # TODO: put this config under a device flag
-      HSA_OVERRIDE_GFX_VERSION = "11.0.0";
-    };
-  };
-
-  systemd.user.services.ollama-model-loader = {
-    Unit = {
-      Description = "Pull Ollama Models Declaratively";
-      After = ["ollama.service"];
-      Wants = ["ollama.service"];
-    };
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.ollama}/bin/ollama pull ${ollamaModel}";
-    };
-    Install = {
-      WantedBy = ["default.target"];
-    };
   };
 
   nixpkgs.config = {
@@ -67,10 +28,12 @@ in {
 
   # different modules with their flags
   imports = [
+    ./ai.nix
     ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
 
+  features.ai.enable = true;
   features.zellij.enable = false;
 
   # Define the packages you want available in your user environment.

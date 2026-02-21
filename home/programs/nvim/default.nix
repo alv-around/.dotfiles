@@ -1,6 +1,5 @@
 _inputs: {
   imports = [
-    ./assistant.nix
     ./git.nix
     ./keymaps.nix
     ./lsp.nix
