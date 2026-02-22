@@ -125,6 +125,19 @@ in {
             action = "<cmd>CodeCompanionChat<CR>";
             desc = "Open ai chat";
           }
+          {
+            key = "<leader>ap";
+            mode = "n";
+            action = "<cmd>CodeCompanion<CR>";
+            desc = "Open codecompaion prompt";
+          }
+          # TODO: this comand currently throws error. Research use case and application
+          {
+            key = "<leader>a!";
+            mode = "n";
+            action = "<cmd>CodeCompanionCmd<CR>";
+            desc = "Execute codecompanion cmd";
+          }
         ];
       };
     }
