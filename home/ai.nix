@@ -7,6 +7,7 @@
   cfg = config.features.ai;
   ollamaHost = cfg.ollama.host;
   ollamaModel = cfg.ollama.model;
+  gemini_api_key = "AI...";
 in {
   options.features.ai = {
     enable = lib.mkEnableOption "Option to enable ai";
@@ -61,30 +62,46 @@ in {
     # --- CONDITION 2: Always set up the adapter if AI is enabled ---
     {
       programs.nvf.settings.vim = {
+        # BUG: this should be removed
         lazy.enable = false;
+
         assistant.codecompanion-nvim = {
           enable = true;
           setupOpts = {
+            # use the name of your adapter
             strategies = {
-              chat = {adapter = "ollama";};
-              inline = {adapter = "ollama";};
-              agent = {adapter = "ollama";};
+              chat = {adapter = "api_gemini";};
+              inline = {adapter = "api_gemini";};
+              agent = {adapter = "api_gemini";};
             };
 
             adapters = lib.generators.mkLuaInline ''
               {
-                ollama = function()
-                  return require("codecompanion.adapters").extend("ollama", {
-                    env = {
-                      url = "${ollamaHost}"
-                    },
-                    schema = {
-                      model = {
-                        default = "${ollamaModel}"
+                http = {
+                  ollama = function()
+                    return require("codecompanion.adapters").extend("ollama", {
+                      env = {
+                        url = "${ollamaHost}"
                       },
-                    },
-                  })
-                end,
+                      schema = {
+                        model = {
+                          default = "${ollamaModel}"
+                        },
+                      },
+                    })
+                  end,
+                  api_gemini = function()
+                    return require("codecompanion.adapters").extend("gemini", {
+                      name = "api_gemini_cli",
+                      defaults = {
+                        auth_method = "gemini-api-key",
+                      },
+                      env = {
+                        GEMINI_API_KEY = "${gemini_api_key}",
+                      },
+                    })
+                  end,
+                }
               }
             '';
           };
@@ -102,19 +119,6 @@ in {
             mode = "n";
             action = "<cmd>CodeCompanionChat<CR>";
             desc = "Open ai chat";
-          }
-          {
-            key = "<leader>ap";
-            mode = "n";
-            action = "<cmd>CodeCompanion<CR>";
-            desc = "Open codecompaion prompt";
-          }
-          # TODO: this comand currently throws error. Research use case and application
-          {
-            key = "<leader>a!";
-            mode = "n";
-            action = "<cmd>CodeCompanionCmd<CR>";
-            desc = "Execute codecompanion cmd";
           }
         ];
       };
