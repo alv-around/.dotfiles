@@ -7,7 +7,6 @@
   cfg = config.features.ai;
   ollamaHost = cfg.ollama.host;
   ollamaModel = cfg.ollama.model;
-  gemini_api_key = "AI...";
 in {
   options.features.ai = {
     enable = lib.mkEnableOption "Option to enable ai";
@@ -61,20 +60,6 @@ in {
 
     # --- CONDITION 2: Always set up the adapter if AI is enabled ---
     {
-      # TODO: maybe remove ?
-      # TODO: make this also dependent on whether code-companion is enabled
-      home.file.".gemini/settings.json".text = builtins.toJSON {
-        general = {
-          enableAutoUpdate = false;
-          enableAutoUpdateNotification = false;
-        };
-        security = {
-          auth = {
-            selectedType = "gemini-api-key";
-          };
-        };
-      };
-
       programs.nvf.settings.vim = {
         # BUG: this should be removed
         lazy.enable = false;
@@ -83,7 +68,7 @@ in {
         extraPackages = lib.mkIf config.programs.nvf.settings.vim.assistant.codecompanion-nvim.enable [pkgs.gemini-cli];
         # TODO: make this also dependent on whether code-companion is enabled
         luaConfigPre = ''
-          vim.env.GEMINI_API_KEY = "${gemini_api_key}"
+          vim.env.GEMINI_API_KEY = vim.fn.system("cat " .. "${config.age.secrets."gemini-key".path}"):gsub("%s+", ""),
         '';
 
         assistant.codecompanion-nvim = {
@@ -119,7 +104,13 @@ in {
                         auth_method = "gemini-api-key",
                       },
                       env = {
-                        GEMINI_API_KEY = "${gemini_api_key}",
+                        GEMINI_API_KEY = vim.fn.system("cat " .. "${config.age.secrets."gemini-key".path}"):gsub("%s+", ""),
+                      },
+                      schema = {
+                        model = {
+                          -- Downgraded to Flash for a massively higher free-tier quota
+                          default = "gemini-2.5-flash",
+                        },
                       },
                     })
                   end,
@@ -141,6 +132,19 @@ in {
             mode = "n";
             action = "<cmd>CodeCompanionChat<CR>";
             desc = "Open ai chat";
+          }
+          {
+            key = "<leader>ap";
+            mode = "n";
+            action = "<cmd>CodeCompanion<CR>";
+            desc = "Open codecompaion prompt";
+          }
+          # TODO: this comand currently throws error. Research use case and application
+          {
+            key = "<leader>a!";
+            mode = "n";
+            action = "<cmd>CodeCompanionCmd<CR>";
+            desc = "Execute codecompanion cmd";
           }
         ];
       };

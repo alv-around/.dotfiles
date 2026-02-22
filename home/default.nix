@@ -12,6 +12,18 @@
     stateVersion = "25.11";
   };
 
+  age = {
+    # Point to your unencrypted private key so agenix can decrypt at runtime
+    identityPaths = ["${config.home.homeDirectory}/.ssh/id_agenix"];
+
+    secrets = {
+      "gemini-key" = {
+        # The path to the encrypted file in your git repo
+        file = ./secrets/gemini-key.age;
+      };
+    };
+  };
+
   nixpkgs.config = {
     allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
