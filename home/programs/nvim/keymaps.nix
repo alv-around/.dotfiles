@@ -3,6 +3,7 @@ _inputs: {
     binds.whichKey = {
       enable = true;
       register = {
+        "<leader>a" = "ai";
         "<leader>d" = "Debug";
         "<leader>fg" = "Search Neogit";
         "<leader>g" = "Goto/Neogit";
@@ -15,6 +16,11 @@ _inputs: {
         icons = {
           # valid colors: azure, blue, cyan, green, grey, orange, purple, red, yellow
           rules = [
+            {
+              pattern = "ai";
+              icon = "";
+              color = "red";
+            }
             {
               pattern = "debug";
               icon = "";

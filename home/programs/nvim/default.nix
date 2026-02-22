@@ -1,5 +1,6 @@
 _inputs: {
   imports = [
+    ./autocomplete.nix
     ./git.nix
     ./keymaps.nix
     ./lsp.nix

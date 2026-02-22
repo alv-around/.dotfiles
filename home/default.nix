@@ -9,11 +9,7 @@
   home = {
     username = "alv";
     homeDirectory = /home/alv;
-    stateVersion = "25.05";
-    sessionVariables = {
-      # ENV_VARS
-      NIXPKGS_ALLOW_UNFREE = 1; # Allow home-manager to use unfree apps, ex: obsidian
-    };
+    stateVersion = "25.11";
   };
 
   nixpkgs.config = {
@@ -32,10 +28,12 @@
 
   # different modules with their flags
   imports = [
+    ./ai.nix
     ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
 
+  features.ai.enable = true;
   features.zellij.enable = false;
 
   # Define the packages you want available in your user environment.
