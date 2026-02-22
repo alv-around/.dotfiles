@@ -1,10 +1,11 @@
 {pkgs, ...}: {
   programs.nvf.settings.vim = {
-    # 1. Provide the dependency (MahanRahmati/blink-nerdfont.nvim)
+    # Provide the dependency (MahanRahmati/blink-nerdfont.nvim)
     extraPlugins = {
       blink-nerdfont = {
         package = pkgs.vimPlugins.blink-nerdfont-nvim;
       };
+      # TODO: add emoji comp with https://github.com/moyiz/blink-emoji.nvim
     };
 
     autocomplete.blink-cmp = {
