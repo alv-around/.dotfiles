@@ -7,7 +7,7 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    agenix.url = "github:ryantm/agenix";
     nvf.url = "github:notashelf/nvf";
     nixgl.url = "github:nix-community/nixGL";
   };
@@ -20,6 +20,7 @@
   outputs = {
     nixpkgs,
     home-manager,
+    agenix,
     nvf,
     nixgl,
     ...
@@ -40,6 +41,7 @@
         homeConfigurations
         // {
           modules = [
+            agenix.homeManagerModules.default
             nvf.homeManagerModules.default
             ./home/default.nix
           ];

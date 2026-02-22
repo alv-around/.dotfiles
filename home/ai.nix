@@ -7,7 +7,6 @@
   cfg = config.features.ai;
   ollamaHost = cfg.ollama.host;
   ollamaModel = cfg.ollama.model;
-  gemini_api_key = "AI...";
 in {
   options.features.ai = {
     enable = lib.mkEnableOption "Option to enable ai";
@@ -97,7 +96,7 @@ in {
                         auth_method = "gemini-api-key",
                       },
                       env = {
-                        GEMINI_API_KEY = "${gemini_api_key}",
+                        GEMINI_API_KEY = vim.fn.system("cat " .. "${config.age.secrets."gemini-key".path}"):gsub("%s+", ""),
                       },
                       schema = {
                         model = {
