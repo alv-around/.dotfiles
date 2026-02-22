@@ -99,6 +99,12 @@ in {
                       env = {
                         GEMINI_API_KEY = "${gemini_api_key}",
                       },
+                      schema = {
+                        model = {
+                          -- Downgraded to Flash for a massively higher free-tier quota
+                          default = "gemini-2.5-flash",
+                        },
+                      },
                     })
                   end,
                 }
