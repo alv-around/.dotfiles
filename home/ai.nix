@@ -61,18 +61,39 @@ in {
 
     # --- CONDITION 2: Always set up the adapter if AI is enabled ---
     {
+      # TODO: maybe remove ?
+      # TODO: make this also dependent on whether code-companion is enabled
+      home.file.".gemini/settings.json".text = builtins.toJSON {
+        general = {
+          enableAutoUpdate = false;
+          enableAutoUpdateNotification = false;
+        };
+        security = {
+          auth = {
+            selectedType = "gemini-api-key";
+          };
+        };
+      };
+
       programs.nvf.settings.vim = {
         # BUG: this should be removed
         lazy.enable = false;
+
+        # Only installed if code-companion is enabled
+        extraPackages = lib.mkIf config.programs.nvf.settings.vim.assistant.codecompanion-nvim.enable [pkgs.gemini-cli];
+        # TODO: make this also dependent on whether code-companion is enabled
+        luaConfigPre = ''
+          vim.env.GEMINI_API_KEY = "${gemini_api_key}"
+        '';
 
         assistant.codecompanion-nvim = {
           enable = true;
           setupOpts = {
             # use the name of your adapter
             strategies = {
-              chat = {adapter = "api_gemini";};
-              inline = {adapter = "api_gemini";};
-              agent = {adapter = "api_gemini";};
+              chat = {adapter = "api_gemini_cli";};
+              inline = {adapter = "api_gemini_cli";};
+              agent = {adapter = "api_gemini_cli";};
             };
 
             adapters = lib.generators.mkLuaInline ''
@@ -90,9 +111,10 @@ in {
                       },
                     })
                   end,
-                  api_gemini = function()
-                    return require("codecompanion.adapters").extend("gemini", {
-                      name = "api_gemini_cli",
+                },
+                acp = {
+                  api_gemini_cli = function()
+                    return require("codecompanion.adapters").extend("gemini_cli", {
                       defaults = {
                         auth_method = "gemini-api-key",
                       },
