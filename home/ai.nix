@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   config,
   lib,
   ...
@@ -65,7 +66,7 @@ in {
         lazy.enable = false;
 
         # Only installed if code-companion is enabled
-        extraPackages = lib.mkIf config.programs.nvf.settings.vim.assistant.codecompanion-nvim.enable [pkgs.gemini-cli];
+        extraPackages = lib.mkIf config.programs.nvf.settings.vim.assistant.codecompanion-nvim.enable [pkgs-unstable.gemini-cli];
         # TODO: make this also dependent on whether code-companion is enabled
         luaConfigPre = ''
           vim.env.GEMINI_API_KEY = vim.fn.system("cat " .. "${config.age.secrets."gemini-key".path}"):gsub("%s+", ""),
