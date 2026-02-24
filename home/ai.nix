@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   config,
   lib,
   ...
@@ -14,7 +15,7 @@ in {
     ollama = {
       local = lib.mkOption {
         type = lib.types.bool;
-        default = true;
+        default = false;
         description = "Whether to install and run ollama service locally";
       };
 
@@ -30,6 +31,8 @@ in {
         description = "Model to install in ollama";
       };
     };
+
+    # TODO: add codecompanion configuration
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -64,14 +67,23 @@ in {
         # BUG: this should be removed
         lazy.enable = false;
 
+        # Only installed if code-companion is enabled
+        # TODO: make this also dependent on whether code-companion is enabled
+        extraPackages = [pkgs-unstable.gemini-cli];
+        # set 'GEMINI_API_KEY' here, so it can be use by gemini adapters
+        # Otherwise would have to set manually `{gemini,gemini_cli}.env.GEMINI_API_KEY
+        luaConfigPre = ''
+          vim.env.GEMINI_API_KEY = vim.fn.system("cat " .. "${config.age.secrets."gemini-key".path}"):gsub("%s+", ""),
+        '';
+
         assistant.codecompanion-nvim = {
           enable = true;
           setupOpts = {
             # use the name of your adapter
             strategies = {
-              chat = {adapter = "api_gemini";};
-              inline = {adapter = "api_gemini";};
-              agent = {adapter = "api_gemini";};
+              chat = {adapter = "gemini_cli";};
+              inline = {adapter = "gemini_cli";};
+              agent = {adapter = "gemini_cli";};
             };
 
             adapters = lib.generators.mkLuaInline ''
@@ -89,20 +101,20 @@ in {
                       },
                     })
                   end,
-                  api_gemini = function()
+                  gemini = function()
                     return require("codecompanion.adapters").extend("gemini", {
                       name = "api_gemini_cli",
                       defaults = {
                         auth_method = "gemini-api-key",
                       },
-                      env = {
-                        GEMINI_API_KEY = vim.fn.system("cat " .. "${config.age.secrets."gemini-key".path}"):gsub("%s+", ""),
-                      },
-                      schema = {
-                        model = {
-                          -- Downgraded to Flash for a massively higher free-tier quota
-                          default = "gemini-2.5-flash",
-                        },
+                    })
+                  end,
+                },
+                acp = {
+                  gemini_cli = function()
+                    return require("codecompanion.adapters").extend("gemini_cli", {
+                      defaults = {
+                        auth_method = "gemini-api-key",
                       },
                     })
                   end,
