@@ -20,10 +20,6 @@
       setupOpts = {
         sources = {
           default = [
-            "lsp"
-            "path"
-            "snippets"
-            "buffer"
             "nerdfont"
           ];
           providers = {

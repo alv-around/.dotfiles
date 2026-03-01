@@ -97,18 +97,6 @@ _inputs: {
           enable = true;
           mappings.toggle = "<leader>cs";
         };
-
-        # blink-cmp
-        autocomplete.blink-cmp = {
-          enable = true;
-          friendly-snippets.enable = true;
-          mappings = {
-            # complete = "<S-Tab>";
-            confirm = "<S-Tab>";
-            next = "<C-j>";
-            previous = "<C-k>";
-          };
-        };
       };
     };
   };
