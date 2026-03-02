@@ -64,9 +64,6 @@ in {
     # --- CONDITION 2: Always set up the adapter if AI is enabled ---
     {
       programs.nvf.settings.vim = {
-        # BUG: this should be removed
-        lazy.enable = false;
-
         # Only installed if code-companion is enabled
         # TODO: make this also dependent on whether code-companion is enabled
         extraPackages = [pkgs-unstable.gemini-cli];
