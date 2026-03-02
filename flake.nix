@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
-    nvf.url = ../nvf; #"github:notashelf/nvf";
+    nvf.url = "github:notashelf/nvf";
     nixgl.url = "github:nix-community/nixGL";
   };
 
