@@ -41,12 +41,16 @@
   # different modules with their flags
   imports = [
     ./ai.nix
+    ./k3s.nix
     ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
 
-  features.ai.enable = true;
-  features.zellij.enable = false;
+  features = {
+    ai.enable = true;
+    k3s.enable = true;
+    zellij.enable = false;
+  };
 
   # Define the packages you want available in your user environment.
   home.packages = with pkgs; [
