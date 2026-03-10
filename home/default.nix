@@ -151,6 +151,11 @@
         FZF_CTRL_T_OPTS = "--preview='bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'";
       };
 
+      shellAliases = {
+        ls = "ls -a --color";
+        vim = "nvim";
+      };
+
       initContent = ''
         source ${./zshrc}
       '';
