@@ -156,6 +156,15 @@
         vim = "nvim";
       };
 
+      # History Settings
+      history = {
+        size = 5000;
+        save = 5000;
+        path = "${config.xdg.dataHome}/zsh/history";
+        ignoreDups = true;
+        share = true;
+      };
+
       initContent = ''
         source ${./zshrc}
       '';
