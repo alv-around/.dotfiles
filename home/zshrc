@@ -5,10 +5,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 export PATH="$HOME/.nix-profile/bin:$PATH"
-export EDITOR="nvim"
-
-# starship terminal theme
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 ### History ###
 HISTSIZE=5000
@@ -24,18 +20,6 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-### fzf ###
-## Usage
-# $ vim ../**<TAB> - Files under parent directory
-# $ cd **<TAB> - Directories under current directory (single-selection)
-# $ kill -9 **<TAB> - Fuzzy completion for PIDs is provided for kill command.
-
-## Keybindings
-# [CTR + r] - search history
-# [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT with preview for files and dirs
-# [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
-export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-export FZF_CTRL_T_OPTS="--preview='bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'"
 
 ## fzf-tab
 # show hidden files

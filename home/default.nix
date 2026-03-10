@@ -97,7 +97,16 @@
     zoxide.enable = true;
     zoxide.enableZshIntegration = true;
 
-    # Replaces pkgs.fzf; sets up keybinds (CTRL-T, etc.)
+    ### fzf ###
+    ## Usage
+    # $ vim ../**<TAB> - Files under parent directory
+    # $ cd **<TAB> - Directories under current directory (single-selection)
+    # $ kill -9 **<TAB> - Fuzzy completion for PIDs is provided for kill command.
+
+    ## Keybindings
+    # [CTR + r] - search history
+    # [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT with preview for files and dirs
+    # [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
     fzf.enable = true;
     fzf.enableZshIntegration = true;
 
@@ -132,6 +141,14 @@
           "helm"
           "kubectl"
         ];
+      };
+
+      # Environment Variables
+      sessionVariables = {
+        EDITOR = "nvim";
+        STARSHIP_CONFIG = "${config.xdg.configHome}/starship/starship.toml";
+        FZF_ALT_C_OPTS = "--preview 'tree -C {}'";
+        FZF_CTRL_T_OPTS = "--preview='bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'";
       };
 
       initContent = ''
