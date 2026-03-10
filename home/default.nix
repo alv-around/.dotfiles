@@ -114,6 +114,14 @@
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+      # Custom plugins (like fzf-tab)
+      plugins = [
+        {
+          name = "fzf-tab";
+          src = pkgs.zsh-fzf-tab;
+          file = "share/fzf-tab/fzf-tab.plugin.zsh";
+        }
+      ];
 
       # This is how you point to your existing .zshrc logic
       initContent = ''
