@@ -122,10 +122,19 @@
           file = "share/fzf-tab/fzf-tab.plugin.zsh";
         }
       ];
+      # Snippets
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "git"
+          "command-not-found"
+          "helm"
+          "kubectl"
+        ];
+      };
 
       # This is how you point to your existing .zshrc logic
       initContent = ''
-        source "${pkgs.zinit}/share/zinit/zinit.zsh"
         source ${./zshrc}
       '';
     };
