@@ -8,7 +8,6 @@ export PATH="$HOME/.nix-profile/bin:$PATH"
 export EDITOR="nvim"
 
 # starship terminal theme
-eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 ### History ###
@@ -37,7 +36,6 @@ setopt hist_find_no_dups
 # [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 export FZF_CTRL_T_OPTS="--preview='bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'"
-source <(fzf --zsh) # allow for fzf history widget
 
 ## fzf-tab
 # show hidden files
@@ -96,5 +94,4 @@ fi
 
 ### evals hooks
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(direnv hook zsh)"
 

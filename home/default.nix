@@ -90,10 +90,10 @@
 
     lazygit.enable = true;
 
-    # Replaces pkgs.bat; adds syntax highlighting and aliases
+    # adds syntax highlighting and aliases
     bat.enable = true;
 
-    # Replaces pkgs.zoxide; auto-sources "zoxide init zsh"
+    # auto-sources "zoxide init zsh"
     zoxide.enable = true;
     zoxide.enableZshIntegration = true;
 
@@ -108,12 +108,12 @@
       settings = builtins.fromTOML (builtins.readFile ./config/starship/starship.toml);
     };
 
-    # 2. Zsh Configuration
     zsh = {
       enable = true;
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+
       # Custom plugins (like fzf-tab)
       plugins = [
         {
@@ -122,6 +122,7 @@
           file = "share/fzf-tab/fzf-tab.plugin.zsh";
         }
       ];
+
       # Snippets
       oh-my-zsh = {
         enable = true;
@@ -133,7 +134,6 @@
         ];
       };
 
-      # This is how you point to your existing .zshrc logic
       initContent = ''
         source ${./zshrc}
       '';
