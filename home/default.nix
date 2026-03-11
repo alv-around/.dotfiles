@@ -59,9 +59,6 @@
     ripgrep
     tree
     wget
-    # TODO: move into zsh when zinit enabled in zsh.
-    # See: https://wiki.nixos.org/wiki/Zsh#Plugins_2
-    zinit
 
     # clipboards
     wl-clipboard
