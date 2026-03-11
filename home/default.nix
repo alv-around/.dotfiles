@@ -41,7 +41,7 @@
   # different modules with their flags
   imports = [
     ./ai.nix
-    ./k3s.nix
+    ./kube.nix
     ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
