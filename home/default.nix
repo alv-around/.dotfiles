@@ -87,14 +87,23 @@
 
     lazygit.enable = true;
 
-    # Replaces pkgs.bat; adds syntax highlighting and aliases
+    # adds syntax highlighting and aliases
     bat.enable = true;
 
-    # Replaces pkgs.zoxide; auto-sources "zoxide init zsh"
+    # auto-sources "zoxide init zsh"
     zoxide.enable = true;
     zoxide.enableZshIntegration = true;
 
-    # Replaces pkgs.fzf; sets up keybinds (CTRL-T, etc.)
+    ### fzf ###
+    ## Usage
+    # $ vim ../**<TAB> - Files under parent directory
+    # $ cd **<TAB> - Directories under current directory (single-selection)
+    # $ kill -9 **<TAB> - Fuzzy completion for PIDs is provided for kill command.
+
+    ## Keybindings
+    # [CTR + r] - search history
+    # [CTR + t] - Fuzzy find all files and subdirectories of the working directory, and output the selection to STDOUT with preview for files and dirs
+    # [ALT + c] - Fuzzy find all subdirectories of the working directory, and run the command “cd” with the output as argument.
     fzf.enable = true;
     fzf.enableZshIntegration = true;
 
@@ -105,14 +114,56 @@
       settings = builtins.fromTOML (builtins.readFile ./config/starship/starship.toml);
     };
 
-    # 2. Zsh Configuration
     zsh = {
       enable = true;
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
-      # This is how you point to your existing .zshrc logic
+      # Custom plugins (like fzf-tab)
+      plugins = [
+        {
+          name = "fzf-tab";
+          src = pkgs.zsh-fzf-tab;
+          file = "share/fzf-tab/fzf-tab.plugin.zsh";
+        }
+        # TODO: assess wheter to add zsh-vi-mode
+        # see: https://github.com/jeffreytse/zsh-vi-mode?tab=readme-ov-file#execute-extra-commands
+      ];
+
+      # Snippets
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "git"
+          "command-not-found"
+          "helm"
+          "kubectl"
+        ];
+      };
+
+      # Environment Variables
+      sessionVariables = {
+        EDITOR = "nvim";
+        STARSHIP_CONFIG = "${config.xdg.configHome}/starship/starship.toml";
+        FZF_ALT_C_OPTS = "--preview 'tree -C {}'";
+        FZF_CTRL_T_OPTS = "--preview='bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'";
+      };
+
+      shellAliases = {
+        ls = "ls -a --color";
+        vim = "nvim";
+      };
+
+      # History Settings
+      history = {
+        size = 5000;
+        save = 5000;
+        path = "${config.xdg.dataHome}/zsh/history";
+        ignoreDups = true;
+        share = true;
+      };
+
       initContent = ''
         source ${./zshrc}
       '';
