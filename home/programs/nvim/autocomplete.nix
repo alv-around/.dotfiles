@@ -12,16 +12,15 @@
       enable = true;
       friendly-snippets.enable = true;
       mappings = {
-        # complete = "<S-Tab>";
         confirm = "<S-Tab>";
         next = "<C-j>";
         previous = "<C-k>";
       };
       setupOpts = {
         sources = {
-          default = [
-            "nerdfont"
-          ];
+          per_filetype = {
+            markdown = ["lsp" "path" "snippets" "buffer" "nerdfont"];
+          };
           providers = {
             nerdfont = {
               module = "blink-nerdfont";
@@ -29,7 +28,7 @@
               score_offset = 15;
               opts = {
                 insert = true;
-                trigger = ":-)"; # Your custom trigger!
+                trigger = ":";
               };
             };
           };
