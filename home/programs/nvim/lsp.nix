@@ -45,11 +45,9 @@ _input: {
       };
 
       # additional
-      typst.enable = true;
       bash.enable = true;
       helm.enable = true;
       json.enable = true;
-      markdown.enable = true;
       yaml.enable = true;
     };
   };

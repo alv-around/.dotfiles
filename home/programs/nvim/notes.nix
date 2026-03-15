@@ -10,11 +10,9 @@ _inputs: {
 
     notes = {
       todo-comments.enable = true;
-
       obsidian = {
         enable = true;
         setupOpts = {
-          ui.enable = true;
           legacy_commands = false;
           workspaces = [
             {
