@@ -1,12 +1,62 @@
-_inputs: {
+{
+  config,
+  pkgs,
+  ...
+}: let
+  PRIV_OBSIDIAN_VAULT = "${config.home.homeDirectory}/notes/personal";
+in {
+  # Ensure the directory exists (Home Manager won't clone the repo,
+  # but it ensures the mount point is ready)
+  home.file."notes/personal/.keep".text = "";
+
+  # 4. Reuse the variable in your systemd sync service
+  systemd.user.services.obsidian-sync = {
+    Unit = {Description = "Auto-sync Obsidian Vault";};
+    Service = {
+      # The Nix variable ${PRIV_OBSIDIAN_VAULT} evaluates directly into the bash command
+      ExecStart = pkgs.writeShellScript "sync-obsidian" ''
+        # Set up the path so we don't have to write out the full path for every command
+        export PATH=${pkgs.git}/bin:${pkgs.coreutils}/bin:$PATH
+
+        cd ${PRIV_OBSIDIAN_VAULT}
+
+        git pull --rebase
+        git add .
+
+        # Only commit if there are actually changes to commit
+        if ! git diff-index --quiet HEAD; then
+          # $(date ...) dynamically injects the current timestamp
+          git commit -m "Auto-sync: $(date +'%Y-%m-%d %H:%M:%S')"
+        fi
+
+        git push
+      '';
+      Type = "oneshot";
+    };
+  };
+
+  systemd.user.timers.obsidian-sync = {
+    Timer = {
+      OnCalendar = "19:00";
+      persistent = true;
+    };
+    Install = {WantedBy = ["timers.target"];};
+  };
+
   programs.nvf.settings.vim = {
-    autocmds = [
-      {
-        event = ["FileType"];
-        pattern = ["markdown"];
-        command = "setlocal conceallevel=2";
-      }
-    ];
+    # enforce that code is unfolded when opened
+    options = {
+      foldlevelstart = 99;
+    };
+
+    languages = {
+      markdown = {
+        enable = true;
+        extensions.markview-nvim.enable = true;
+      };
+
+      typst.enable = true;
+    };
 
     notes = {
       todo-comments.enable = true;
@@ -17,7 +67,7 @@ _inputs: {
           workspaces = [
             {
               name = "personal";
-              path = "~/Code/research_vault";
+              path = PRIV_OBSIDIAN_VAULT;
             }
           ];
           templates = {

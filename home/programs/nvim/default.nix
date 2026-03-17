@@ -4,7 +4,6 @@ _inputs: {
     ./git.nix
     ./keymaps.nix
     ./lsp.nix
-    ./notes.nix
   ];
 
   programs.nvf = {
