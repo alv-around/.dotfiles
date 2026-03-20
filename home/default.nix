@@ -2,7 +2,6 @@
   config,
   pkgs,
   nixgl,
-  lib,
   ...
 }: {
   # Adjust username and homeDirectory path to your local machine
@@ -24,13 +23,6 @@
     };
   };
 
-  nixpkgs.config = {
-    allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "obsidian"
-      ];
-  };
-
   targets.genericLinux.nixGL = {
     packages = import nixgl {inherit pkgs;};
     defaultWrapper = "mesa";
@@ -42,6 +34,7 @@
   imports = [
     ./ai.nix
     ./kube.nix
+    ./notes.nix
     ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
@@ -65,9 +58,6 @@
 
     # dev
     nix-init
-
-    # apps
-    obsidian #TODO: find opensource replacement for obsidian
 
     ## Wezterm wrapped with nixgl for graphics compatibility.
     (config.lib.nixGL.wrap wezterm)
