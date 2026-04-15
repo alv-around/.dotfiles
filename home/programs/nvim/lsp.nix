@@ -1,9 +1,12 @@
-_input: {
+{pkgs, ...}: {
   programs.nvf.settings.vim = {
+    # TODO: update nixpkgs and remove this grammar
+    treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+      svelte
+    ];
+
     lsp = {
       enable = true;
-      # DISABLE LSP FORMATTING
-      # We want Conform to handle the save, not the native LSP client.
       formatOnSave = true;
       inlayHints.enable = true;
 
@@ -25,6 +28,7 @@ _input: {
       enableFormat = true;
       enableTreesitter = true;
       enableExtraDiagnostics = true;
+      enableDAP = true;
 
       # languages
       nix = {
@@ -41,8 +45,17 @@ _input: {
       python = {
         enable = true;
         format.type = ["ruff"];
-        dap.enable = true;
       };
+
+      ts.enable = true;
+      svelte.enable = true;
+      tailwind.enable = true;
+      html.enable = true;
+
+      clang.enable = true;
+      cmake.enable = true;
+
+      go.enable = true;
 
       # additional
       bash.enable = true;
