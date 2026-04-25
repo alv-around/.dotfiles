@@ -97,11 +97,12 @@
           src = pkgs.zsh-fzf-tab;
           file = "share/fzf-tab/fzf-tab.plugin.zsh";
         }
-        {
-          name = "zsh-vi-mode";
-          src = pkgs.zsh-vi-mode;
-          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-        }
+        # FIX: fzf-tab would not function together with zsh-vi-mode
+        # {
+        #   name = "zsh-vi-mode";
+        #   src = pkgs.zsh-vi-mode;
+        #   file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+        # }
       ];
 
       # Snippets

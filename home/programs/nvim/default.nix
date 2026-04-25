@@ -60,11 +60,10 @@ _inputs: {
         mini = {
           ai.enable = true;
           icons.enable = true;
-          # use mini.statusline which is compatible with tokyonight theme
-          # statusline.enable = true;
           surround.enable = true;
         };
 
+        # TODO: add custom function to show file full-path on nvimTree buffer
         statusline.lualine.enable = true;
 
         tabline.nvimBufferline = {
