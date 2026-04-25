@@ -12,6 +12,12 @@ _inputs: {
       vim = {
         vimAlias = true;
 
+        clipboard = {
+          enable = true;
+          # Synchronize Neovim's unnamed register with the system clipboard (both + and *)
+          registers = "unnamedplus";
+        };
+
         theme = {
           enable = true;
           name = "tokyonight";
