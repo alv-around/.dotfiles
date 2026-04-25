@@ -9,6 +9,9 @@
       enable = true;
       formatOnSave = true;
       inlayHints.enable = true;
+      presets = {
+        tailwindcss-language-server.enable = true;
+      };
 
       trouble = {
         enable = true;
@@ -47,9 +50,8 @@
         format.type = ["ruff"];
       };
 
-      ts.enable = true;
+      typescript.enable = true;
       svelte.enable = true;
-      tailwind.enable = true;
       html.enable = true;
 
       clang.enable = true;
