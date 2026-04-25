@@ -12,6 +12,12 @@ _inputs: {
       vim = {
         vimAlias = true;
 
+        clipboard = {
+          enable = true;
+          # Synchronize Neovim's unnamed register with the system clipboard (both + and *)
+          registers = "unnamedplus";
+        };
+
         theme = {
           enable = true;
           name = "tokyonight";
@@ -51,7 +57,15 @@ _inputs: {
           };
         };
 
-        mini.icons.enable = true;
+        mini = {
+          ai.enable = true;
+          icons.enable = true;
+          # use mini.statusline which is compatible with tokyonight theme
+          # statusline.enable = true;
+          surround.enable = true;
+        };
+
+        statusline.lualine.enable = true;
 
         tabline.nvimBufferline = {
           enable = true;
@@ -64,23 +78,15 @@ _inputs: {
           };
         };
 
-        # use mini.statusline which is compatible with tokyonight theme
-        mini.statusline.enable = true;
-
         # neo-tree
         filetree = {
-          neo-tree = {
+          nvimTree = {
             enable = true;
             setupOpts = {
-              git_status_async = true;
-              filesystem = {
-                filtered_items = {
-                  visible = true;
-                  hide_dotfiles = false; # Don't treat dotfiles as hidden
-                  hide_by_name = [
-                    ".git" # You might still want to hide the .git folder itself
-                  ];
-                };
+              diagnostics.enable = true;
+              update_focused_file = {
+                enable = true;
+                update_root = true;
               };
             };
           };

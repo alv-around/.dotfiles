@@ -11,6 +11,7 @@
     agenix.url = "github:ryantm/agenix";
     nvf.url = "github:notashelf/nvf";
     nixgl.url = "github:nix-community/nixGL";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   # use nix-command and flakes experimental features
@@ -25,53 +26,52 @@
     agenix,
     nvf,
     nixgl,
+    flake-utils,
     ...
-  }: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {inherit system;};
-    pkgs-unstable = import nixpkgs-unstable {inherit system;};
-    homeConfigurations = {
-      inherit pkgs;
-      # System is very important!
-      extraSpecialArgs = {
-        inherit nixgl pkgs-unstable;
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {inherit system;};
+    in {
+      devShells.default = pkgs.mkShell {
+        name = "home-manager-dev";
+        packages = with pkgs; [
+          home-manager.packages.${system}.default # Provides the 'home-manager' CLI tool from this flake
+        ];
+        shellHook = ''
+          echo "Welcome to the home-manager development shell!"
+          echo "To apply your configuration, run: home-manager switch --flake ."
+        '';
       };
-    };
-  in {
-    homeConfigurations = {
-      # INFO: change key value to your username
-      "alv" = home-manager.lib.homeManagerConfiguration (
-        homeConfigurations
-        // {
+    })
+    // {
+      homeConfigurations = {
+        # Configuration for your main Linux Wayland machine
+        "alv" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {system = "x86_64-linux";};
+          extraSpecialArgs = {
+            inherit nixgl;
+            pkgs-unstable = import nixpkgs-unstable {system = "x86_64-linux";};
+          };
           modules = [
             agenix.homeManagerModules.default
             nvf.homeManagerModules.default
             ./home/default.nix
+            ./hosts/alvpad.nix
           ];
-        }
-      );
+        };
 
-      ## user of gh action
-      "runner" = home-manager.lib.homeManagerConfiguration (
-        homeConfigurations
-        // {
+        ## user of gh action
+        "runner" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {system = "x86_64-linux";};
+          extraSpecialArgs = {
+            inherit nixgl;
+            pkgs-unstable = import nixpkgs-unstable {system = "x86_64-linux";};
+          };
           modules = [
             nvf.homeManagerModules.default
             ./tests/test_profile.nix
           ];
-        }
-      );
+        };
+      };
     };
-
-    devShells.${system}.default = pkgs.mkShell {
-      name = "home-manager-dev";
-      packages = with pkgs; [
-        home-manager.packages.${system}.default # Provides the 'home-manager' CLI tool from this flake
-      ];
-      shellHook = ''
-        echo "Welcome to the home-manager development shell!"
-        echo "To apply your configuration, run: home-manager switch --flake ."
-      '';
-    };
-  };
 }

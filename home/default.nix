@@ -1,31 +1,10 @@
 {
   config,
   pkgs,
-  nixgl,
   ...
 }: {
-  # Adjust username and homeDirectory path to your local machine
   home = {
-    username = "alv";
-    homeDirectory = /home/alv;
     stateVersion = "25.11";
-  };
-
-  age = {
-    # Point to your unencrypted private key so agenix can decrypt at runtime
-    identityPaths = ["${config.home.homeDirectory}/.ssh/id_agenix"];
-
-    secrets = {
-      "gemini-key" = {
-        # The path to the encrypted file in your git repo
-        file = ./secrets/gemini-key.age;
-      };
-    };
-  };
-
-  targets.genericLinux.nixGL = {
-    packages = import nixgl {inherit pkgs;};
-    defaultWrapper = "mesa";
   };
 
   fonts.fontconfig.enable = true;
@@ -53,14 +32,15 @@
     tree
     wget
 
-    # clipboards
-    wl-clipboard
-
     # dev
     nix-init
 
-    ## Wezterm wrapped with nixgl for graphics compatibility.
-    (config.lib.nixGL.wrap wezterm)
+    ## Wezterm wrapped with nixgl for graphics compatibility (only on Linux).
+    (
+      if pkgs.stdenv.isLinux
+      then (config.lib.nixGL.wrap wezterm)
+      else wezterm
+    )
   ];
 
   xdg.configFile = {
@@ -117,8 +97,11 @@
           src = pkgs.zsh-fzf-tab;
           file = "share/fzf-tab/fzf-tab.plugin.zsh";
         }
-        # TODO: assess wheter to add zsh-vi-mode
-        # see: https://github.com/jeffreytse/zsh-vi-mode?tab=readme-ov-file#execute-extra-commands
+        {
+          name = "zsh-vi-mode";
+          src = pkgs.zsh-vi-mode;
+          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+        }
       ];
 
       # Snippets
