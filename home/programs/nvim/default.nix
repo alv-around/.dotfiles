@@ -57,7 +57,12 @@ _inputs: {
           };
         };
 
-        mini.icons.enable = true;
+        mini = {
+          ai.enable = true;
+          icons.enable = true;
+          statusline.enable = true;
+          surround.enable = true;
+        };
 
         tabline.nvimBufferline = {
           enable = true;
@@ -71,7 +76,6 @@ _inputs: {
         };
 
         # use mini.statusline which is compatible with tokyonight theme
-        mini.statusline.enable = true;
 
         # neo-tree
         filetree = {
