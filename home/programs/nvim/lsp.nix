@@ -3,6 +3,10 @@
     # TODO: update nixpkgs and remove this grammar
     treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
       svelte
+      typescript
+      javascript
+      css
+      html
     ];
 
     lsp = {
