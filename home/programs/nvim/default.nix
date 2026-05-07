@@ -79,13 +79,18 @@ _inputs: {
 
         # neo-tree
         filetree = {
-          nvimTree = {
+          neo-tree = {
             enable = true;
             setupOpts = {
-              diagnostics.enable = true;
-              update_focused_file = {
-                enable = true;
-                update_root = true;
+              git_status_async = true;
+              filesystem = {
+                filtered_items = {
+                  visible = true;
+                  hide_dotfiles = false; # Don't treat dotfiles as hidden
+                  hide_by_name = [
+                    ".git" # You might still want to hide the .git folder itself
+                  ];
+                };
               };
             };
           };
