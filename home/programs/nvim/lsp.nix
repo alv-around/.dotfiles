@@ -1,8 +1,11 @@
 {pkgs, ...}: {
   programs.nvf.settings.vim = {
-    # TODO: update nixpkgs and remove this grammar
     treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
       svelte
+      typescript
+      javascript
+      css
+      html
     ];
 
     lsp = {
@@ -51,7 +54,11 @@
       };
 
       typescript.enable = true;
-      svelte.enable = true;
+      svelte = {
+        enable = true;
+        #FIXME: prettier crash in svelte (v0.9)
+        format.type = ["biome"];
+      };
       html.enable = true;
 
       clang.enable = true;
