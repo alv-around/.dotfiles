@@ -12,6 +12,7 @@
     nvf.url = "github:notashelf/nvf";
     nixgl.url = "github:nix-community/nixGL";
     flake-utils.url = "github:numtide/flake-utils";
+    workmux.url = "github:raine/workmux";
   };
 
   # use nix-command and flakes experimental features
@@ -27,6 +28,7 @@
     nvf,
     nixgl,
     flake-utils,
+    workmux,
     ...
   }:
     flake-utils.lib.eachDefaultSystem (system: let
@@ -49,7 +51,7 @@
         "alv" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {system = "x86_64-linux";};
           extraSpecialArgs = {
-            inherit nixgl;
+            inherit nixgl workmux;
             pkgs-unstable = import nixpkgs-unstable {system = "x86_64-linux";};
           };
           modules = [

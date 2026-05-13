@@ -3,6 +3,7 @@
   pkgs-unstable,
   config,
   lib,
+  workmux,
   ...
 }: let
   cfg = config.features.ai;
@@ -63,6 +64,11 @@ in {
 
     # --- CONDITION 2: Always set up the adapter if AI is enabled ---
     {
+      home.packages = [
+        pkgs-unstable.gemini-cli
+        workmux.packages.${pkgs.system}.default
+      ];
+
       programs.nvf.settings.vim = {
         # Only installed if code-companion is enabled
         # TODO: make this also dependent on whether code-companion is enabled
