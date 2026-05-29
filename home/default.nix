@@ -34,6 +34,7 @@
 
     # dev
     nix-init
+    act
 
     ## Wezterm wrapped with nixgl for graphics compatibility (only on Linux).
     (
