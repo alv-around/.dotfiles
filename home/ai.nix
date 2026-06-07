@@ -66,8 +66,43 @@ in {
     {
       home.packages = [
         pkgs-unstable.gemini-cli
+        pkgs-unstable.pi-coding-agent
+        pkgs-unstable.podman
+        pkgs.pueue
         workmux.packages.${pkgs.system}.default
       ];
+
+      # Workmux configuration for sandboxing
+      xdg.configFile."workmux/config.yaml".text = ''
+        merge_strategy: rebase
+        agent: pi
+        panes:
+          - command: <agent>
+            focus: true
+          - split: horizontal
+        sandbox:
+          enabled: true
+        container:
+          runtime: podman
+      '';
+
+      services.pueue = {
+        enable = true;
+        settings = {
+          daemon = {
+            default_parallel_tasks = 2;
+          };
+        };
+      };
+
+      programs.zsh = {
+        shellAliases = {
+          gq = "pueue add -- gemini";
+        };
+        envExtra = ''
+          export GEMINI_API_KEY="$(cat ${config.age.secrets.gemini-key.path})"
+        '';
+      };
 
       programs.nvf.settings.vim = {
         # Only installed if code-companion is enabled
