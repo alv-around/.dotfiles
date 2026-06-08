@@ -65,35 +65,16 @@ in {
     # --- CONDITION 2: Always set up the adapter if AI is enabled ---
     {
       home.packages = [
-        pkgs-unstable.gemini-cli
-        pkgs-unstable.pi-coding-agent
-        pkgs-unstable.podman
+        pkgs-unstable.lima
+        pkgs.virtiofsd
         pkgs.pueue
         workmux.packages.${pkgs.system}.default
       ];
 
-      # Workmux configuration for sandboxing
-      xdg.configFile."workmux/config.yaml".text = ''
-        merge_strategy: rebase
-        agent: pi
-        panes:
-          - command: <agent>
-            focus: true
-          - split: horizontal
-        sandbox:
-          enabled: true
-        container:
-          runtime: podman
+      # Configure Lima to use virtiofs by default for all VMs
+      home.file.".lima/_config/override.yaml".text = ''
+        mountType: virtiofs
       '';
-
-      services.pueue = {
-        enable = true;
-        settings = {
-          daemon = {
-            default_parallel_tasks = 2;
-          };
-        };
-      };
 
       programs.zsh = {
         shellAliases = {
@@ -104,6 +85,37 @@ in {
         '';
       };
 
+      # Workmux configuration for sandboxing
+      # TODO: replace gemini for pi
+      xdg.configFile."workmux/config.yaml" = {
+        force = true;
+        text = ''
+          merge_strategy: rebase
+          nerdfont: true
+          agent: gemini
+          sandbox:
+            enabled: true
+            backend: lima
+            toolchain: auto  # Automatically detects flake.nix
+            env_passthrough:
+              - GEMINI_API_KEY
+            lima:
+              cpus: 2       # Optional: customize VM resources
+              memory: 4GB
+              disk: 50GB
+        '';
+      };
+
+      services.pueue = {
+        enable = true;
+        settings = {
+          daemon = {
+            default_parallel_tasks = 2;
+          };
+        };
+      };
+
+      # TODO: remove code companion
       programs.nvf.settings.vim = {
         # Only installed if code-companion is enabled
         # TODO: make this also dependent on whether code-companion is enabled
