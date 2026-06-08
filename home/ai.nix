@@ -82,6 +82,7 @@ in {
         };
         envExtra = ''
           export GEMINI_API_KEY="$(cat ${config.age.secrets.gemini-key.path})"
+          export CLAUDE_API_KEY="$(cat ${config.age.secrets.claude-key.path})"
         '';
       };
 
@@ -99,6 +100,7 @@ in {
             toolchain: auto  # Automatically detects flake.nix
             env_passthrough:
               - GEMINI_API_KEY
+              - CLAUDE_API_KEY
             lima:
               cpus: 2       # Optional: customize VM resources
               memory: 4GB
@@ -123,7 +125,7 @@ in {
         # set 'GEMINI_API_KEY' here, so it can be use by gemini adapters
         # Otherwise would have to set manually `{gemini,gemini_cli}.env.GEMINI_API_KEY
         luaConfigPre = ''
-          vim.env.GEMINI_API_KEY = vim.fn.system("cat " .. "${config.age.secrets."gemini-key".path}"):gsub("%s+", ""),
+          vim.env.GEMINI_API_KEY = vim.fn.system("cat " .. "${config.age.secrets.gemini-key.path}"):gsub("%s+", "")
         '';
 
         assistant.codecompanion-nvim = {

@@ -16,6 +16,7 @@
         # The path to the encrypted file in your git repo
         file = ../home/secrets/gemini-key.age;
       };
+      "claude-key".file = ../home/secrets/claude-key.age;
     };
   };
 
