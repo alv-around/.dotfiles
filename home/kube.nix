@@ -13,13 +13,12 @@ in {
   config = lib.mkIf cfg.enable (lib.mkMerge [
     # Install Kubernetes client tools
     {
-      home = {
-        packages = with pkgs; [
-          kubectl
-          kubernetes-helm # Helpful for deploying apps
-          k9s # Excellent terminal UI for Kubernetes
-        ];
-      };
+      home.packages = with pkgs; [
+        kubectl
+        kubernetes-helm # Helpful for deploying apps
+        k9s # Excellent terminal UI for Kubernetes
+        podman
+      ];
     }
     {
       # Point your environment to the system-level kubeconfig created by Ansible
