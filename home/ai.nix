@@ -83,6 +83,7 @@ in {
         envExtra = ''
           export GEMINI_API_KEY="$(cat ${config.age.secrets.gemini-key.path})"
           export CLAUDE_API_KEY="$(cat ${config.age.secrets.claude-key.path})"
+          export CODEX_API_KEY="$(cat ${config.age.secrets.codex-key.path})"
         '';
       };
 

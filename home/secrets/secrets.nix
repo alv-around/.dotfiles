@@ -5,4 +5,5 @@ let
 in {
   "gemini-key.age".publicKeys = [alvpad];
   "claude-key.age".publicKeys = [alvpad];
+  "codex-key.age".publicKeys = [alvpad];
 }
