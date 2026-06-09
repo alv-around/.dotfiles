@@ -66,14 +66,16 @@ in {
     {
       home.packages = [
         pkgs-unstable.lima
-        pkgs.virtiofsd
         pkgs.pueue
-        workmux.packages.${pkgs.system}.default
+        # INFO: skip running test when installing
+        (workmux.packages.${pkgs.system}.default.overrideAttrs (oldAttrs: {
+          doCheck = false;
+        }))
       ];
 
-      # Configure Lima to use virtiofs by default for all VMs
+      # INFO: mounttype `p9` and `virtiofsd` are at the time buggy
       home.file.".lima/_config/override.yaml".text = ''
-        mountType: virtiofs
+        mountType: reverse-sshfs
       '';
 
       programs.zsh = {
@@ -82,8 +84,8 @@ in {
         };
         envExtra = ''
           export GEMINI_API_KEY="$(cat ${config.age.secrets.gemini-key.path})"
-          export CLAUDE_API_KEY="$(cat ${config.age.secrets.claude-key.path})"
-          export CODEX_API_KEY="$(cat ${config.age.secrets.codex-key.path})"
+          export ANTHROPIC_API_KEY="$(cat ${config.age.secrets.claude-key.path})"
+          export OPENAI_API_KEY="$(cat ${config.age.secrets.codex-key.path})"
         '';
       };
 
@@ -91,17 +93,19 @@ in {
       # TODO: replace gemini for pi
       xdg.configFile."workmux/config.yaml" = {
         force = true;
+        # INFO: Setting agent to `pi` creates an error.
         text = ''
           merge_strategy: rebase
           nerdfont: true
-          agent: gemini
+          agent: claude
           sandbox:
             enabled: true
             backend: lima
             toolchain: auto  # Automatically detects flake.nix
             env_passthrough:
               - GEMINI_API_KEY
-              - CLAUDE_API_KEY
+              - ANTHROPIC_API_KEY
+              - OPENAI_API_KEY
             lima:
               cpus: 2       # Optional: customize VM resources
               memory: 4GB
