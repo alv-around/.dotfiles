@@ -66,7 +66,6 @@ in {
     {
       home.packages = [
         pkgs-unstable.lima
-        pkgs.pueue
         # INFO: skip running test when installing
         (workmux.packages.${pkgs.system}.default.overrideAttrs (oldAttrs: {
           doCheck = false;
@@ -79,9 +78,6 @@ in {
       '';
 
       programs.zsh = {
-        shellAliases = {
-          gq = "pueue add -- gemini";
-        };
         envExtra = ''
           export GEMINI_API_KEY="$(cat ${config.age.secrets.gemini-key.path})"
           export ANTHROPIC_API_KEY="$(cat ${config.age.secrets.claude-key.path})"
@@ -90,7 +86,9 @@ in {
       };
 
       # Workmux configuration for sandboxing
-      # TODO: replace gemini for pi
+      # TODO: replace claude for pi
+      # TODO: create a custom vm-image with nix
+      # TODO: install in the custom image pueue
       xdg.configFile."workmux/config.yaml" = {
         force = true;
         # INFO: Setting agent to `pi` creates an error.
