@@ -18,6 +18,7 @@ in {
         kubernetes-helm # Helpful for deploying apps
         k9s # Excellent terminal UI for Kubernetes
         podman
+        podman-compose
       ];
     }
     {
