@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-unstable,
   config,
   lib,
   workmux,
@@ -65,7 +64,8 @@ in {
     # --- CONDITION 2: Always set up the adapter if AI is enabled ---
     {
       home.packages = [
-        pkgs-unstable.lima
+        pkgs.lima
+        pkgs.pueue # TODO: remove this should be inside the vm
         # INFO: skip running test when installing
         (workmux.packages.${pkgs.system}.default.overrideAttrs (oldAttrs: {
           doCheck = false;
@@ -124,7 +124,7 @@ in {
       programs.nvf.settings.vim = {
         # Only installed if code-companion is enabled
         # TODO: make this also dependent on whether code-companion is enabled
-        extraPackages = [pkgs-unstable.gemini-cli];
+        extraPackages = [pkgs.gemini-cli];
         # set 'GEMINI_API_KEY' here, so it can be use by gemini adapters
         # Otherwise would have to set manually `{gemini,gemini_cli}.env.GEMINI_API_KEY
         luaConfigPre = ''
