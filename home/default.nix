@@ -18,12 +18,6 @@
     ./programs/zellij.nix
   ];
 
-  features = {
-    ai.enable = true;
-    k3s.enable = true;
-    zellij.enable = false;
-  };
-
   # Define the packages you want available in your user environment.
   home.packages = with pkgs; [
     # general
@@ -42,6 +36,10 @@
       then (config.lib.nixGL.wrap wezterm)
       else wezterm
     )
+
+    # containers
+    podman
+    podman-compose
   ];
 
   xdg.configFile = {
@@ -114,6 +112,7 @@
           "command-not-found"
           "helm"
           "kubectl"
+          "podman"
         ];
       };
 
