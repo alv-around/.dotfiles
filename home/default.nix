@@ -30,13 +30,6 @@
     nix-init
     act
 
-    ## Wezterm wrapped with nixgl for graphics compatibility (only on Linux).
-    (
-      if pkgs.stdenv.isLinux
-      then (config.lib.nixGL.wrap wezterm)
-      else wezterm
-    )
-
     # containers
     podman
     podman-compose
