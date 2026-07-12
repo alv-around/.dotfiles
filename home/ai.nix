@@ -162,10 +162,7 @@ in {
         packages = [
           pkgs.lima
           pkgs.pueue # TODO: remove this should be inside the vm
-          # INFO: skip running test when installing
-          (workmux.packages.${pkgs.system}.default.overrideAttrs (oldAttrs: {
-            doCheck = false;
-          }))
+          workmux.packages.${pkgs.system}.default
         ];
 
         # INFO: mounttype `p9` and `virtiofsd` are at the time buggy
@@ -174,14 +171,7 @@ in {
         '';
       };
 
-      programs.zsh = {
-        envExtra = ''
-          export GEMINI_API_KEY="$(cat ${config.age.secrets.gemini-key.path})"
-          export ANTHROPIC_API_KEY="$(cat ${config.age.secrets.claude-key.path})"
-          export OPENAI_API_KEY="$(cat ${config.age.secrets.codex-key.path})"
-        '';
-      }; # Workmux configuration for sandboxing
-
+      # Workmux configuration for sandboxing
       # TODO: replace claude for pi
       # TODO: create a custom vm-image with nix
       # TODO: install in the custom image pueue
@@ -191,7 +181,18 @@ in {
         text = ''
           merge_strategy: rebase
           nerdfont: true
-          agent: codex
+          agent: gemini
+          agents:
+            claude:
+              type: claude
+              command: claude
+            codex:
+              type: codex
+              command: codex
+            gemini:
+              type: gemini
+              command: gemini
+
           sandbox:
             enabled: true
             backend: lima
