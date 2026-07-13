@@ -30,19 +30,25 @@ securely in the Nix configuration.
    ```bash
    # In the root of the repo
    cd home/secrets 
-   nix run github:ryantm/agenix -- -e home/secrets/my-new-secret.age
+   nix run github:ryantm/agenix -- -i <path-to-sk> -e my-new-secret.age
    ```
 
-This will open your `$EDITOR`. Type the secret value, save, and exit.
+   This will open your `$EDITOR`. Type the secret value, save, and exit.
 
-4. **Update the secret (if necessary)**: If you added a new key to
+4. **Check that the secret was correctly encrypted with:
+
+   ```bash
+   nix run github:ryantm/agenix -- -i <path-to-sk> -d my-new-secret.age
+   ```
+
+5. **Update the secret (if necessary)**: If you added a new key to
    `secrets.nix`, you need to re-encrypt the files:
 
    ```bash
    nix run github:ryantm/agenix -- --rekey --identity <path-to-sk>
    ```
 
-5. **Use the secret in Home Manager**: In `home/default.nix` (or any other
+6. **Use the secret in Home Manager**: In `home/default.nix` (or any other
    module), add the secret to the `age.secrets` set:
 
    ```nix

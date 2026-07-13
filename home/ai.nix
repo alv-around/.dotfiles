@@ -12,6 +12,12 @@ in {
   options.features.ai = {
     enable = lib.mkEnableOption "Option to enable ai";
 
+    codecompanion = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Host of the ollama service";
+    };
+
     ollama = {
       local = lib.mkOption {
         type = lib.types.bool;
@@ -62,65 +68,7 @@ in {
     })
 
     # --- CONDITION 2: Always set up the adapter if AI is enabled ---
-    {
-      home.packages = [
-        pkgs.lima
-        pkgs.pueue # TODO: remove this should be inside the vm
-        # INFO: skip running test when installing
-        (workmux.packages.${pkgs.system}.default.overrideAttrs (oldAttrs: {
-          doCheck = false;
-        }))
-      ];
-
-      # INFO: mounttype `p9` and `virtiofsd` are at the time buggy
-      home.file.".lima/_config/override.yaml".text = ''
-        mountType: reverse-sshfs
-      '';
-
-      programs.zsh = {
-        envExtra = ''
-          export GEMINI_API_KEY="$(cat ${config.age.secrets.gemini-key.path})"
-          export ANTHROPIC_API_KEY="$(cat ${config.age.secrets.claude-key.path})"
-          export OPENAI_API_KEY="$(cat ${config.age.secrets.codex-key.path})"
-        '';
-      };
-
-      # Workmux configuration for sandboxing
-      # TODO: replace claude for pi
-      # TODO: create a custom vm-image with nix
-      # TODO: install in the custom image pueue
-      xdg.configFile."workmux/config.yaml" = {
-        force = true;
-        # INFO: Setting agent to `pi` creates an error.
-        text = ''
-          merge_strategy: rebase
-          nerdfont: true
-          agent: claude
-          sandbox:
-            enabled: true
-            backend: lima
-            toolchain: auto  # Automatically detects flake.nix
-            env_passthrough:
-              - GEMINI_API_KEY
-              - ANTHROPIC_API_KEY
-              - OPENAI_API_KEY
-            lima:
-              cpus: 2       # Optional: customize VM resources
-              memory: 4GB
-              disk: 50GB
-        '';
-      };
-
-      services.pueue = {
-        enable = true;
-        settings = {
-          daemon = {
-            default_parallel_tasks = 2;
-          };
-        };
-      };
-
-      # TODO: remove code companion
+    (lib.mkIf cfg.codecompanion {
       programs.nvf.settings.vim = {
         # Only installed if code-companion is enabled
         # TODO: make this also dependent on whether code-companion is enabled
@@ -206,6 +154,62 @@ in {
             desc = "Execute codecompanion cmd";
           }
         ];
+      };
+    })
+
+    {
+      home = {
+        packages = [
+          pkgs.lima
+          pkgs.pueue # TODO: remove this should be inside the vm
+          workmux.packages.${pkgs.system}.default
+        ];
+
+        # INFO: mounttype `p9` and `virtiofsd` are at the time buggy
+        file.".lima/_config/override.yaml".text = ''
+          mountType: reverse-sshfs
+        '';
+      };
+
+      programs.zsh.sessionVariables = {
+        ANTHROPIC_API_KEY = "$(cat ${config.age.secrets.claude-key.path})";
+        GEMINI_API_KEY = "$(cat ${config.age.secrets.gemini-key.path})";
+        OPENAI_API_KEY = "$(cat ${config.age.secrets.codex-key.path})";
+      };
+
+      # Workmux configuration for sandboxing
+      # TODO: replace claude for pi
+      # TODO: create a custom vm-image with nix
+      # TODO: install in the custom image pueue
+      xdg.configFile."workmux/config.yaml" = {
+        force = true;
+        # INFO: set agent to codex | claude | gemini | pi ..
+        text = ''
+          merge_strategy: rebase
+          nerdfont: true
+          agent: gemini
+          sandbox:
+            enabled: true
+            backend: lima
+            toolchain: auto  # Automatically detects flake.nix
+            env_passthrough:
+              - GEMINI_API_KEY
+              - ANTHROPIC_API_KEY
+              - OPENAI_API_KEY
+            lima:
+              cpus: 2       # Optional: customize VM resources
+              memory: 4GB
+              disk: 50GB
+        '';
+      };
+
+      services.pueue = {
+        enable = true;
+        settings = {
+          daemon = {
+            default_parallel_tasks = 2;
+          };
+        };
       };
     }
   ]);
