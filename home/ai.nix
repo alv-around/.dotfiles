@@ -171,28 +171,23 @@ in {
         '';
       };
 
+      programs.zsh.sessionVariables = {
+        ANTHROPIC_API_KEY = "$(cat ${config.age.secrets.claude-key.path})";
+        GEMINI_API_KEY = "$(cat ${config.age.secrets.gemini-key.path})";
+        OPENAI_API_KEY = "$(cat ${config.age.secrets.codex-key.path})";
+      };
+
       # Workmux configuration for sandboxing
       # TODO: replace claude for pi
       # TODO: create a custom vm-image with nix
       # TODO: install in the custom image pueue
       xdg.configFile."workmux/config.yaml" = {
         force = true;
-        # INFO: Setting agent to `pi` creates an error.
+        # INFO: set agent to codex | claude | gemini | pi ..
         text = ''
           merge_strategy: rebase
           nerdfont: true
           agent: gemini
-          agents:
-            claude:
-              type: claude
-              command: claude
-            codex:
-              type: codex
-              command: codex
-            gemini:
-              type: gemini
-              command: gemini
-
           sandbox:
             enabled: true
             backend: lima
