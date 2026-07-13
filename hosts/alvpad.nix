@@ -9,9 +9,9 @@
     identityPaths = ["${config.home.homeDirectory}/.ssh/id_agenix"];
 
     secrets = {
-      "gemini-key".file = ../home/secrets/gemini-key.age;
-      "claude-key".file = ../home/secrets/claude-key.age;
-      "codex-key".file = ../home/secrets/codex-key.age;
+      "gemini-key".file = ../secrets/gemini-key.age;
+      "claude-key".file = ../secrets/claude-key.age;
+      "codex-key".file = ../secrets/codex-key.age;
     };
   };
 
