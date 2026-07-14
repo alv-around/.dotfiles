@@ -10,7 +10,6 @@
     agenix.url = "github:ryantm/agenix";
     nvf.url = "github:notashelf/nvf";
     nixgl.url = "github:nix-community/nixGL";
-    flake-utils.url = "github:numtide/flake-utils";
     workmux.url = "github:raine/workmux";
   };
 
@@ -20,56 +19,83 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     home-manager,
     agenix,
     nvf,
     nixgl,
-    flake-utils,
     workmux,
     ...
-  }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {inherit system;};
-    in {
-      devShells.default = pkgs.mkShell {
-        name = "home-manager-dev";
-        packages = with pkgs; [
-          home-manager.packages.${system}.default # Provides the 'home-manager' CLI tool from this flake
-        ];
-        shellHook = ''
-          echo "Welcome to the home-manager development shell!"
-          echo "To apply your configuration, run: home-manager switch --flake ."
-        '';
-      };
-    })
-    // {
-      homeConfigurations = {
-        # Configuration for your main Linux Wayland machine
-        "alv" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {system = "x86_64-linux";};
-          extraSpecialArgs = {
-            inherit nixgl workmux;
-          };
-          modules = [
-            agenix.homeManagerModules.default
-            nvf.homeManagerModules.default
-            ./home/default.nix
-            ./hosts/alvpad.nix
-          ];
-        };
+  }: let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+    };
+  in {
+    devShells.${system}.default = pkgs.mkShell {
+      name = "home-manager-dev";
+      shellHook = ''
+        echo "Welcome to the home-manager development shell!"
+        echo "To apply your configuration, run: home-manager switch --flake ."
+      '';
+    };
 
-        ## user of gh action
-        "runner" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {system = "x86_64-linux";};
-          extraSpecialArgs = {
-            inherit nixgl;
-          };
-          modules = [
-            nvf.homeManagerModules.default
-            ./tests/test_profile.nix
-          ];
+    # home-manager config
+    homeConfigurations = {
+      # Configuration for your main Linux Wayland machine
+      "alv" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {
+          inherit nixgl workmux;
         };
+        modules = [
+          agenix.homeManagerModules.default
+          nvf.homeManagerModules.default
+          ./home/common/default.nix
+          ./home/linux.nix
+        ];
       };
     };
+
+    # NixOS config
+    nixosConfigurations = {
+      nixos-vm = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/nixos-vm/configuration.nix
+
+          # INFO: You can optionally import your HM right into the VM,
+          # consider when proting to NixOs
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              sharedModules = [
+                {
+                  _module.args = {
+                    inherit nixgl workmux;
+                  };
+                }
+              ];
+              users.alv = {
+                imports = [
+                  agenix.homeManagerModules.default
+                  nvf.homeManagerModules.default
+                  ./home/common/default.nix
+                  ./home/linux.nix
+                ];
+              };
+            };
+          }
+        ];
+      };
+    };
+
+    checks.${system} = {
+      hm-alv = self.homeConfigurations."alv".activationPackage;
+      nixos-vm = self.nixosConfigurations."nixos-vm".config.system.build.toplevel;
+    };
+  };
 }
