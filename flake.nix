@@ -51,8 +51,8 @@
         modules = [
           agenix.homeManagerModules.default
           nvf.homeManagerModules.default
-          ./home/default.nix
-          ./hosts/alvpad.nix
+          ./home/common/default.nix
+          ./home/linux.nix
         ];
       };
     };
