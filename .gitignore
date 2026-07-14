@@ -7,3 +7,6 @@ home/local.nix
 # Nix's artifact
 result
 .direnv
+
+# hard drive files when creating a local vm
+*.qcow2

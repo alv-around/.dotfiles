@@ -40,6 +40,7 @@
       '';
     };
 
+    # home-manager config
     homeConfigurations = {
       # Configuration for your main Linux Wayland machine
       "alv" = home-manager.lib.homeManagerConfiguration {
@@ -52,6 +53,41 @@
           nvf.homeManagerModules.default
           ./home/default.nix
           ./hosts/alvpad.nix
+        ];
+      };
+    };
+
+    # NixOS config
+    nixosConfigurations = {
+      nixos-vm = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./nixos/configuration.nix
+
+          # You can optionally import your HM right into the VM if you want,
+          # or keep it standalone inside the VM too!
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              sharedModules = [
+                {
+                  _module.args = {
+                    inherit nixgl workmux;
+                  };
+                }
+              ];
+              users.alv = {
+                imports = [
+                  agenix.homeManagerModules.default
+                  nvf.homeManagerModules.default
+                  ./home/default.nix
+                  ./hosts/alvpad.nix
+                ];
+              };
+            };
+          }
         ];
       };
     };
