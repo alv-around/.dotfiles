@@ -58,18 +58,6 @@
             ./hosts/alvpad.nix
           ];
         };
-
-        ## user of gh action
-        "runner" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {system = "x86_64-linux";};
-          extraSpecialArgs = {
-            inherit nixgl;
-          };
-          modules = [
-            nvf.homeManagerModules.default
-            ./tests/test_profile.nix
-          ];
-        };
       };
     };
 }
