@@ -3,10 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     agenix.url = "github:ryantm/agenix";
     nvf.url = "github:notashelf/nvf";
     nixgl.url = "github:nix-community/nixGL";
@@ -22,6 +29,7 @@
     self,
     nixpkgs,
     home-manager,
+    nix-darwin,
     agenix,
     nvf,
     nixgl,
@@ -32,6 +40,11 @@
     pkgs = import nixpkgs {
       inherit system;
     };
+    shared-inputs = [
+      agenix.homeManagerModules.default
+      nvf.homeManagerModules.default
+      ./home/common/default.nix
+    ];
   in {
     devShells.${system}.default = pkgs.mkShell {
       name = "home-manager-dev";
@@ -49,12 +62,11 @@
         extraSpecialArgs = {
           inherit nixgl workmux;
         };
-        modules = [
-          agenix.homeManagerModules.default
-          nvf.homeManagerModules.default
-          ./home/common/default.nix
-          ./home/linux.nix
-        ];
+        modules =
+          shared-inputs
+          ++ [
+            ./home/linux.nix
+          ];
       };
     };
 
@@ -80,17 +92,30 @@
                 }
               ];
               users.alv = {
-                imports = [
-                  agenix.homeManagerModules.default
-                  nvf.homeManagerModules.default
-                  ./home/common/default.nix
-                  ./home/linux.nix
-                ];
+                imports =
+                  shared-inputs
+                  ++ [
+                    ./home/linux.nix
+                  ];
               };
             };
           }
         ];
       };
+    };
+
+    darwinConfigurations."work-mac" = nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin"; # Apple Silicon M1/M2/M3
+      modules = [
+        ./hosts/macos/system-configuration.nix
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.sharedModules = shared-inputs;
+          home-manager.users.alv = {
+            imports = [./home/macos.nix]; # Mix in Mac-specific user settings
+          };
+        }
+      ];
     };
 
     checks.${system} = {
