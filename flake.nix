@@ -19,6 +19,7 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     home-manager,
     agenix,
@@ -90,6 +91,11 @@
           }
         ];
       };
+    };
+
+    checks.${system} = {
+      hm-alv = self.homeConfigurations."alv".activationPackage;
+      nixos-vm = self.nixosConfigurations."nixos-vm".config.system.build.toplevel;
     };
   };
 }
