@@ -62,10 +62,10 @@
       nixos-vm = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          ./nixos/configuration.nix
+          ./hosts/nixos-vm/configuration.nix
 
-          # You can optionally import your HM right into the VM if you want,
-          # or keep it standalone inside the VM too!
+          # INFO: You can optionally import your HM right into the VM,
+          # consider when proting to NixOs
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -82,8 +82,8 @@
                 imports = [
                   agenix.homeManagerModules.default
                   nvf.homeManagerModules.default
-                  ./home/default.nix
-                  ./hosts/alvpad.nix
+                  ./home/common/default.nix
+                  ./home/linux.nix
                 ];
               };
             };
