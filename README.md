@@ -8,13 +8,17 @@
 
 ## Installation
 
+### Home Manager
+
 > /!\ if nix and home-manager are freshly installed either: add
 > `experimental-features = nix-command flakes` to `~/.config/nix/nix.conf`, or
 > flag to each nix command `--extra-experimental-features "nix-command flakes"`
 
 1. Adjust `username` to your settings in [`flake.nix`](./flake.nix#L37)
 
-2. Run:
+2. If new computer make sure to create a new keys and re-encrypt the secrets
+
+3. Run:
 
 ```bash
 home-manager switch --flake .
