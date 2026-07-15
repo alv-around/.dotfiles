@@ -8,10 +8,10 @@
     zellij.enable = false;
   };
 
+  # TODO: update values
   home = {
-    # TODO: fill this data
-    username = "username";
-    homeDirectory = "/home/username";
+    username = "alv";
+    homeDirectory = "/Users/alv";
 
     packages = with pkgs; [
       wezterm

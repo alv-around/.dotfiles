@@ -4,9 +4,15 @@ on:
   pull_request:
     branches:
       - main
+
 jobs:
-  tests:
-    runs-on: ubuntu-latest
+  flake-check:                      # This is the job ID
+    name: flake check               # This is the friendly display name
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        # Note: You don't need the 'include' block here since it just duplicates your matrix OS list
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31

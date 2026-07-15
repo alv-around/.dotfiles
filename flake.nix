@@ -10,7 +10,7 @@
     };
 
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -39,9 +39,11 @@
     linux_system = "x86_64-linux";
     linux_user = "alv";
     mac_system = "aarch64-darwin";
-    mac_user = "";
+    # TODO: add your user and host-name
+    mac_host = "host";
+    mac_user = "user";
     pkgs = import nixpkgs {
-      inherit linux_system;
+      system = linux_system;
     };
     shared-inputs = [
       agenix.homeManagerModules.default
@@ -72,7 +74,6 @@
           ];
       };
 
-      # TODO: add your user-name
       ${mac_user} = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${mac_system};
         extraSpecialArgs = {inherit workmux;};
@@ -83,7 +84,7 @@
     # NixOS config
     nixosConfigurations = {
       nixos-vm = nixpkgs.lib.nixosSystem {
-        inherit linux_system;
+        system = linux_system;
         modules = [
           ./hosts/nixos-vm/configuration.nix
 
@@ -114,7 +115,7 @@
       };
     };
 
-    darwinConfigurations."work-mac" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.${mac_host} = nix-darwin.lib.darwinSystem {
       system = mac_system; # Apple Silicon M1/M2/M3
       modules = [
         ./hosts/macos/system-configuration.nix
@@ -135,6 +136,7 @@
 
     checks.${mac_system} = {
       hm-macos = self.homeConfigurations.${mac_user}.activationPackage;
+      darwin-system = self.darwinConfigurations.${mac_host}.system;
     };
   };
 }
