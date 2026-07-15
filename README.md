@@ -14,7 +14,8 @@
 > `experimental-features = nix-command flakes` to `~/.config/nix/nix.conf`, or
 > flag to each nix command `--extra-experimental-features "nix-command flakes"`
 
-1. Adjust `username` to your settings in [`flake.nix`](./flake.nix#L37)
+1. Adjust `username` to your settings in [`flake.nix`](./flake.nix#L37) and
+   [`linux.nix](./home/linux.nix)/[`macos.nix`](./home/macos.nix)
 
 2. If new computer make sure to create a new keys and re-encrypt the secrets
 
@@ -22,6 +23,20 @@
 
 ```bash
 home-manager switch --flake .
+```
+
+### System changes
+
+#### NixOs
+
+```bash
+nixos-rebuild switch --flake .#<hostname>
+```
+
+#### MacOs
+
+```bash
+darwin-rebuild switch --flake .#<hostname>
 ```
 
 ### Updating Packages

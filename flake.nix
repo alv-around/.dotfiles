@@ -36,9 +36,12 @@
     workmux,
     ...
   }: let
-    system = "x86_64-linux";
+    linux_system = "x86_64-linux";
+    linux_user = "alv";
+    mac_system = "aarch64-darwin";
+    mac_user = "";
     pkgs = import nixpkgs {
-      inherit system;
+      inherit linux_system;
     };
     shared-inputs = [
       agenix.homeManagerModules.default
@@ -46,7 +49,7 @@
       ./home/common/default.nix
     ];
   in {
-    devShells.${system}.default = pkgs.mkShell {
+    devShells.${linux_system}.default = pkgs.mkShell {
       name = "home-manager-dev";
       shellHook = ''
         echo "Welcome to the home-manager development shell!"
@@ -57,8 +60,8 @@
     # home-manager config
     homeConfigurations = {
       # Configuration for your main Linux Wayland machine
-      "alv" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
+      ${linux_user} = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${linux_system};
         extraSpecialArgs = {
           inherit nixgl workmux;
         };
@@ -68,12 +71,19 @@
             ./home/linux.nix
           ];
       };
+
+      # TODO: add your user-name
+      ${mac_user} = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${mac_system};
+        extraSpecialArgs = {inherit workmux;};
+        modules = shared-inputs ++ [./home/macos.nix];
+      };
     };
 
     # NixOS config
     nixosConfigurations = {
       nixos-vm = nixpkgs.lib.nixosSystem {
-        inherit system;
+        inherit linux_system;
         modules = [
           ./hosts/nixos-vm/configuration.nix
 
@@ -91,7 +101,7 @@
                   };
                 }
               ];
-              users.alv = {
+              users.${linux_user} = {
                 imports =
                   shared-inputs
                   ++ [
@@ -105,22 +115,26 @@
     };
 
     darwinConfigurations."work-mac" = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin"; # Apple Silicon M1/M2/M3
+      system = mac_system; # Apple Silicon M1/M2/M3
       modules = [
         ./hosts/macos/system-configuration.nix
         home-manager.darwinModules.home-manager
         {
           home-manager.sharedModules = shared-inputs;
-          home-manager.users.alv = {
+          home-manager.users.${mac_user} = {
             imports = [./home/macos.nix]; # Mix in Mac-specific user settings
           };
         }
       ];
     };
 
-    checks.${system} = {
-      hm-alv = self.homeConfigurations."alv".activationPackage;
+    checks.${linux_system} = {
+      hm-alv = self.homeConfigurations.${linux_user}.activationPackage;
       nixos-vm = self.nixosConfigurations."nixos-vm".config.system.build.toplevel;
+    };
+
+    checks.${mac_system} = {
+      hm-macos = self.homeConfigurations.${mac_user}.activationPackage;
     };
   };
 }
