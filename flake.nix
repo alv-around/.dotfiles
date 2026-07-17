@@ -11,6 +11,8 @@
     nvf.url = "github:notashelf/nvf";
     nixgl.url = "github:nix-community/nixGL";
     workmux.url = "github:raine/workmux";
+    # TODO: for a better way in install niri / noctalia
+    noctalia.url = "github:noctalia-dev/noctalia-shell";
   };
 
   # use nix-command and flakes experimental features
@@ -25,6 +27,7 @@
     nvf,
     nixgl,
     workmux,
+    noctalia,
     ...
   }: let
     system = "x86_64-linux";
@@ -64,8 +67,7 @@
         modules = [
           ./hosts/nixos-vm/configuration.nix
 
-          # INFO: You can optionally import your HM right into the VM,
-          # consider when proting to NixOs
+          # TODO: You can optionally import your HM right into the VM,
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -82,8 +84,11 @@
                 imports = [
                   agenix.homeManagerModules.default
                   nvf.homeManagerModules.default
+                  noctalia.homeModules.default
                   ./home/common/default.nix
                   ./home/linux.nix
+                  # niri + noctalia desktop, scoped to the VM only.
+                  ./home/common/programs/niri.nix
                 ];
               };
             };
