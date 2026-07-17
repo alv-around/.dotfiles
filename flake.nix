@@ -19,6 +19,11 @@
     nixgl.url = "github:nix-community/nixGL";
     workmux.url = "github:raine/workmux";
     flake-utils.url = "github:numtide/flake-utils";
+
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # use nix-command and flakes experimental features
@@ -36,6 +41,7 @@
     nixgl,
     workmux,
     flake-utils,
+    microvm,
     ...
   }: let
     linux_system = "x86_64-linux";
@@ -49,6 +55,38 @@
       nvf.homeManagerModules.default
       ./home/common/default.nix
     ];
+
+    # Build the coding-agent microVM for a given system + hypervisor.
+    # The image contents live in ./hosts/common/agent-vm.nix; only the
+    # hypervisor-specific runtime bits differ between NixOS (qemu/KVM) and
+    # macOS (vfkit / Apple Virtualization).
+    mkAgentVm = {
+      system,
+      hypervisor,
+    }:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          microvm.nixosModules.microvm
+          ./hosts/common/agent-vm.nix
+          {
+            microvm = {
+              inherit hypervisor;
+              vcpu = 2;
+              mem = 4096;
+              # User-mode networking: outbound internet for the agent APIs with
+              # no host-side network setup. Works under both qemu and vfkit.
+              interfaces = [
+                {
+                  type = "user";
+                  id = "eth0";
+                  mac = "02:00:00:01:01:01";
+                }
+              ];
+            };
+          }
+        ];
+      };
   in
     {
       # home-manager config
@@ -69,10 +107,28 @@
 
       # NixOS config
       nixosConfigurations = {
+        # The coding-agent microVM as a standalone NixOS system. Referenced by
+        # the declarative host below, by the `microvm` command, and by
+        # `nix run .#agent-vm` on Linux.
+        agent-vm = mkAgentVm {
+          system = linux_system;
+          hypervisor = "qemu";
+        };
+
         nixos-vm = nixpkgs.lib.nixosSystem {
           system = linux_system;
           modules = [
             ./hosts/nixos-vm/configuration.nix
+
+            # microvm.nix host: manages declarative VMs as `microvm@<name>`
+            # systemd services under /var/lib/microvms.
+            microvm.nixosModules.host
+            {
+              microvm.vms.agent-vm = {
+                flake = self;
+                restartIfChanged = false;
+              };
+            }
 
             # INFO: You can optionally import your HM right into the VM,
             # consider when proting to NixOs
@@ -134,11 +190,28 @@
         '';
       };
 
+      # Runnable coding-agent microVM: `nix run .#agent-vm`.
+      # On Linux this reuses the nixosConfiguration above (qemu/KVM); on macOS
+      # it builds an aarch64-linux guest (via the nix-darwin linux-builder) and
+      # runs it through vfkit / Apple Virtualization.
+      packages.agent-vm =
+        if system == linux_system
+        then self.nixosConfigurations.agent-vm.config.microvm.declaredRunner
+        else
+          (mkAgentVm {
+            system = "aarch64-linux";
+            hypervisor = "vfkit";
+          })
+          .config
+          .microvm
+          .declaredRunner;
+
       checks =
         if system == linux_system
         then {
           hm-alv = self.homeConfigurations.${linux_user}.activationPackage;
           nixos-vm = self.nixosConfigurations."nixos-vm".config.system.build.toplevel;
+          agent-vm = self.nixosConfigurations.agent-vm.config.microvm.declaredRunner;
         }
         else if system == mac_system
         then {

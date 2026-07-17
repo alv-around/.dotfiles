@@ -160,8 +160,10 @@ in {
     {
       home = {
         packages = [
+          # lima is workmux's sandbox backend (workmux only supports lima).
+          # The coding-agent microVM (see hosts/common/agent-vm.nix) is a
+          # separate, general-purpose agent sandbox; pueue now lives there.
           pkgs.lima
-          pkgs.pueue # TODO: remove this should be inside the vm
           workmux.packages.${pkgs.system}.default
         ];
 
@@ -179,8 +181,6 @@ in {
 
       # Workmux configuration for sandboxing
       # TODO: replace claude for pi
-      # TODO: create a custom vm-image with nix
-      # TODO: install in the custom image pueue
       xdg.configFile."workmux/config.yaml" = {
         force = true;
         # INFO: set agent to codex | claude | gemini | pi ..
@@ -201,15 +201,6 @@ in {
               memory: 4GB
               disk: 50GB
         '';
-      };
-
-      services.pueue = {
-        enable = true;
-        settings = {
-          daemon = {
-            default_parallel_tasks = 2;
-          };
-        };
       };
     }
   ]);

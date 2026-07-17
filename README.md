@@ -79,6 +79,58 @@ Once is finished building run:
 > (`.qcow2`) in your current working directory so the VM can persist files
 > across reboots.
 
+## Coding Agent MicroVM
+
+A sandboxed [`microvm.nix`](https://github.com/microvm-nix/microvm.nix) VM that
+bundles the coding agents (`claude-code`, `gemini-cli`, `codex`,
+`pi-coding-agent`) and the `pueue` task queue, so the whole agentic workload
+runs isolated from the host. The image is defined once in
+[`hosts/common/agent-vm.nix`](./hosts/common/agent-vm.nix) and wired up in
+[`flake.nix`](./flake.nix).
+
+**Prerequisites**
+
+- **NixOS:** works out of the box (KVM). The VM is a declarative systemd
+  service on the `nixos-vm` host.
+- **macOS:** Apple Silicon only. The Linux guest can't be built natively, so
+  `nix.linux-builder` is enabled in
+  [`hosts/macos/system-configuration.nix`](./hosts/macos/system-configuration.nix);
+  the guest is then run via Apple Virtualization (`vfkit`).
+
+### Ad-hoc run (macOS **and** Linux)
+
+Boots an ephemeral VM in the foreground; nothing persists after it exits. On
+macOS the first run builds the guest through the `linux-builder` (slow once,
+cached afterwards).
+
+```bash
+nix run .#agent-vm      # start (Ctrl-a x in qemu, or close the window, to stop)
+```
+
+### Declarative, systemd-managed (NixOS)
+
+On the `nixos-vm` host the VM is registered as `microvm@agent-vm` and its state
+lives under `/var/lib/microvms/agent-vm`.
+
+```bash
+# start / stop
+sudo systemctl start microvm@agent-vm
+sudo systemctl stop  microvm@agent-vm
+
+# status & logs
+systemctl status microvm@agent-vm
+journalctl -fu   microvm@agent-vm
+
+# update after changing the image or flake, then restart it
+sudo nixos-rebuild switch --flake .#<hostname>
+sudo microvm -Ru agent-vm
+
+# delete completely
+sudo systemctl stop microvm@agent-vm
+sudo rm -rf /var/lib/microvms/agent-vm
+# (also remove `microvm.vms.agent-vm` from flake.nix if it should stay gone)
+```
+
 ## Agentic Workflow
 
 This setup supports a high-performance agentic workflow using several tools:
@@ -86,14 +138,15 @@ This setup supports a high-performance agentic workflow using several tools:
 ### Parallel Execution with `pueue`
 
 [Pueue](https://github.com/Nukesor/pueue) is a task runner that allows you to
-queue and manage long-running tasks in the background.
+queue and manage long-running tasks in the background. It now runs **inside the
+coding-agent microVM** (see above) rather than on the host — start the VM, open
+a shell in it, and drive the agents from there. The `pueued` daemon is started
+automatically inside the VM.
 
-- **Queue a task:** Use the `gq` alias (e.g.,
-  `gq "Refactor the authentication module"`).
+- **Queue a task:** `pueue add -- claude -p "Refactor the authentication module"`.
 - **Check status:** Run `pueue status`.
 - **View logs:** Run `pueue log <task_id>`.
-- **Parallelism:** By default, 2 tasks can run in parallel (configured in
-  `home/ai.nix`).
+- **Parallelism:** Tune with `pueue parallel <n>`.
 
 ### Agent Isolation with `workmux`
 
