@@ -10,8 +10,8 @@
 
   # TODO: update values
   home = {
-    username = "alv";
-    homeDirectory = "/Users/alv";
+    username = "alvaround";
+    homeDirectory = "/Users/alvaround";
 
     packages = with pkgs; [
       wezterm

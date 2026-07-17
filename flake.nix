@@ -42,8 +42,8 @@
     linux_user = "alv";
     mac_system = "aarch64-darwin";
     # TODO: add your user and host-name
-    mac_host = "host";
-    mac_user = "user";
+    mac_host = "Alvaros-iMac-Pro";
+    mac_user = "alvaround";
     shared-inputs = [
       agenix.homeManagerModules.default
       nvf.homeManagerModules.default
@@ -64,12 +64,6 @@
             ++ [
               ./home/linux.nix
             ];
-        };
-
-        ${mac_user} = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${mac_system};
-          extraSpecialArgs = {inherit workmux;};
-          modules = shared-inputs ++ [./home/macos.nix];
         };
       };
 
@@ -113,9 +107,17 @@
           ./hosts/macos/system-configuration.nix
           home-manager.darwinModules.home-manager
           {
-            home-manager.sharedModules = shared-inputs;
-            home-manager.users.${mac_user} = {
-              imports = [./home/macos.nix]; # Mix in Mac-specific user settings
+            home-manager = {
+              sharedModules = [
+                {
+                  _module.args = {
+                    inherit workmux;
+                  };
+                }
+              ];
+              users.${mac_user} = {
+                imports = shared-inputs ++ [./home/macos.nix]; # Mix in Mac-specific user settings
+              };
             };
           }
         ];
@@ -139,7 +141,6 @@
         }
         else if system == mac_system
         then {
-          hm-macos = self.homeConfigurations.${mac_user}.activationPackage;
           darwin-system = self.darwinConfigurations.${mac_host}.system;
         }
         else {};
