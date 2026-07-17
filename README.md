@@ -39,7 +39,7 @@ nixos-rebuild switch --flake .#<hostname>
 darwin-rebuild switch --flake .#<hostname>
 ```
 
-### Updating Packages
+## Updating Packages
 
 ```bash
 rm flake.lock
@@ -57,14 +57,12 @@ nix development
 
 To test your changes:
 
-### home-manager
-
 ```bash
-home-manager switch --flake .
-exec zsh
+nix flake check # for the current system
+nix flake check --all-systems # for all systems
 ```
 
-### Linux Machine
+### Preview your changes
 
 ```bash
 nix run nixpkgs#nixos-rebuild -- build-vm --flake .#nixos-vm

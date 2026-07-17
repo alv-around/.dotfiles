@@ -103,6 +103,7 @@
 
       darwinConfigurations.${mac_host} = nix-darwin.lib.darwinSystem {
         system = mac_system; # Apple Silicon M1/M2/M3
+        specialArgs = {inherit mac_user;};
         modules = [
           ./hosts/macos/system-configuration.nix
           home-manager.darwinModules.home-manager

@@ -8,11 +8,7 @@
     zellij.enable = false;
   };
 
-  # TODO: update values
   home = {
-    username = "alvaround";
-    homeDirectory = "/Users/alvaround";
-
     packages = with pkgs; [
       wezterm
     ];
