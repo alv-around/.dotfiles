@@ -8,11 +8,7 @@
 
 ## Installation
 
-### Home Manager
-
-> /!\ if nix and home-manager are freshly installed either: add
-> `experimental-features = nix-command flakes` to `~/.config/nix/nix.conf`, or
-> flag to each nix command `--extra-experimental-features "nix-command flakes"`
+> /!\ Make sure to have nix installed!
 
 1. Adjust `username` to your settings in [`flake.nix`](./flake.nix#L37) and
    [`linux.nix](./home/linux.nix)/[`macos.nix`](./home/macos.nix)
@@ -21,8 +17,11 @@
 
 3. Run:
 
+### Home Manager
+
 ```bash
-home-manager switch --flake .
+nix run home-manager --extra-experimental-features "nix-command flakes" -- switch --flake (github:alv-around/.dotfiles).#YOUR_HOSTNAME  # first run
+home-manager switch --flake . # afterwards
 ```
 
 ### System changes
@@ -30,13 +29,15 @@ home-manager switch --flake .
 #### NixOs
 
 ```bash
-nixos-rebuild switch --flake .#<hostname>
+nix run nixos-rebuild --extra-experimental-features "nix-command flakes" -- switch --flake .#YOUR_HOSTNAME  # first run
+nixos-rebuild switch --flake .#<hostname> # afterwards
 ```
 
 #### MacOs
 
 ```bash
-darwin-rebuild switch --flake .#<hostname>
+nix run darwin-rebuild --extra-experimental-features "nix-command flakes" -- switch --flake .#YOUR_HOSTNAME  # first run
+darwin-rebuild switch --flake .#<hostname> # afterwards
 ```
 
 ## Updating Packages
