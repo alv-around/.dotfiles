@@ -8,6 +8,15 @@
       html
     ];
 
+    # define folding
+    options = {
+      foldmethod = "expr";
+      foldexpr = "v:lua.vim.treesitter.foldexpr()";
+      foldlevel = 99; # start with everything open
+      foldlevelstart = 99; # same, per-buffer
+      foldenable = true;
+    };
+
     lsp = {
       enable = true;
       formatOnSave = true;
