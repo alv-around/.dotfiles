@@ -60,7 +60,11 @@ in {
     };
 
     notes = {
-      todo-comments.enable = true;
+      todo-comments = {
+        enable = true;
+        mappings.trouble = "<leader>xt";
+      };
+
       obsidian = {
         enable = true;
         setupOpts = {
