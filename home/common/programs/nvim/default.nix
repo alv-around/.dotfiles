@@ -99,13 +99,7 @@ _inputs: {
         # noice
         notify.nvim-notify.enable = true;
         ui.noice.enable = true;
-
-        # aerial
         visuals.nvim-web-devicons.enable = true;
-        utility.outline.aerial-nvim = {
-          enable = true;
-          mappings.toggle = "<leader>cs";
-        };
       };
     };
   };
