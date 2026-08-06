@@ -36,6 +36,7 @@ _inputs: {
           sleuth.enable = true;
           smart-splits.enable = true;
           motion.flash-nvim.enable = true;
+          preview.markdownPreview.enable = true;
           snacks-nvim = {
             enable = true;
             setupOpts = {
