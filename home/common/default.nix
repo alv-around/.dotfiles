@@ -25,6 +25,7 @@
     ./ai.nix
     ./kube.nix
     ./notes.nix
+    ./programs/pgadmin.nix
     ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
