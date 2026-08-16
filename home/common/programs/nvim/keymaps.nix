@@ -47,6 +47,13 @@ _inputs: {
     };
 
     keymaps = [
+      # toggle which-key
+      {
+        key = "<leader>k";
+        mode = "n";
+        action = "<cmd>WhichKey<CR>";
+        desc = "Display Keymaps";
+      }
       # Snacks picker keymaps. For more functionalities check:
       {
         key = "<leader><space>";
