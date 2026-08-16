@@ -4,7 +4,6 @@
 
 - [ ] snacks picker - grep whole words
 - [ ] add session management
-- [ ] git hunk: enable staged hunks `_signs_staged_enable = true`
 
 ## WezTerm
 
