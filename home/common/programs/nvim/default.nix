@@ -64,8 +64,35 @@ _inputs: {
           surround.enable = true;
         };
 
-        # TODO: add custom function to show file path of buffer
-        statusline.lualine.enable = true;
+        statusline.lualine = {
+          enable = true;
+          # overriding the default section of b to also show the relative path from rootdir
+          activeSection.b = [
+            ''
+              {
+                "filetype",
+                colored = true,
+                icon_only = true,
+                icon = { align = 'left' }
+              }
+            ''
+            ''
+              {
+                "filename",
+                path = 1, -- 1 = Relative path
+                symbols = {modified = ' ', readonly = ' '},
+                separator = {right = ''}
+              }
+            ''
+            ''
+              {
+                "",
+                draw_empty = true,
+                separator = { left = '', right = '' }
+              }
+            ''
+          ];
+        };
 
         tabline.nvimBufferline = {
           enable = true;
