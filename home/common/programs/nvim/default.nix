@@ -1,4 +1,4 @@
-_inputs: {
+{lib, ...}: {
   imports = [
     ./autocomplete.nix
     ./git.nix
@@ -130,6 +130,42 @@ _inputs: {
             };
           };
         };
+
+        # session manager
+        session.persisted = {
+          enable = true;
+
+          setupOpts = {
+            # set path to save sessions
+            save_dir = lib.generators.mkLuaInline ''vim.fn.expand("~/.local/share/nvim/sessions/") '';
+
+            use_git_branch = true;
+            # Automatically save session on exit
+            autosave = true;
+          };
+
+          mappings = {
+            load = "<leader>ql";
+            select = "<leader>qf";
+          };
+        };
+        keymaps = [
+          {
+            key = "<leader>qs";
+            mode = "n";
+            action = "<cmd>Persisted save<cr>";
+            desc = "save session";
+          }
+          {
+            key = "<leader>qd";
+            mode = "n";
+            action = "<cmd>Persisted delete<cr>";
+            desc = "save session";
+          }
+        ];
+
+        # 2. Configure Dashboard
+        dashboard.dashboard-nvim.enable = true;
 
         # noice
         notify.nvim-notify.enable = true;
