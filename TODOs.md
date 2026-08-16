@@ -1,14 +1,14 @@
 # TODOs
 
-## nvim
-
-- [ ] snacks picker - grep whole words
-- [ ] nvimTree - Open Tree at file location
-- [ ] nvimTree - figure folding / jumping to end of dir
-
 ## WezTerm
 
-- [x] `CTRL+left-click` on url opens browser
+- [ ] Improve search ui (currently `SHIFT + CTRL` / `SUPER` + `f`)
+- [ ] Add Session functionality
+- [ ] Tabs:
+  - [ ] rename
+  - [ ] swap order
+- [ ] panes:
+  - [ ] swap panes
 
 ## nixOs
 

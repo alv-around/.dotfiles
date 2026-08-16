@@ -1,4 +1,4 @@
-_inputs: {
+{lib, ...}: {
   imports = [
     ./autocomplete.nix
     ./git.nix
@@ -36,6 +36,7 @@ _inputs: {
           sleuth.enable = true;
           smart-splits.enable = true;
           motion.flash-nvim.enable = true;
+          preview.markdownPreview.enable = true;
           snacks-nvim = {
             enable = true;
             setupOpts = {
@@ -63,8 +64,35 @@ _inputs: {
           surround.enable = true;
         };
 
-        # TODO: add custom function to show file full-path on nvimTree buffer
-        statusline.lualine.enable = true;
+        statusline.lualine = {
+          enable = true;
+          # overriding the default section of b to also show the relative path from rootdir
+          activeSection.b = [
+            ''
+              {
+                "filetype",
+                colored = true,
+                icon_only = true,
+                icon = { align = 'left' }
+              }
+            ''
+            ''
+              {
+                "filename",
+                path = 1, -- 1 = Relative path
+                symbols = {modified = ' ', readonly = ' '},
+                separator = {right = ''}
+              }
+            ''
+            ''
+              {
+                "",
+                draw_empty = true,
+                separator = { left = '', right = '' }
+              }
+            ''
+          ];
+        };
 
         tabline.nvimBufferline = {
           enable = true;
@@ -78,12 +106,19 @@ _inputs: {
         };
 
         # neo-tree
+        # TODO: figure out way to move cursor to top/bottom within dir
         filetree = {
           neo-tree = {
             enable = true;
             setupOpts = {
               git_status_async = true;
               filesystem = {
+                # Automatically focus the currently active file in the tree
+                follow_current_file.enabled = true;
+
+                # Automatically update the tree when files change on disk
+                use_libuv_file_watcher = true;
+
                 filtered_items = {
                   visible = true;
                   hide_dotfiles = false; # Don't treat dotfiles as hidden
@@ -96,16 +131,46 @@ _inputs: {
           };
         };
 
+        # session manager
+        session.persisted = {
+          enable = true;
+
+          setupOpts = {
+            # set path to save sessions
+            save_dir = lib.generators.mkLuaInline ''vim.fn.expand("~/.local/share/nvim/sessions/") '';
+
+            use_git_branch = true;
+            # FIXME: Automatically save session on exit does not work
+            # autosave = true;
+          };
+
+          mappings = {
+            load = "<leader>ql";
+            select = "<leader>qf";
+          };
+        };
+        keymaps = [
+          {
+            key = "<leader>qs";
+            mode = "n";
+            action = "<cmd>Persisted save<cr>";
+            desc = "save session";
+          }
+          {
+            key = "<leader>qd";
+            mode = "n";
+            action = "<cmd>Persisted delete<cr>";
+            desc = "save session";
+          }
+        ];
+
+        # 2. Configure Dashboard
+        dashboard.dashboard-nvim.enable = true;
+
         # noice
         notify.nvim-notify.enable = true;
         ui.noice.enable = true;
-
-        # aerial
         visuals.nvim-web-devicons.enable = true;
-        utility.outline.aerial-nvim = {
-          enable = true;
-          mappings.toggle = "<leader>cs";
-        };
       };
     };
   };

@@ -69,6 +69,21 @@ _inputs: {
         action = "function() Snacks.picker.git_branches() end";
         desc = "Search branches";
       }
+      # iterate through staged hunks
+      {
+        key = "]h";
+        mode = "n";
+        action = "<cmd>lua require('gitsigns').nav_hunk('next', { target = 'staged' })<CR>";
+        silent = true;
+        desc = "Next staged hunk";
+      }
+      {
+        key = "[h";
+        mode = "n";
+        action = "<cmd>lua require('gitsigns').nav_hunk('prev', { target = 'staged' })<CR>";
+        silent = true;
+        desc = "Previous staged hunk";
+      }
     ];
   };
 }

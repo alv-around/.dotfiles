@@ -47,6 +47,13 @@ _inputs: {
     };
 
     keymaps = [
+      # toggle which-key
+      {
+        key = "<leader>k";
+        mode = "n";
+        action = "<cmd>WhichKey<CR>";
+        desc = "Display Keymaps";
+      }
       # Snacks picker keymaps. For more functionalities check:
       {
         key = "<leader><space>";
@@ -83,7 +90,8 @@ _inputs: {
         action = "function() Snacks.picker.command_history() end";
         desc = "Command History";
       }
-      # TODO: currently this is not returning any result
+      # TODO: add search for full words
+      # FIXME: currently this is not returning any result
       {
         key = "<leader>n";
         mode = "n";
@@ -100,7 +108,6 @@ _inputs: {
         desc = "Goto Definition";
       }
       {
-        key = "<space>gD";
         mode = "n";
         lua = true;
         action = "function() Snacks.picker.lsp_declarations() end";
