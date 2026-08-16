@@ -140,8 +140,8 @@
             save_dir = lib.generators.mkLuaInline ''vim.fn.expand("~/.local/share/nvim/sessions/") '';
 
             use_git_branch = true;
-            # Automatically save session on exit
-            autosave = true;
+            # FIXME: Automatically save session on exit does not work
+            # autosave = true;
           };
 
           mappings = {
