@@ -64,7 +64,7 @@ _inputs: {
           surround.enable = true;
         };
 
-        # TODO: add custom function to show file full-path on nvimTree buffer
+        # TODO: add custom function to show file path of buffer
         statusline.lualine.enable = true;
 
         tabline.nvimBufferline = {
@@ -79,12 +79,19 @@ _inputs: {
         };
 
         # neo-tree
+        # TODO: figure out way to move cursor to top/bottom within dir
         filetree = {
           neo-tree = {
             enable = true;
             setupOpts = {
               git_status_async = true;
               filesystem = {
+                # Automatically focus the currently active file in the tree
+                follow_current_file.enabled = true;
+
+                # Automatically update the tree when files change on disk
+                use_libuv_file_watcher = true;
+
                 filtered_items = {
                   visible = true;
                   hide_dotfiles = false; # Don't treat dotfiles as hidden

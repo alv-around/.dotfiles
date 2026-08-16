@@ -3,12 +3,12 @@
 ## nvim
 
 - [ ] snacks picker - grep whole words
-- [ ] nvimTree - Open Tree at file location
-- [ ] nvimTree - figure folding / jumping to end of dir
+- [ ] add session management
+- [ ] git hunk: enable staged hunks `_signs_staged_enable = true`
 
 ## WezTerm
 
-- [x] `CTRL+left-click` on url opens browser
+- [ ] improve search ui (currently `SHIFT + CTRL` / `SUPER` + `f`)
 
 ## nixOs
 
