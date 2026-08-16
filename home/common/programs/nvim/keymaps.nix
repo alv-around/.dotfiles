@@ -90,7 +90,8 @@ _inputs: {
         action = "function() Snacks.picker.command_history() end";
         desc = "Command History";
       }
-      # TODO: currently this is not returning any result
+      # TODO: add search for full words
+      # FIXME: currently this is not returning any result
       {
         key = "<leader>n";
         mode = "n";
@@ -107,7 +108,6 @@ _inputs: {
         desc = "Goto Definition";
       }
       {
-        key = "<space>gD";
         mode = "n";
         lua = true;
         action = "function() Snacks.picker.lsp_declarations() end";

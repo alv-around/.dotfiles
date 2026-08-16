@@ -1,13 +1,14 @@
 # TODOs
 
-## nvim
-
-- [ ] snacks picker - grep whole words
-- [ ] add session management
-
 ## WezTerm
 
-- [ ] improve search ui (currently `SHIFT + CTRL` / `SUPER` + `f`)
+- [ ] Improve search ui (currently `SHIFT + CTRL` / `SUPER` + `f`)
+- [ ] Add Session functionality
+- [ ] Tabs:
+  - [ ] rename
+  - [ ] swap order
+- [ ] panes:
+  - [ ] swap panes
 
 ## nixOs
 
