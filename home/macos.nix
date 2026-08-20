@@ -8,9 +8,5 @@
     zellij.enable = false;
   };
 
-  home = {
-    packages = with pkgs; [
-      wezterm
-    ];
-  };
+  home.packages = with pkgs; [wezterm];
 }
