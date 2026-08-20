@@ -42,8 +42,8 @@
     linux_user = "alv";
     mac_system = "aarch64-darwin";
     # TODO: add your user and host-name
-    mac_host = "Alvaros-iMac-Pro";
-    mac_user = "alvaround";
+    mac_host = "Alvaros-MacBook-Pro";
+    mac_user = "alv";
     shared-inputs = [
       agenix.homeManagerModules.default
       nvf.homeManagerModules.default
