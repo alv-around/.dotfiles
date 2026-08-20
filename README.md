@@ -36,8 +36,8 @@ nixos-rebuild switch --flake .#<hostname> # afterwards
 #### MacOs
 
 ```bash
-nix run darwin-rebuild --extra-experimental-features "nix-command flakes" -- switch --flake .#YOUR_HOSTNAME  # first run
-darwin-rebuild switch --flake .#<hostname> # afterwards
+sudo nix run github:LnL7/darwin-rebuild --extra-experimental-features "nix-command flakes" -- switch --flake .  # first run
+darwin-rebuild switch --flake . # afterwards
 ```
 
 ## Updating Packages
