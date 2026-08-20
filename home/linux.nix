@@ -10,6 +10,10 @@
     defaultWrapper = "mesa";
   };
 
+  imports = [
+    ./common/programs/pgadmin.nix
+  ];
+
   #
   features = {
     ai = {

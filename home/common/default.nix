@@ -25,7 +25,8 @@
     ./ai.nix
     ./kube.nix
     ./notes.nix
-    ./programs/pgadmin.nix
+    # FIXME: import this for linux but not for macos
+    # ./programs/pgadmin.nix
     ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
