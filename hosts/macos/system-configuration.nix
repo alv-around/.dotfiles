@@ -1,16 +1,16 @@
 {
-  mac_user,
+  user,
   pkgs,
   ...
 }: {
   # Primary user for user-scoped options (homebrew, system defaults, …)
-  system.primaryUser = mac_user;
+  system.primaryUser = user;
 
   # System-level account that home-manager attaches to; home-manager reads
   # `home.homeDirectory` from `config.users.users.<name>.home`.
-  users.users.${mac_user} = {
-    name = mac_user;
-    home = "/Users/${mac_user}";
+  users.users.${user} = {
+    name = user;
+    home = "/Users/${user}";
   };
 
   # Match the nix-command/flakes features enabled at the flake level.
