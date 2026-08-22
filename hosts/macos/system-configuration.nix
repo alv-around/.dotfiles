@@ -57,7 +57,8 @@
     stateVersion = 6;
   };
 
-  # NOTE: Caps Lock -> Escape.
+  # NOTE: Keyboard remaps (Caps Lock <-> Escape, left Control <-> fn, right
+  # Command <-> right Option).
   #
   # `system.keyboard.remapCapsLockToEscape` (tried before this) writes a
   # per-keyboard-device plist that macOS only re-reads when a keyboard is
@@ -67,15 +68,21 @@
   #
   # `hidutil` remaps at the HID level instead, live, for whichever keyboard
   # is attached, so a LaunchAgent that reapplies it on every login is
-  # reliable without depending on rebuild timing. Usage codes are from the
-  # HID keyboard/keypad usage page (0x07): 0x39 = Caps Lock, 0x29 = Escape.
-  launchd.user.agents.capslock-to-escape = {
+  # reliable without depending on rebuild timing.
+  #
+  # The mapping lives in ./keyboard-remap.json since `hidutil --set` takes a
+  # JSON payload — plain JSON has no hex literals, so codes are decimal there.
+  # In hex (usage page << 32 | usage), the pairs are:
+  #   Caps Lock (0x700000039) <-> Escape (0x700000029)
+  #   left Control (0x7000000E0) <-> fn (0xFF00000003, Apple's vendor page)
+  #   right Command (0x7000000E7) <-> right Option (0x7000000E6)
+  launchd.user.agents.keyboard-remap = {
     serviceConfig = {
       ProgramArguments = [
         "/usr/bin/hidutil"
         "property"
         "--set"
-        ''{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}''
+        (builtins.readFile ./keyboard-remap.json)
       ];
       RunAtLoad = true;
     };
