@@ -51,6 +51,15 @@
         # Sets how quickly characters repeat once it starts
         KeyRepeat = 2;
       };
+
+      # Frees up Ctrl+Space / Ctrl+Option+Space, which macOS otherwise
+      # intercepts system-wide for input source switching before they ever
+      # reach an app — this is what breaks the WezTerm leader key (Ctrl+Space)
+      # in wezterm/keys.lua. Takes effect after logout/restart.
+      CustomUserPreferences."com.apple.symbolichotkeys".AppleSymbolicHotKeys = {
+        "60" = {enabled = false;}; # Select the previous input source
+        "61" = {enabled = false;}; # Select next source in Input menu
+      };
     };
 
     # Required by nix-darwin. Review the nix-darwin changelog before bumping.
