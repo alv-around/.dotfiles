@@ -49,7 +49,7 @@
   ];
 
   xdg.configFile = {
-    "wezterm".source = ./config/wezterm;
+    "wezterm".source = ../config/wezterm;
   };
 
   # You can optionally add other basic Home Manager settings here,
@@ -86,7 +86,7 @@
       enable = true;
       enableZshIntegration = true;
       # If you want to keep your starship.toml in the same place:
-      settings = builtins.fromTOML (builtins.readFile ./config/starship/starship.toml);
+      settings = builtins.fromTOML (builtins.readFile ../config/starship/starship.toml);
     };
 
     zsh = {
