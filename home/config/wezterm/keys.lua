@@ -81,22 +81,22 @@ key_config.keys = {
 	},
 	{
 		mods = nav_mod,
-		key = "LeftArrow",
+		key = "h",
 		action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
 	},
 	{
 		mods = nav_mod,
-		key = "RightArrow",
+		key = "l",
 		action = wezterm.action.AdjustPaneSize({ "Right", 5 }),
 	},
 	{
 		mods = nav_mod,
-		key = "DownArrow",
+		key = "j",
 		action = wezterm.action.AdjustPaneSize({ "Down", 5 }),
 	},
 	{
 		mods = nav_mod,
-		key = "UpArrow",
+		key = "k",
 		action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
 	},
 	{
@@ -109,19 +109,11 @@ key_config.keys = {
 		key = "p",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
+	  -- show the pane selection mode, but have it swap the active and selected panes
 	{
-		key = ",",
+		key = "s",
 		mods = nav_mod,
-		action = wezterm.action_callback(function(window, _pane)
-			backdrops:cycle_back(window)
-		end),
-	},
-	{
-		key = ".",
-		mods = nav_mod,
-		action = wezterm.action_callback(function(window, _pane)
-			backdrops:cycle_forward(window)
-		end),
+		action = wezterm.action.PaneSelect { mode = 'SwapWithActive' },
 	},
 
 	-- move between split panes
