@@ -28,15 +28,21 @@
       fi
     '';
 
-    # Enable mapping and swap Caps Lock and Escape
-    # FIX: this only loadas after inital run
-    keyboard = {
-      enableKeyMapping = true;
-      remapCapsLockToEscape = true;
-
-      # INFO: Remaps the ISO section/plus-minus (§/±) key to output standard backtick/tilde (`/~)
-      nonUS.remapTilde = true;
-    };
+    # NOTE: Installs the "us-altgr-intl" keyboard layout, mirroring the Linux
+    # "English (US, intl., with AltGr dead keys)" (altgr-intl) xkb variant:
+    # Option+a = á, Option+q = ä, etc. macOS's built-in "U.S. International"
+    # layout requires double-tapping dead keys instead, so it doesn't match.
+    # Source: https://github.com/carjorvaz/macos-us-altgr-intl
+    #
+    # NOTE: nix-darwin can install the file, but macOS itself must be told to
+    # enable it. After a rebuild (and a logout/restart if it doesn't show up
+    # right away), add it manually: System Settings > Keyboard > Input
+    # Sources > "+" > Others > "us-altgr-intl".
+    activationScripts.postActivation.text = ''
+      echo "Installing us-altgr-intl keyboard layout..."
+      sudo mkdir -p "/Library/Keyboard Layouts"
+      sudo cp ${./us-altgr-intl.keylayout} "/Library/Keyboard Layouts/us-altgr-intl.keylayout"
+    '';
 
     defaults = {
       NSGlobalDomain = {
