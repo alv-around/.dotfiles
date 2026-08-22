@@ -1,8 +1,4 @@
-{
-  user,
-  pkgs,
-  ...
-}: {
+{user, ...}: {
   # Primary user for user-scoped options (homebrew, system defaults, …)
   system.primaryUser = user;
 
@@ -61,8 +57,27 @@
     stateVersion = 6;
   };
 
-  # INFO: karabiner configuration is manage in user space
-  environment.systemPackages = with pkgs; [
-    karabiner-elements
-  ];
+  # NOTE: Caps Lock -> Escape.
+  #
+  # `system.keyboard.remapCapsLockToEscape` (tried before this) writes a
+  # per-keyboard-device plist that macOS only re-reads when a keyboard is
+  # (re)detected — at login, wake, or reconnect. In practice that meant the
+  # remap silently reverted after sleep/reboot and needed a logout/login (or
+  # another rebuild) to come back.
+  #
+  # `hidutil` remaps at the HID level instead, live, for whichever keyboard
+  # is attached, so a LaunchAgent that reapplies it on every login is
+  # reliable without depending on rebuild timing. Usage codes are from the
+  # HID keyboard/keypad usage page (0x07): 0x39 = Caps Lock, 0x29 = Escape.
+  launchd.user.agents.capslock-to-escape = {
+    serviceConfig = {
+      ProgramArguments = [
+        "/usr/bin/hidutil"
+        "property"
+        "--set"
+        ''{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}''
+      ];
+      RunAtLoad = true;
+    };
+  };
 }
