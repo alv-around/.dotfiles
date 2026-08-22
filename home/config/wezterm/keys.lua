@@ -3,6 +3,12 @@ local backdrops = require("backdrops")
 
 local key_config = {}
 
+-- macOS reserves Option for the us-altgr-intl dead-key layout (Option+letter
+-- = accented characters), so plain-ALT shortcuts there go on Command instead.
+local is_macos = wezterm.target_triple:find("apple") ~= nil
+local nav_mod = is_macos and "CMD" or "ALT"
+wezterm.log_info("current nav_mod: " ..nav_mod)
+
 -- leaderkey setup
 key_config.leader = { key = "Space", mods = "CTRL", timeout_millisections = 2000 }
 
@@ -71,45 +77,45 @@ key_config.keys = {
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		mods = "ALT",
+		mods = nav_mod,
 		key = "LeftArrow",
 		action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
 	},
 	{
-		mods = "ALT",
+		mods = nav_mod,
 		key = "RightArrow",
 		action = wezterm.action.AdjustPaneSize({ "Right", 5 }),
 	},
 	{
-		mods = "ALT",
+		mods = nav_mod,
 		key = "DownArrow",
 		action = wezterm.action.AdjustPaneSize({ "Down", 5 }),
 	},
 	{
-		mods = "ALT",
+		mods = nav_mod,
 		key = "UpArrow",
 		action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
 	},
 	{
-		mods = "ALT",
+		mods = nav_mod,
 		key = "n",
 		action = wezterm.action.ActivateTabRelative(-1),
 	},
 	{
-		mods = "ALT",
+		mods = nav_mod,
 		key = "p",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
 	{
 		key = ",",
-		mods = "ALT",
+		mods = nav_mod,
 		action = wezterm.action_callback(function(window, _pane)
 			backdrops:cycle_back(window)
 		end),
 	},
 	{
 		key = ".",
-		mods = "ALT",
+		mods = nav_mod,
 		action = wezterm.action_callback(function(window, _pane)
 			backdrops:cycle_forward(window)
 		end),
@@ -125,7 +131,7 @@ key_config.keys = {
 for i = 1, 9 do
 	table.insert(key_config.keys, {
 		key = tostring(i),
-		mods = "ALT",
+		mods = nav_mod,
 		action = wezterm.action.ActivateTab(i - 1),
 	})
 end
