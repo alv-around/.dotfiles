@@ -3,17 +3,6 @@
   pkgs,
   ...
 }: {
-  age = {
-    # Point to your unencrypted private key so agenix can decrypt at runtime
-    identityPaths = ["${config.home.homeDirectory}/.ssh/id_agenix"];
-
-    secrets = {
-      "gemini-key".file = ../secrets/gemini-key.age;
-      "claude-key".file = ../secrets/claude-key.age;
-      "codex-key".file = ../secrets/codex-key.age;
-    };
-  };
-
   home = {
     stateVersion = "26.05";
   };
@@ -25,7 +14,8 @@
     ./ai.nix
     ./kube.nix
     ./notes.nix
-    ./programs/pgadmin.nix
+    # FIXME: import this for linux but not for macos
+    # ./programs/pgadmin.nix
     ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
@@ -48,7 +38,7 @@
   ];
 
   xdg.configFile = {
-    "wezterm".source = ./config/wezterm;
+    "wezterm".source = ../config/wezterm;
   };
 
   # You can optionally add other basic Home Manager settings here,
@@ -85,7 +75,7 @@
       enable = true;
       enableZshIntegration = true;
       # If you want to keep your starship.toml in the same place:
-      settings = builtins.fromTOML (builtins.readFile ./config/starship/starship.toml);
+      settings = builtins.fromTOML (builtins.readFile ../config/starship/starship.toml);
     };
 
     zsh = {

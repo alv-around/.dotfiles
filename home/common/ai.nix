@@ -8,6 +8,11 @@
   cfg = config.features.ai;
   ollamaHost = cfg.ollama.host;
   ollamaModel = cfg.ollama.model;
+
+  # agenix (which decrypts these from ~/.ssh/id_agenix) is Linux-only, see
+  # home/common/agenix.nix. On macOS these keys are not managed here at all —
+  # set ANTHROPIC_API_KEY/GEMINI_API_KEY/OPENAI_API_KEY yourself.
+  isLinux = !pkgs.stdenv.isDarwin;
 in {
   options.features.ai = {
     enable = lib.mkEnableOption "Option to enable ai";
@@ -75,7 +80,8 @@ in {
         extraPackages = [pkgs.gemini-cli];
         # set 'GEMINI_API_KEY' here, so it can be use by gemini adapters
         # Otherwise would have to set manually `{gemini,gemini_cli}.env.GEMINI_API_KEY
-        luaConfigPre = ''
+        # On macOS this isn't wired up here — set GEMINI_API_KEY yourself.
+        luaConfigPre = lib.optionalString isLinux ''
           vim.env.GEMINI_API_KEY = vim.fn.system("cat " .. "${config.age.secrets.gemini-key.path}"):gsub("%s+", "")
         '';
 
@@ -171,7 +177,9 @@ in {
         '';
       };
 
-      programs.zsh.sessionVariables = {
+      # On macOS these aren't sourced from agenix — set ANTHROPIC_API_KEY,
+      # GEMINI_API_KEY and OPENAI_API_KEY yourself (e.g. in ~/.zshrc.local).
+      programs.zsh.sessionVariables = lib.mkIf isLinux {
         ANTHROPIC_API_KEY = "$(cat ${config.age.secrets.claude-key.path})";
         GEMINI_API_KEY = "$(cat ${config.age.secrets.gemini-key.path})";
         OPENAI_API_KEY = "$(cat ${config.age.secrets.codex-key.path})";
@@ -187,7 +195,7 @@ in {
         text = ''
           merge_strategy: rebase
           nerdfont: true
-          agent: gemini
+          agent: claude
           sandbox:
             enabled: true
             backend: lima
