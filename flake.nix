@@ -44,10 +44,10 @@
     # TODO: add your user and host-name
     mac_host = "Alvaros-MacBook-Pro";
     shared-inputs = [
-      agenix.homeManagerModules.default
       nvf.homeManagerModules.default
       ./home/common/default.nix
     ];
+    linux-inputs = shared-inputs ++ [agenix.homeManagerModules.default];
   in
     {
       # home-manager config
@@ -59,7 +59,7 @@
             inherit nixgl workmux;
           };
           modules =
-            shared-inputs
+            linux-inputs
             ++ [
               ./home/linux.nix
             ];
@@ -89,7 +89,7 @@
                 ];
                 users.${user} = {
                   imports =
-                    shared-inputs
+                    linux-inputs
                     ++ [
                       ./home/linux.nix
                     ];
