@@ -113,7 +113,18 @@ key_config.keys = {
 	{
 		key = "s",
 		mods = nav_mod,
-		action = wezterm.action.PaneSelect { mode = 'SwapWithActive' },
+		action = wezterm.action.PaneSelect { mode = "SwapWithActive" },
+	},
+	{
+		key = "n",
+		mods = nav_mod .. "|SHIFT",
+		action = wezterm.action.MoveTabRelative(-1),
+	},
+	-- Move tab one slot to the right
+	{
+		key = "p",
+		mods = nav_mod .. "|SHIFT",
+		action = wezterm.action.MoveTabRelative(1),
 	},
 
 	-- move between split panes
