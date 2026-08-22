@@ -109,6 +109,16 @@ key_config.keys = {
 		key = "p",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
+	{
+		mods = nav_mod,
+		key = ",",
+		action = wezterm.action.ActivateWindowRelative(-1),
+	},
+	{
+		mods = nav_mod,
+		key = ".",
+		action = wezterm.action.ActivateWindowRelative(1),
+	},
 	  -- show the pane selection mode, but have it swap the active and selected panes
 	{
 		key = "s",
