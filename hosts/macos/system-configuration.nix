@@ -60,4 +60,9 @@
     # Required by nix-darwin. Review the nix-darwin changelog before bumping.
     stateVersion = 6;
   };
+
+  # INFO: karabiner configuration is manage in user space
+  environment.systemPackages = with pkgs; [
+    karabiner-elements
+  ];
 }
