@@ -115,7 +115,9 @@
       sessionVariables = {
         EDITOR = "nvim";
         STARSHIP_CONFIG = "${config.xdg.configHome}/starship/starship.toml";
+        # Search for directories and display the file tree below
         FZF_ALT_C_OPTS = "--preview 'tree -C {}'";
+        # search for all and show content if entry is files, and if dir show file tree
         FZF_CTRL_T_OPTS = "--preview='bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || tree -C {}'";
       };
 
