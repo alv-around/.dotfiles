@@ -195,7 +195,7 @@ in {
         text = ''
           merge_strategy: rebase
           nerdfont: true
-          agent: gemini
+          agent: claude
           sandbox:
             enabled: true
             backend: lima
