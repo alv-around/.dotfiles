@@ -61,8 +61,9 @@
     stateVersion = 6;
   };
 
-  # INFO: karabiner configuration is manage in user space
   environment.systemPackages = with pkgs; [
     karabiner-elements
   ];
+
+  services.karabiner-elements.enable = false;
 }

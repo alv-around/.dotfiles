@@ -28,4 +28,14 @@
   # karabiner.json and survives future rebuilds without repeating this step.
   xdg.configFile."karabiner/assets/complex_modifications/caps_lock_control_escape.json".source =
     ./config/karabiner/caps_lock_control_escape.json;
+
+  # NOTE: both command keys (⌘) now send control, and both option keys (⌥)
+  # now send command — on both left and right sides. Same one-time enable
+  # step as above: Karabiner-Elements > Settings > Complex Modifications >
+  # "Add rule" > enable both "left_command -> left_control, left_option ->
+  # left_command" and "right_command -> right_control, right_option ->
+  # right_command" (grouped under "Move command to control, option to
+  # command").
+  xdg.configFile."karabiner/assets/complex_modifications/command_to_control_option_to_command.json".source =
+    ./config/karabiner/command_to_control_option_to_command.json;
 }

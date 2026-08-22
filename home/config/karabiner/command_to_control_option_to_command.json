@@ -1,0 +1,55 @@
+{
+  "title": "Move command to control, option to command",
+  "rules": [
+    {
+      "description": "left_command -> left_control, left_option -> left_command",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_command",
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [{"key_code": "left_control"}]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_option",
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [{"key_code": "left_command"}]
+        }
+      ]
+    },
+    {
+      "description": "right_command -> right_control, right_option -> right_command",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [{"key_code": "right_control"}]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_option",
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [{"key_code": "right_command"}]
+        }
+      ]
+    }
+  ]
+}
