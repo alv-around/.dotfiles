@@ -46,10 +46,10 @@ search() (
 # [ `a`/`i` ] in vicmd -> return to emacs mode
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 
-# fzf's cd-widget: move it off alt-c and onto ctrl-f (replaces the default
+# fzf's cd-widget: move it off alt-c and onto ctrl-d(irectory)
 # forward-char binding on ctrl-f).
 bindkey -r '\ec'
-bindkey '^g' fzf-cd-widget
+bindkey '^d' fzf-cd-widget
 
 ### Programming config ###
 export NVM_DIR="$HOME/.nvm"

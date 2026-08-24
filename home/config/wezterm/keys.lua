@@ -51,9 +51,6 @@ end
 key_config.keys = {
 	{ key = "c", mods = "CTRL|ALT", action = wezterm.action({ CopyTo = "Clipboard" }) },
 	{ key = "v", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) },
-	-- ctrl+d default for delete on alt+d (cmd+d on macOS) instead.
-	{ key = "d", mods = "CTRL", action = wezterm.action.DisableDefaultAssignment },
-	{ key = "d", mods = nav_mod, action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 	{
 		key = "n",
 		mods = "LEADER",
