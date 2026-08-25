@@ -12,6 +12,7 @@
 
   imports = [
     ./common/agenix.nix
+    # TODO: try if DBeaver works well for linux
     ./common/programs/pgadmin.nix
   ];
 
