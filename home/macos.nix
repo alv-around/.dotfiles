@@ -8,5 +8,8 @@
     zellij.enable = false;
   };
 
-  home.packages = with pkgs; [wezterm];
+  home.packages = with pkgs; [
+    wezterm
+    dbeaver-bin # open-source, multi-database GUI client (pgAdmin doesn't build on darwin)
+  ];
 }
