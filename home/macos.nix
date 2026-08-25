@@ -15,6 +15,8 @@
   home.packages = with pkgs; [
     wezterm
     dbeaver-bin # open-source, multi-database GUI client (pgAdmin doesn't build on darwin)
+
+    azure-cli
   ];
 
   # Podman on macOS runs containers inside a Linux VM ("podman machine") that
