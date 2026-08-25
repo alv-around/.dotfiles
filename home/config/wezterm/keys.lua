@@ -49,8 +49,8 @@ end
 
 -- keymaps
 key_config.keys = {
-	{ key = "c", mods = "CTRL|ALT", action = wezterm.action({ CopyTo = "Clipboard" }) },
-	{ key = "v", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) },
+	-- INFO: by default wezterm has `ctrl + shift` / `alt` + `c`/`v` to copy to / paste from clipboard
+	-- reference https://wezterm.org/config/default-keys.html
 	{
 		key = "n",
 		mods = "LEADER",
