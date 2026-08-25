@@ -3,6 +3,12 @@ local backdrops = require("backdrops")
 
 local key_config = {}
 
+-- macOS reserves Option for the us-altgr-intl dead-key layout (Option+letter
+-- = accented characters), so plain-ALT shortcuts there go on Command instead.
+local is_macos = wezterm.target_triple:find("apple") ~= nil
+local nav_mod = is_macos and "CMD" or "ALT"
+wezterm.log_info("current nav_mod: " ..nav_mod)
+
 -- leaderkey setup
 key_config.leader = { key = "Space", mods = "CTRL", timeout_millisections = 2000 }
 
@@ -43,8 +49,8 @@ end
 
 -- keymaps
 key_config.keys = {
-	{ key = "c", mods = "CTRL|ALT", action = wezterm.action({ CopyTo = "Clipboard" }) },
-	{ key = "v", mods = "CTRL", action = wezterm.action({ PasteFrom = "Clipboard" }) },
+	-- INFO: by default wezterm has `ctrl + shift` / `alt` + `c`/`v` to copy to / paste from clipboard
+	-- reference https://wezterm.org/config/default-keys.html
 	{
 		key = "n",
 		mods = "LEADER",
@@ -71,48 +77,61 @@ key_config.keys = {
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		mods = "ALT",
-		key = "LeftArrow",
+		mods = nav_mod,
+		key = "h",
 		action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
 	},
 	{
-		mods = "ALT",
-		key = "RightArrow",
+		mods = nav_mod,
+		key = "l",
 		action = wezterm.action.AdjustPaneSize({ "Right", 5 }),
 	},
 	{
-		mods = "ALT",
-		key = "DownArrow",
+		mods = nav_mod,
+		key = "j",
 		action = wezterm.action.AdjustPaneSize({ "Down", 5 }),
 	},
 	{
-		mods = "ALT",
-		key = "UpArrow",
+		mods = nav_mod,
+		key = "k",
 		action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
 	},
 	{
-		mods = "ALT",
+		mods = nav_mod,
 		key = "n",
 		action = wezterm.action.ActivateTabRelative(-1),
 	},
 	{
-		mods = "ALT",
+		mods = nav_mod,
 		key = "p",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
 	{
+		mods = nav_mod,
 		key = ",",
-		mods = "ALT",
-		action = wezterm.action_callback(function(window, _pane)
-			backdrops:cycle_back(window)
-		end),
+		action = wezterm.action.ActivateWindowRelative(-1),
 	},
 	{
+		mods = nav_mod,
 		key = ".",
-		mods = "ALT",
-		action = wezterm.action_callback(function(window, _pane)
-			backdrops:cycle_forward(window)
-		end),
+		action = wezterm.action.ActivateWindowRelative(1),
+	},
+	  -- show the pane selection mode, but have it swap the active and selected panes
+	{
+		key = "s",
+		mods = nav_mod,
+		action = wezterm.action.PaneSelect { mode = "SwapWithActive" },
+	},
+	{
+		key = "n",
+		mods = nav_mod .. "|SHIFT",
+		action = wezterm.action.MoveTabRelative(-1),
+	},
+	-- Move tab one slot to the right
+	{
+		key = "p",
+		mods = nav_mod .. "|SHIFT",
+		action = wezterm.action.MoveTabRelative(1),
 	},
 
 	-- move between split panes
@@ -125,7 +144,7 @@ key_config.keys = {
 for i = 1, 9 do
 	table.insert(key_config.keys, {
 		key = tostring(i),
-		mods = "ALT",
+		mods = nav_mod,
 		action = wezterm.action.ActivateTab(i - 1),
 	})
 end
