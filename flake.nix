@@ -17,7 +17,10 @@
     agenix.url = "github:ryantm/agenix";
     nvf.url = "github:notashelf/nvf";
     nixgl.url = "github:nix-community/nixGL";
-    workmux.url = "github:raine/workmux";
+    workmux = {
+      url = "github:raine/workmux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
   };
 
