@@ -66,6 +66,27 @@
     stateVersion = 6;
   };
 
+  # Unlike Linux, which routes the whole 127.0.0.0/8 block to loopback by
+  # default, macOS only owns 127.0.0.1 on lo0 — every other 127.x.x.x address
+  # needs to be aliased onto lo0 explicitly before anything can bind/connect
+  # to it. Aliasing the full /8 isn't practical (16M addresses), so alias
+  # just the ones actually used; add more `ifconfig` lines here as needed.
+  # Must be a system daemon (root, RunAtLoad) since interface aliases don't
+  # persist across reboots and need to be back before services start.
+  launchd.daemons.lo0-aliases = {
+    serviceConfig = {
+      ProgramArguments = [
+        "/bin/sh"
+        "-c"
+        ''
+          /sbin/ifconfig lo0 alias 127.22.0.1 netmask 255.0.0.0
+          /sbin/ifconfig lo0 alias 127.24.0.1 netmask 255.0.0.0
+        ''
+      ];
+      RunAtLoad = true;
+    };
+  };
+
   # NOTE: Keyboard remaps (Caps Lock <-> Escape, left Control <-> fn, right
   # Command <-> right Option).
   #
