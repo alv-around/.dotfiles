@@ -25,6 +25,10 @@
   xdg.configFile."karabiner/assets/complex_modifications/keyboard-remaps.json".source =
     ./config/karabiner/complex_modifications/keyboard-remaps.json;
 
+  # silence .md errors
+  programs.nvf.settings.vim.luaConfigPost =
+    builtins.readFile ./config/nvim/marksman-ambiguous-link.lua;
+
   # Podman on macOS runs containers inside a Linux VM ("podman machine") that
   # doesn't start on its own, so start it whenever we log in.
   launchd.agents.podman-machine-autostart = {
