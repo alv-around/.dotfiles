@@ -1,0 +1,40 @@
+{
+  "title": "dotfiles keyboard remaps",
+  "rules": [
+    {
+      "description": "Caps Lock: left Control when held, Escape when tapped alone",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock",
+            "modifiers": {"optional": ["any"]}
+          },
+          "to": [{"key_code": "left_control"}],
+          "to_if_alone": [{"key_code": "escape"}]
+        }
+      ]
+    },
+    {
+      "description": "Swap right Command and right Option",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": {"optional": ["any"]}
+          },
+          "to": [{"key_code": "right_option"}]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_option",
+            "modifiers": {"optional": ["any"]}
+          },
+          "to": [{"key_code": "right_command"}]
+        }
+      ]
+    }
+  ]
+}
