@@ -252,22 +252,6 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
-    "nixpkgs_5": {
-      "locked": {
-        "lastModified": 1768305791,
-        "narHash": "sha256-AIdl6WAn9aymeaH/NvBj0H9qM+XuAuYbGMZaP0zcXAQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "1412caf7bf9e660f2f962917c14b1ea1c3bc695e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nvf": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -347,14 +331,16 @@
     },
     "workmux": {
       "inputs": {
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1783457297,
-        "narHash": "sha256-btRBUd3ztUInc1Hqd8hKbYeXacDlpNrMBIQbiIWDNl4=",
+        "lastModified": 1788019882,
+        "narHash": "sha256-7lO54w0cAkRVgovIX+/iFQTDOnLm6Mer9DaR8o0DHDE=",
         "owner": "raine",
         "repo": "workmux",
-        "rev": "ce52847a0782e0a5324c867fea745d47cbd91a0a",
+        "rev": "c9a66b6a7f7cbccc33001b6779e815267c444407",
         "type": "github"
       },
       "original": {

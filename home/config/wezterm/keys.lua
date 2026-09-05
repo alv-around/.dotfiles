@@ -57,22 +57,17 @@ key_config.keys = {
 		action = wezterm.action.SpawnCommandInNewWindow({}),
 	},
 	{
-		mods = "LEADER",
-		key = "t",
-		action = wezterm.action.SpawnTab("CurrentPaneDomain"),
-	},
-	{
-		mods = "LEADER",
+		mods = nav_mod,
 		key = "x",
 		action = wezterm.action.CloseCurrentPane({ confirm = true }),
 	},
 	{
-		mods = "LEADER",
+		mods = nav_mod,
 		key = ";",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		mods = "LEADER",
+		mods = nav_mod,
 		key = "/",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},

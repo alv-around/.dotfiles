@@ -12,6 +12,22 @@
   # Match the nix-command/flakes features enabled at the flake level.
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  # NOTE: Karabiner-Elements isn't buildable through nixpkgs on Darwin (it ships a
+  # privileged virtual-HID system extension nix can't install/approve), so it
+  # has to come from Homebrew, which nix-darwin drives declaratively here.
+  #
+  # Keyboard remaps  all live in the Karabiner-Elements
+  # complex modification seeded by the `xdg.configFile` entry in
+  # home/macos.nix.
+  homebrew = {
+    enable = true;
+    # the default, spelled out for clarity) means this only
+    # ensures the listed casks/brews are present — it never uninstalls
+    # anything Homebrew-installed that isn't listed here,
+    onActivation.cleanup = "none";
+    casks = ["karabiner-elements"];
+  };
+
   system = {
     # Automatically clear conflicting stock zshrc/bashrc files
     activationScripts.preActivation.text = ''
@@ -66,32 +82,22 @@
     stateVersion = 6;
   };
 
-  # NOTE: Keyboard remaps (Caps Lock <-> Escape, left Control <-> fn, right
-  # Command <-> right Option).
-  #
-  # `system.keyboard.remapCapsLockToEscape` (tried before this) writes a
-  # per-keyboard-device plist that macOS only re-reads when a keyboard is
-  # (re)detected — at login, wake, or reconnect. In practice that meant the
-  # remap silently reverted after sleep/reboot and needed a logout/login (or
-  # another rebuild) to come back.
-  #
-  # `hidutil` remaps at the HID level instead, live, for whichever keyboard
-  # is attached, so a LaunchAgent that reapplies it on every login is
-  # reliable without depending on rebuild timing.
-  #
-  # The mapping lives in ./keyboard-remap.json since `hidutil --set` takes a
-  # JSON payload — plain JSON has no hex literals, so codes are decimal there.
-  # In hex (usage page << 32 | usage), the pairs are:
-  #   Caps Lock (0x700000039) <-> Escape (0x700000029)
-  #   left Control (0x7000000E0) <-> fn (0xFF00000003, Apple's vendor page)
-  #   right Command (0x7000000E7) <-> right Option (0x7000000E6)
-  launchd.user.agents.keyboard-remap = {
+  # Unlike Linux, which routes the whole 127.0.0.0/8 block to loopback by
+  # default, macOS only owns 127.0.0.1 on lo0 — every other 127.x.x.x address
+  # needs to be aliased onto lo0 explicitly before anything can bind/connect
+  # to it. Aliasing the full /8 isn't practical (16M addresses), so alias
+  # just the ones actually used; add more `ifconfig` lines here as needed.
+  # Must be a system daemon (root, RunAtLoad) since interface aliases don't
+  # persist across reboots and need to be back before services start.
+  launchd.daemons.lo0-aliases = {
     serviceConfig = {
       ProgramArguments = [
-        "/usr/bin/hidutil"
-        "property"
-        "--set"
-        (builtins.readFile ./keyboard-remap.json)
+        "/bin/sh"
+        "-c"
+        ''
+          /sbin/ifconfig lo0 alias 127.22.0.1 netmask 255.0.0.0
+          /sbin/ifconfig lo0 alias 127.24.0.1 netmask 255.0.0.0
+        ''
       ];
       RunAtLoad = true;
     };
