@@ -32,6 +32,7 @@
     config = {
       ProgramArguments = ["${pkgs.podman}/bin/podman" "machine" "start"];
       RunAtLoad = true;
+      AbandonProcessGroup = true;
       StandardOutPath = "${config.home.homeDirectory}/Library/Logs/podman-machine-autostart.log";
       StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/podman-machine-autostart.log";
     };
