@@ -14,8 +14,6 @@
     ./ai.nix
     ./kube.nix
     ./notes.nix
-    # FIXME: import this for linux but not for macos
-    # ./programs/pgadmin.nix
     ./programs/nvim/default.nix
     ./programs/zellij.nix
   ];
@@ -35,6 +33,9 @@
     # containers
     podman
     podman-compose
+
+    # k8s
+    kubectl
   ];
 
   xdg.configFile = {
