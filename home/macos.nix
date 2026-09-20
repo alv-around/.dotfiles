@@ -1,8 +1,11 @@
 {
   config,
   pkgs,
+  lib,
   ...
-}: {
+}: let
+  codelldb = pkgs.vscode-extensions.vadimcn.vscode-lldb.adapter;
+in {
   features = {
     ai = {
       enable = true;
@@ -28,6 +31,23 @@
   # silence .md errors
   programs.nvf.settings.vim.luaConfigPost =
     builtins.readFile ./config/nvim/marksman-ambiguous-link.lua;
+
+  # nvf hardcodes `liblldb.so` in the codelldb adapter it hands rustaceanvim.
+  # On darwin the library is `liblldb.dylib`, and codelldb panics rather than
+  # ignoring a `--liblldb` path that doesn't exist, so point it at the real one.
+  programs.nvf.settings.vim.languages.rust.extensions.rustaceanvim.setupOpts.dap.adapter = lib.generators.mkLuaInline ''
+    {
+      type = "server",
+      port = "''${port}",
+      executable = {
+        command = "${codelldb}/bin/codelldb",
+        args = {
+          "--liblldb", "${codelldb}/share/lldb/lib/liblldb.dylib",
+          "--port", "''${port}",
+        },
+      },
+    }
+  '';
 
   # Podman on macOS runs containers inside a Linux VM ("podman machine") that
   # doesn't start on its own, so start it whenever we log in.
