@@ -185,32 +185,6 @@ in {
         OPENAI_API_KEY = "$(cat ${config.age.secrets.codex-key.path})";
       };
 
-      # Workmux configuration for sandboxing
-      # TODO: replace claude for pi
-      # TODO: create a custom vm-image with nix
-      # TODO: install in the custom image pueue
-      xdg.configFile."workmux/config.yaml" = {
-        force = true;
-        # INFO: set agent to codex | claude | gemini | pi ..
-        text = ''
-          merge_strategy: rebase
-          nerdfont: true
-          agent: claude
-          sandbox:
-            enabled: true
-            backend: lima
-            toolchain: auto  # Automatically detects flake.nix
-            env_passthrough:
-              - GEMINI_API_KEY
-              - ANTHROPIC_API_KEY
-              - OPENAI_API_KEY
-            lima:
-              cpus: 2       # Optional: customize VM resources
-              memory: 4GB
-              disk: 50GB
-        '';
-      };
-
       services.pueue = {
         enable = true;
         settings = {
